@@ -93,8 +93,8 @@
 </head>
 <body class="flex flex-col min-h-screen bg-appBg">
 
-  <!-- 滿版 App 內容容器（在寬螢幕適度居中最大寬度 560px，手機滿版自適應） -->
-  <div class="w-full max-w-xl mx-auto flex-1 flex flex-col px-4 pt-3 pb-28">
+  <!-- 滿版 App 內容容器（手機滿版 100%，平板與電腦寬螢幕自動彈性延伸排滿） -->
+  <div class="w-full max-w-5xl mx-auto flex-1 flex flex-col px-3 sm:px-6 md:px-8 pt-3 pb-28">
 
     <!-- 頂部標題列 (完全依據附圖) -->
     <header class="flex items-start justify-between mb-3 px-1">
@@ -127,8 +127,8 @@
     <div id="tab-home" class="space-y-3.5">
       
       <!-- 1. 附圖核心插畫卡片 (沙巴海灣、神山、牽手小人、海龜、微風氣候) -->
-      <div class="comic-box bg-[#b4e7fa] overflow-hidden relative cursor-pointer select-none" onclick="dropShrimp(event)" title="點擊海灣可以餵海龜和小丑魚吃蝦蝦">
-        <svg viewBox="0 0 400 250" class="w-full h-auto block" xmlns="http://www.w3.org/2000/svg">
+      <div class="comic-box bg-[#b4e7fa] overflow-hidden relative cursor-pointer select-none max-h-[380px] flex items-center justify-center" onclick="dropShrimp(event)" title="點擊海灣可以餵海龜和小丑魚吃蝦蝦">
+        <svg viewBox="0 0 400 250" class="w-full h-auto max-h-[380px] block object-contain" xmlns="http://www.w3.org/2000/svg">
           <!-- 漸層天空 -->
           <rect width="400" height="250" fill="#aee6f9"/>
           
@@ -432,7 +432,8 @@
         <div class="text-xs text-subGray font-bold mt-0.5">附 Google 實評、預估價位與一鍵導航地圖連結！</div>
       </div>
 
-      <div class="grid grid-cols-1 gap-2.5">
+      <!-- 電腦平板雙欄、手機單欄滿版 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
         <!-- 怡豐茶室 -->
         <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
           <div class="flex items-start justify-between gap-2">
@@ -645,51 +646,91 @@
     </div>
 
     <!-- ========================= TAB 4: 記帳分頁 (Dylan & 茜 雙人結算) ========================= -->
-    <div id="tab-expense" class="hidden space-y-3">
+    <div id="tab-expense" class="hidden space-y-3.5">
       <div class="flex items-center justify-between px-1">
         <h2 class="text-xl font-black text-comicBorder">旅費記帳 & 結算 💰</h2>
-        <button onclick="openExpenseModal()" class="comic-box-md bg-appYellow px-3 py-1.5 text-xs font-black shadow-comic-sm active:scale-95">
+        <button onclick="openExpenseModal()" class="comic-box-md bg-appYellow px-3.5 py-1.5 text-xs font-black shadow-comic-sm active:scale-95">
           ＋ 記一筆
         </button>
       </div>
 
-      <!-- 總額卡片 -->
-      <div class="bg-appYellow comic-box p-4 shadow-comic-sm">
-        <div class="flex justify-between items-center text-xs font-black text-comicBorder">
-          <span>旅伴：Dylan ＆ 茜</span>
-          <span>匯率：1 MYR ≈ 7.2 TWD</span>
+      <!-- 🌟 新增：即時匯率換算機 (置於記帳頁面最上方) -->
+      <div class="bg-white comic-box p-4 shadow-comic-sm space-y-2.5">
+        <div class="flex items-center justify-between border-b-2 border-neutral-100 pb-1.5">
+          <div class="flex items-center gap-1.5">
+            <span class="text-lg">💱</span>
+            <span class="text-sm font-black text-comicBorder">即時匯率換算機</span>
+          </div>
+          <div class="flex items-center gap-1 text-[11px] font-bold text-subGray">
+            <span>匯率：1 MYR ≈</span>
+            <input type="number" id="calc-rate-input" value="7.2" step="0.05" oninput="updateRateFromInput(this.value)" class="w-14 px-1 py-0.5 rounded border border-comicBorder font-mono font-black text-comicBorder text-center bg-[#faf7ee]">
+            <span>TWD</span>
+          </div>
         </div>
-        <div class="grid grid-cols-2 gap-2 mt-3 pt-2 border-t-2 border-comicBorder/20">
-          <div>
-            <div class="text-[11px] font-bold text-comicBorder/70">總開銷 (RM 馬幣)</div>
-            <div class="text-2xl font-black font-mono text-comicBorder">RM <span id="exp-total-myr">0</span></div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+          <!-- 馬幣輸入 -->
+          <div class="bg-[#faf7ee] p-2.5 rounded-2xl border-2 border-comicBorder flex items-center justify-between gap-2">
+            <span class="text-xs font-black text-comicBorder shrink-0">🇲🇾 馬幣 RM</span>
+            <input type="number" id="calc-myr-input" placeholder="0" oninput="convertFromMYR(this.value)" class="w-full text-right font-mono font-black text-lg bg-transparent focus:outline-none text-comicBorder">
           </div>
-          <div>
-            <div class="text-[11px] font-bold text-comicBorder/70">折合台幣 (TWD)</div>
-            <div class="text-2xl font-black font-mono text-comicBorder">NT$ <span id="exp-total-twd">0</span></div>
+          <!-- 台幣輸入 -->
+          <div class="bg-[#faf7ee] p-2.5 rounded-2xl border-2 border-comicBorder flex items-center justify-between gap-2">
+            <span class="text-xs font-black text-comicBorder shrink-0">🇹🇼 台幣 NT$</span>
+            <input type="number" id="calc-twd-input" placeholder="0" oninput="convertFromTWD(this.value)" class="w-full text-right font-mono font-black text-lg bg-transparent focus:outline-none text-comicBorder">
           </div>
+        </div>
+
+        <!-- 常用小抄快捷按鈕 -->
+        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-1 text-[11px] font-bold">
+          <span class="text-subGray shrink-0">快速試算：</span>
+          <button onclick="setCalcMYR(5)" class="px-2 py-0.5 bg-neutral-100 hover:bg-appYellow rounded-lg border border-neutral-300 shrink-0">RM 5 (茶飲)</button>
+          <button onclick="setCalcMYR(15)" class="px-2 py-0.5 bg-neutral-100 hover:bg-appYellow rounded-lg border border-neutral-300 shrink-0">RM 15 (正餐)</button>
+          <button onclick="setCalcMYR(50)" class="px-2 py-0.5 bg-neutral-100 hover:bg-appYellow rounded-lg border border-neutral-300 shrink-0">RM 50 (伴手禮)</button>
+          <button onclick="setCalcMYR(120)" class="px-2 py-0.5 bg-neutral-100 hover:bg-appYellow rounded-lg border border-neutral-300 shrink-0">RM 120 (海鮮大餐)</button>
         </div>
       </div>
 
-      <!-- 快速平分結算卡片 -->
-      <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
-        <div class="flex justify-between items-center">
-          <span class="text-xs font-black text-comicBorder flex items-center gap-1">
-            <span>🧾</span> 雙人帳務結算 (誰給誰)
-          </span>
-          <button onclick="copySplitResult()" class="text-xs font-black text-comicBorder underline">
-            一鍵複製傳 LINE
-          </button>
+      <!-- 電腦端並排兩大卡片 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <!-- 總額卡片 -->
+        <div class="bg-appYellow comic-box p-4 shadow-comic-sm flex flex-col justify-between">
+          <div class="flex justify-between items-center text-xs font-black text-comicBorder">
+            <span>旅伴：Dylan ＆ 茜</span>
+            <span id="rate-display-badge">匯率基準：1 MYR ≈ 7.2 TWD</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2 mt-3 pt-2 border-t-2 border-comicBorder/20">
+            <div>
+              <div class="text-[11px] font-bold text-comicBorder/70">總開銷 (RM 馬幣)</div>
+              <div class="text-2xl font-black font-mono text-comicBorder">RM <span id="exp-total-myr">0</span></div>
+            </div>
+            <div>
+              <div class="text-[11px] font-bold text-comicBorder/70">折合台幣 (TWD)</div>
+              <div class="text-2xl font-black font-mono text-comicBorder">NT$ <span id="exp-total-twd">0</span></div>
+            </div>
+          </div>
         </div>
-        <div id="settlement-detail" class="text-xs font-bold bg-[#faf7ee] p-3 rounded-2xl border-2 border-comicBorder text-comicBorder leading-relaxed">
-          結算中...
+
+        <!-- 快速平分結算卡片 -->
+        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2 flex flex-col justify-between">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-black text-comicBorder flex items-center gap-1">
+              <span>🧾</span> 雙人帳務結算 (誰給誰)
+            </span>
+            <button onclick="copySplitResult()" class="text-xs font-black text-comicBorder underline">
+              一鍵複製傳 LINE
+            </button>
+          </div>
+          <div id="settlement-detail" class="text-xs font-bold bg-[#faf7ee] p-3 rounded-2xl border-2 border-comicBorder text-comicBorder leading-relaxed flex-1 flex items-center">
+            結算中...
+          </div>
         </div>
       </div>
 
       <!-- 開銷明細 -->
       <div class="space-y-2">
         <div class="text-xs font-black text-comicBorder px-1">費用明細</div>
-        <div id="expense-records" class="space-y-2">
+        <div id="expense-records" class="grid grid-cols-1 md:grid-cols-2 gap-2">
           <!-- JS 渲染記帳明細 -->
         </div>
       </div>
@@ -702,33 +743,35 @@
         <div class="text-xs text-subGray font-bold mt-0.5">在亞庇自由行最實用、零阻礙的交通攻略！</div>
       </div>
 
-      <div class="bg-white comic-box p-4 shadow-comic-sm space-y-3 text-xs font-bold text-comicBorder">
-        <div class="flex items-center gap-2 border-b-2 border-neutral-100 pb-2">
-          <span class="text-2xl">🚕</span>
-          <div>
-            <div class="text-sm font-black">Grab App 必載（東南亞滴滴/Uber）</div>
-            <div class="text-subGray text-[11px]">亞庇市區無捷運，Grab 是最便宜安全的首選！</div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="bg-white comic-box p-4 shadow-comic-sm space-y-3 text-xs font-bold text-comicBorder">
+          <div class="flex items-center gap-2 border-b-2 border-neutral-100 pb-2">
+            <span class="text-2xl">🚕</span>
+            <div>
+              <div class="text-sm font-black">Grab App 必載（東南亞滴滴/Uber）</div>
+              <div class="text-subGray text-[11px]">亞庇市區無捷運，Grab 是最便宜安全的首選！</div>
+            </div>
           </div>
+          <ul class="list-disc pl-4 space-y-1.5 text-subGray">
+            <li><strong>綁定信用卡</strong>：在台灣先下載好 Grab 並綁定好信用卡，下車免找零錢超方便。</li>
+            <li><strong>車資透明</strong>：加雅街到丹絨亞路日落約 RM 10~15；到水上清真寺約 RM 8~12。</li>
+            <li><strong>機場接駁</strong>：亞庇機場 (BKI) 往返市區飯店約 15 分鐘，Grab 車資約 RM 12~18。</li>
+          </ul>
         </div>
-        <ul class="list-disc pl-4 space-y-1.5 text-subGray">
-          <li><strong>綁定信用卡</strong>：在台灣先下載好 Grab 並綁定好信用卡，下車免找零錢超方便。</li>
-          <li><strong>車資透明</strong>：加雅街到丹絨亞路日落約 RM 10~15；到水上清真寺約 RM 8~12。</li>
-          <li><strong>機場接駁</strong>：亞庇機場 (BKI) 往返市區飯店約 15 分鐘，Grab 車資約 RM 12~18。</li>
-        </ul>
-      </div>
 
-      <div class="bg-white comic-box p-4 shadow-comic-sm space-y-3 text-xs font-bold text-comicBorder">
-        <div class="flex items-center gap-2 border-b-2 border-neutral-100 pb-2">
-          <span class="text-2xl">🛥️</span>
-          <div>
-            <div class="text-sm font-black">哲斯頓碼頭出海 (Jesselton Point)</div>
-            <div class="text-subGray text-[11px]">前往東姑阿都拉曼國家公園跳島基地</div>
+        <div class="bg-white comic-box p-4 shadow-comic-sm space-y-3 text-xs font-bold text-comicBorder">
+          <div class="flex items-center gap-2 border-b-2 border-neutral-100 pb-2">
+            <span class="text-2xl">🛥️</span>
+            <div>
+              <div class="text-sm font-black">哲斯頓碼頭出海 (Jesselton Point)</div>
+              <div class="text-subGray text-[11px]">前往東姑阿都拉曼國家公園跳島基地</div>
+            </div>
           </div>
+          <ul class="list-disc pl-4 space-y-1.5 text-subGray">
+            <li>各家櫃檯（如 8、10 號櫃檯）皆可購買沙比島、馬努干島船票與浮潛裝備租借。</li>
+            <li>碼頭收取額外碼頭稅（Terminal Fee），上島需支付一次島嶼國家公園入園保育費。</li>
+          </ul>
         </div>
-        <ul class="list-disc pl-4 space-y-1.5 text-subGray">
-          <li>各家櫃檯（如 8、10 號櫃檯）皆可購買沙比島、馬努干島船票與浮潛裝備租借。</li>
-          <li>碼頭收取額外碼頭稅（Terminal Fee），上島需支付一次島嶼國家公園入園保育費。</li>
-        </ul>
       </div>
     </div>
 
@@ -739,7 +782,7 @@
         <div class="text-xs text-subGray font-bold mt-0.5">依據清單完整分類整理，直接點擊打勾確認！</div>
       </div>
 
-      <div class="space-y-3" id="pack-checklist-container">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3" id="pack-checklist-container">
         <!-- 【文件類】 -->
         <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
           <div class="font-black text-xs text-comicBorder flex items-center gap-1.5 pb-1 border-b border-neutral-100">
@@ -1208,8 +1251,48 @@
       }
     }
 
-    // 記帳與 Dylan / 茜 雙人平分拆帳演算法
-    const RM_RATE = 7.2;
+    // 記帳與 Dylan / 茜 雙人平分拆帳演算法 + 匯率換算機器
+    let RM_RATE = 7.2;
+
+    // 匯率換算機函數
+    function convertFromMYR(val) {
+      const num = parseFloat(val);
+      const twdInput = document.getElementById('calc-twd-input');
+      if (isNaN(num) || num <= 0) {
+        twdInput.value = '';
+        return;
+      }
+      twdInput.value = Math.round(num * RM_RATE);
+    }
+
+    function convertFromTWD(val) {
+      const num = parseFloat(val);
+      const myrInput = document.getElementById('calc-myr-input');
+      if (isNaN(num) || num <= 0) {
+        myrInput.value = '';
+        return;
+      }
+      myrInput.value = (num / RM_RATE).toFixed(1);
+    }
+
+    function setCalcMYR(amt) {
+      const myrInput = document.getElementById('calc-myr-input');
+      myrInput.value = amt;
+      convertFromMYR(amt);
+    }
+
+    function updateRateFromInput(newRate) {
+      const val = parseFloat(newRate);
+      if (!isNaN(val) && val > 0) {
+        RM_RATE = val;
+        const badge = document.getElementById('rate-display-badge');
+        if (badge) badge.textContent = `匯率基準：1 MYR ≈ ${RM_RATE} TWD`;
+        // 同步換算當前輸入框
+        const curMyr = document.getElementById('calc-myr-input').value;
+        if (curMyr) convertFromMYR(curMyr);
+        renderExpenses();
+      }
+    }
 
     function renderExpenses() {
       let totalMYR = 0;
