@@ -204,37 +204,40 @@
             <circle cx="15" cy="6" r="1.2" fill="#232323"/>
           </g>
 
-          <!-- 牽手的手繪情侶小人 (Dylan 和 茜) -->
-          <g transform="translate(170, 155)">
-            <!-- 左邊：Dylan (黃上衣) -->
-            <g>
-              <circle cx="12" cy="10" r="7.5" fill="#FFDFC4" stroke="#232323" stroke-width="2.2"/>
-              <circle cx="10" cy="9.5" r="1.3" fill="#232323"/>
-              <circle cx="14" cy="9.5" r="1.3" fill="#232323"/>
-              <!-- 身體 -->
-              <rect x="7" y="18" width="10" height="15" rx="3" fill="#FCD34D" stroke="#232323" stroke-width="2.2"/>
-              <!-- 雙腿 -->
-              <line x1="9" y1="33" x2="8" y2="44" stroke="#232323" stroke-width="2.2" stroke-linecap="round"/>
-              <line x1="15" y1="33" x2="16" y2="44" stroke="#232323" stroke-width="2.2" stroke-linecap="round"/>
-            </g>
+          <!-- 手繪小人：Dylan 和 茜 (不牽手，各自在沙灘開心地自由探索跑跳) -->
+          <!-- 左邊探索的 Dylan (黃上衣，歡樂舉手) -->
+          <g id="person-dylan" transform="translate(145, 155)" class="transition-transform duration-300">
+            <circle cx="12" cy="10" r="7.5" fill="#FFDFC4" stroke="#232323" stroke-width="2.2"/>
+            <circle cx="10" cy="9.5" r="1.3" fill="#232323"/>
+            <circle cx="14" cy="9.5" r="1.3" fill="#232323"/>
+            <path d="M 10 13 Q 12 15 14 13" stroke="#232323" stroke-width="1.2" fill="none"/>
+            <!-- 身體 -->
+            <rect x="7" y="18" width="10" height="15" rx="3" fill="#FCD34D" stroke="#232323" stroke-width="2.2"/>
+            <!-- 雙手 (舉手打招呼) -->
+            <line x1="7" y1="21" x2="1" y2="15" stroke="#232323" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="17" y1="21" x2="22" y2="27" stroke="#232323" stroke-width="2.2" stroke-linecap="round"/>
+            <!-- 雙腿 -->
+            <line x1="9" y1="33" x2="7" y2="44" stroke="#232323" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="15" y1="33" x2="17" y2="44" stroke="#232323" stroke-width="2.2" stroke-linecap="round"/>
+          </g>
 
-            <!-- 右邊：茜 (粉紅洋裝、可愛雙馬尾) -->
-            <g transform="translate(18, 0)">
-              <!-- 雙馬尾/髮絲 -->
-              <ellipse cx="6" cy="11" rx="3.5" ry="5.5" fill="#fcd34d" stroke="#232323" stroke-width="1.8"/>
-              <ellipse cx="22" cy="11" rx="3.5" ry="5.5" fill="#fcd34d" stroke="#232323" stroke-width="1.8"/>
-              <circle cx="14" cy="10" r="7.5" fill="#FFDFC4" stroke="#232323" stroke-width="2.2"/>
-              <circle cx="12" cy="9.5" r="1.3" fill="#232323"/>
-              <circle cx="16" cy="9.5" r="1.3" fill="#232323"/>
-              <!-- 粉色傘裙 -->
-              <polygon points="9,18 19,18 23,34 5,34" fill="#f472b6" stroke="#232323" stroke-width="2.2" stroke-linejoin="round"/>
-              <!-- 雙腿 -->
-              <line x1="11" y1="34" x2="10" y2="44" stroke="#232323" stroke-width="2.2" stroke-linecap="round"/>
-              <line x1="17" y1="34" x2="18" y2="44" stroke="#232323" stroke-width="2.2" stroke-linecap="round"/>
-            </g>
-
-            <!-- 兩人甜甜牽手 -->
-            <line x1="16" y1="23" x2="28" y2="23" stroke="#232323" stroke-width="2.2" stroke-linecap="round"/>
+          <!-- 右邊看海漫步的 茜 (粉紅洋裝、可愛雙馬尾) -->
+          <g id="person-qian" transform="translate(215, 153)" class="transition-transform duration-300">
+            <!-- 雙馬尾/髮絲 -->
+            <ellipse cx="6" cy="11" rx="3.5" ry="5.5" fill="#fcd34d" stroke="#232323" stroke-width="1.8"/>
+            <ellipse cx="22" cy="11" rx="3.5" ry="5.5" fill="#fcd34d" stroke="#232323" stroke-width="1.8"/>
+            <circle cx="14" cy="10" r="7.5" fill="#FFDFC4" stroke="#232323" stroke-width="2.2"/>
+            <circle cx="12" cy="9.5" r="1.3" fill="#232323"/>
+            <circle cx="16" cy="9.5" r="1.3" fill="#232323"/>
+            <path d="M 12 13 Q 14 15 16 13" stroke="#232323" stroke-width="1.2" fill="none"/>
+            <!-- 粉色傘裙 -->
+            <polygon points="9,18 19,18 23,34 5,34" fill="#f472b6" stroke="#232323" stroke-width="2.2" stroke-linejoin="round"/>
+            <!-- 雙手 (微微插腰/揮手) -->
+            <line x1="8" y1="22" x2="3" y2="27" stroke="#232323" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="20" y1="22" x2="26" y2="16" stroke="#232323" stroke-width="2.2" stroke-linecap="round"/>
+            <!-- 雙腿 -->
+            <line x1="11" y1="34" x2="10" y2="44" stroke="#232323" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="17" y1="34" x2="19" y2="44" stroke="#232323" stroke-width="2.2" stroke-linecap="round"/>
           </g>
         </svg>
 
@@ -361,23 +364,59 @@
     <!-- ========================= TAB 2: 行程 (9天8夜自由排程) ========================= -->
     <div id="tab-itinerary" class="hidden space-y-3">
       <div class="flex items-center justify-between px-1">
-        <h2 class="text-xl font-black text-comicBorder">9 天 8 夜 行程規劃 🏝️</h2>
+        <div>
+          <h2 class="text-xl font-black text-comicBorder">9 天 8 夜 充實文化海島行 🏝️</h2>
+          <div class="text-[11px] text-subGray font-bold">點擊下方日期掌握主題，也可自行彈性增減景點！</div>
+        </div>
         <button onclick="openAddSpotModal()" class="comic-box-md bg-appYellow px-3 py-1.5 text-xs font-black shadow-comic-sm active:scale-95">
           ＋ 新增行程
         </button>
       </div>
 
-      <!-- 天數橫向滾動 -->
+      <!-- 天數橫向滾動 (包含每日精華小總結標籤) -->
       <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
-        <button onclick="setDay(1)" id="d-btn-1" class="day-pill comic-box-md bg-appYellow px-3 py-1.5 text-xs font-black shrink-0 shadow-comic-sm">D1 11/11</button>
-        <button onclick="setDay(2)" id="d-btn-2" class="day-pill comic-box-md bg-white px-3 py-1.5 text-xs font-bold shrink-0">D2 11/12</button>
-        <button onclick="setDay(3)" id="d-btn-3" class="day-pill comic-box-md bg-white px-3 py-1.5 text-xs font-bold shrink-0">D3 11/13</button>
-        <button onclick="setDay(4)" id="d-btn-4" class="day-pill comic-box-md bg-white px-3 py-1.5 text-xs font-bold shrink-0">D4 11/14</button>
-        <button onclick="setDay(5)" id="d-btn-5" class="day-pill comic-box-md bg-white px-3 py-1.5 text-xs font-bold shrink-0">D5 11/15</button>
-        <button onclick="setDay(6)" id="d-btn-6" class="day-pill comic-box-md bg-white px-3 py-1.5 text-xs font-bold shrink-0">D6 11/16</button>
-        <button onclick="setDay(7)" id="d-btn-7" class="day-pill comic-box-md bg-white px-3 py-1.5 text-xs font-bold shrink-0">D7 11/17</button>
-        <button onclick="setDay(8)" id="d-btn-8" class="day-pill comic-box-md bg-white px-3 py-1.5 text-xs font-bold shrink-0">D8 11/18</button>
-        <button onclick="setDay(9)" id="d-btn-9" class="day-pill comic-box-md bg-white px-3 py-1.5 text-xs font-bold shrink-0">D9 11/19</button>
+        <button onclick="setDay(1)" id="d-btn-1" class="day-pill comic-box-md bg-appYellow px-3 py-1.5 text-xs font-black shrink-0 shadow-comic-sm flex flex-col items-start leading-tight">
+          <span>D1 11/11 (三)</span>
+          <span class="text-[10px] opacity-80 font-bold">✈️ 啟程抵達</span>
+        </button>
+        <button onclick="setDay(2)" id="d-btn-2" class="day-pill comic-box-md bg-white px-3 py-1.5 text-xs font-bold shrink-0 flex flex-col items-start leading-tight">
+          <span>D2 11/12 (四)</span>
+          <span class="text-[10px] text-subGray font-bold">🕌 清真寺文化與夕陽</span>
+        </button>
+        <button onclick="setDay(3)" id="d-btn-3" class="day-pill comic-box-md bg-white px-3 py-1.5 text-xs font-bold shrink-0 flex flex-col items-start leading-tight">
+          <span>D3 11/13 (五)</span>
+          <span class="text-[10px] text-subGray font-bold">🤿 雙島跳島浮潛</span>
+        </button>
+        <button onclick="setDay(4)" id="d-btn-4" class="day-pill comic-box-md bg-white px-3 py-1.5 text-xs font-bold shrink-0 flex flex-col items-start leading-tight">
+          <span>D4 11/14 (六)</span>
+          <span class="text-[10px] text-subGray font-bold">🐒 長鼻猴與夢幻螢火蟲</span>
+        </button>
+        <button onclick="setDay(5)" id="d-btn-5" class="day-pill comic-box-md bg-white px-3 py-1.5 text-xs font-bold shrink-0 flex flex-col items-start leading-tight">
+          <span>D5 11/15 (日)</span>
+          <span class="text-[10px] text-subGray font-bold">🧺 週日早市與博物館</span>
+        </button>
+        <button onclick="setDay(6)" id="d-btn-6" class="day-pill comic-box-md bg-white px-3 py-1.5 text-xs font-bold shrink-0 flex flex-col items-start leading-tight">
+          <span>D6 11/16 (一)</span>
+          <span class="text-[10px] text-subGray font-bold">🏔️ 神山遺產與牧場</span>
+        </button>
+        <button onclick="setDay(7)" id="d-btn-7" class="day-pill comic-box-md bg-white px-3 py-1.5 text-xs font-bold shrink-0 flex flex-col items-start leading-tight">
+          <span>D7 11/17 (二)</span>
+          <span class="text-[10px] text-subGray font-bold">🛖 馬里文化村體驗</span>
+        </button>
+        <button onclick="setDay(8)" id="d-btn-8" class="day-pill comic-box-md bg-white px-3 py-1.5 text-xs font-bold shrink-0 flex flex-col items-start leading-tight">
+          <span>D8 11/18 (三)</span>
+          <span class="text-[10px] text-subGray font-bold">🛍️ 伴手禮採購與度假</span>
+        </button>
+        <button onclick="setDay(9)" id="d-btn-9" class="day-pill comic-box-md bg-white px-3 py-1.5 text-xs font-bold shrink-0 flex flex-col items-start leading-tight">
+          <span>D9 11/19 (四)</span>
+          <span class="text-[10px] text-subGray font-bold">🛫 滿載回台灣</span>
+        </button>
+      </div>
+
+      <!-- 當日主題大標提示 -->
+      <div id="day-theme-banner" class="bg-[#f0f9ff] border-2 border-[#bae6fd] rounded-2xl p-2.5 px-3 flex items-center justify-between">
+        <span class="text-xs font-black text-[#0369a1]" id="day-theme-title">今日重點：桃園出發 ➔ 飛抵亞庇入住飯店</span>
+        <span class="text-[11px] font-black text-comicBorder bg-white px-2 py-0.5 rounded border border-[#bae6fd]">Day 1</span>
       </div>
 
       <!-- 當日景點列表 -->
@@ -389,53 +428,218 @@
     <!-- ========================= TAB 3: 美食推薦 ========================= -->
     <div id="tab-food" class="hidden space-y-3">
       <div class="px-1">
-        <h2 class="text-xl font-black text-comicBorder">亞庇在地必吃美食 🍜</h2>
-        <div class="text-xs text-subGray font-bold mt-0.5">加雅街商圈走路就能到的超人氣口袋名單！</div>
+        <h2 class="text-xl font-black text-comicBorder">吃貨必備：亞庇美食全指南 🍜</h2>
+        <div class="text-xs text-subGray font-bold mt-0.5">附 Google 實評、預估價位與一鍵導航地圖連結！</div>
       </div>
 
-      <div class="space-y-3">
-        <div class="bg-white comic-box p-3.5 shadow-comic-sm flex items-start gap-3">
-          <div class="text-3xl">🍲</div>
-          <div class="flex-1">
-            <div class="flex items-center justify-between">
-              <span class="font-black text-base text-comicBorder">怡豐茶室 (Yee Fung)</span>
-              <span class="text-xs font-bold bg-[#fed476] px-2 py-0.5 rounded-full border border-comicBorder">加雅街名店</span>
+      <div class="grid grid-cols-1 gap-2.5">
+        <!-- 怡豐茶室 -->
+        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="font-black text-sm text-comicBorder">怡豐茶室 (Yee Fung)</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.2 (4,100+則)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 10 ~ 20 / 人 (銅板美食)</div>
             </div>
-            <div class="text-xs text-subGray font-bold mt-1">必點招牌叻沙 (Laksa)、砂煲雞飯與三色濃郁奶茶，香氣四溢湯頭濃醇。</div>
+            <a href="https://maps.google.com/?q=Kedai+Kopi+Yee+Fung+Kota+Kinabalu" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
           </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            亞庇第一名必吃！招牌怡豐叻沙（鮮蝦濃郁椰香湯頭）、牛雜米粉湯、砂煲雞飯，搭配招牌三色奶茶超消暑。
+          </p>
         </div>
 
-        <div class="bg-white comic-box p-3.5 shadow-comic-sm flex items-start gap-3">
-          <div class="text-3xl">🍞</div>
-          <div class="flex-1">
-            <div class="flex items-center justify-between">
-              <span class="font-black text-base text-comicBorder">富源茶餐室 (Fook Yuen)</span>
-              <span class="text-xs font-bold bg-[#fed476] px-2 py-0.5 rounded-full border border-comicBorder">冷氣早午茶</span>
+        <!-- 悅昌茶室 -->
+        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="font-black text-sm text-comicBorder">悅昌茶室 (Yuit Cheong)</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.1 (1,600+則)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 8 ~ 15 / 人 (沙嗲每串約 RM 1)</div>
             </div>
-            <div class="text-xs text-subGray font-bold mt-1">白麵包夾冰涼厚切牛油與自製咖椰醬，再搭配一杯熱南洋白咖啡超絕配！</div>
+            <a href="https://maps.google.com/?q=Kedai+Kopi+Yuit+Cheong+Kota+Kinabalu" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
           </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            加雅街百年老店！門口現烤牛肉與雞肉炭火沙嗲串，沾上濃郁微甜花生沙嗲醬，配咖椰烤吐司與南洋熱拉茶超銷魂。
+          </p>
         </div>
 
-        <div class="bg-white comic-box p-3.5 shadow-comic-sm flex items-start gap-3">
-          <div class="text-3xl">🦐</div>
-          <div class="flex-1">
-            <div class="flex items-center justify-between">
-              <span class="font-black text-base text-comicBorder">雙天海鮮酒家 (Suang Tain)</span>
-              <span class="text-xs font-bold bg-[#fed476] px-2 py-0.5 rounded-full border border-comicBorder">活海鮮老字號</span>
+        <!-- 金沙園生肉麵 -->
+        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="font-black text-sm text-comicBorder">金沙園生肉麵 (Melanian 3)</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.0 (870+則)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 12 ~ 20 / 人</div>
             </div>
-            <div class="text-xs text-subGray font-bold mt-1">濕奶油老虎蝦、香濃鹹蛋黃炒蟹、清炒沙巴菜（樹仔菜），價格透明新鮮美味。</div>
+            <a href="https://maps.google.com/?q=Kedai+Kopi+Melanian+3+Kota+Kinabalu" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
           </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            沙巴特有的「生肉麵」（生肉指的是新鮮現煮嫩豬肉片）！必點黑醬乾撈麵配一碗滾燙鮮甜豬肉高湯，在地人早餐首選。
+          </p>
         </div>
 
-        <div class="bg-white comic-box p-3.5 shadow-comic-sm flex items-start gap-3">
-          <div class="text-3xl">🫕</div>
-          <div class="flex-1">
-            <div class="flex items-center justify-between">
-              <span class="font-black text-base text-comicBorder">大德肉骨茶 / 佑記肉骨茶</span>
-              <span class="text-xs font-bold bg-[#fed476] px-2 py-0.5 rounded-full border border-comicBorder">晚餐消夜</span>
+        <!-- 富源茶餐室 -->
+        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="font-black text-sm text-comicBorder">富源茶餐室 (Fook Yuen Gaya)</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 3.8 (2,400+則)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 6 ~ 15 / 人 (自助拿取點心)</div>
             </div>
-            <div class="text-xs text-subGray font-bold mt-1">濃醇藥膳高湯砂煲，搭配吸飽湯汁的香脆油條、豬腳與排骨，回甘無窮。</div>
+            <a href="https://maps.google.com/?q=Fook+Yuen+Gaya+Street+Kota+Kinabalu" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
           </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            冷氣充足！招牌「牛油咖椰白麵包（烤/不烤）」甜鹹奶香絕配，還有自助港式點心、炒麵，營業至深夜 23:00 隨時能吃。
+          </p>
+        </div>
+
+        <!-- 味雅海南雞飯 -->
+        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="font-black text-sm text-comicBorder">味雅海南雞飯 (Wi Ya Chicken Rice)</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.1 (730+則)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 12 ~ 25 / 人</div>
+            </div>
+            <a href="https://maps.google.com/?q=Wi+Ya+Chicken+Rice+Kota+Kinabalu" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
+          </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            造型吸睛的小金字塔香油飯！海南滑雞皮滑肉嫩、叉燒蜜汁入味，配上特製蒜蓉辣椒醬非常下飯。
+          </p>
+        </div>
+
+        <!-- 太子椰 -->
+        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="font-black text-sm text-comicBorder">太子椰 (The Royal Coconut)</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.0 (600+則)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 10 ~ 18 / 份 (消暑甜品)</div>
+            </div>
+            <a href="https://maps.google.com/?q=The+Royal+Coconut+Kota+Kinabalu" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
+          </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            熱帶氣候消暑必訪！整顆現剖椰子布丁冰涼滑溜、椰香冰沙濃郁綿密，逛完加雅街進來吹冷氣吃點心超療癒。
+          </p>
+        </div>
+
+        <!-- 瓊萬興肉包 -->
+        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="font-black text-sm text-comicBorder">瓊萬興包子 (Keng Wan Hing)</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.3 (970+則)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 2 ~ 6 / 顆 (銅板早點)</div>
+            </div>
+            <a href="https://maps.google.com/?q=Keng+Wan+Hing+Gaya+Street" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
+          </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            每天早上 6:00 開賣大排長龍！酥脆現烤菠蘿包、手工大肉包與蛋塔，出爐通常秒殺，建議早上 9 點前報到。
+          </p>
+        </div>
+
+        <!-- 雙天海鮮酒家 -->
+        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="font-black text-sm text-comicBorder">雙天海鮮酒家 (Suang Tain)</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.0 (3,200+則)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 60 ~ 120 / 人 (活海鮮盛宴)</div>
+            </div>
+            <a href="https://maps.google.com/?q=Suang+Tain+Seafood+Restaurant+Kota+Kinabalu" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
+          </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            亞庇歷史最悠久的活海鮮名店！現場直接指名水族箱秤重，必點「濕奶油老虎蝦」（濃濃奶香沾麵包絕配）與「鹹蛋黃炒螃蟹」。
+          </p>
+        </div>
+
+        <!-- 新記肉骨茶 -->
+        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="font-black text-sm text-comicBorder">新記肉骨茶 (Sin Kee)</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 3.9 (1,800+則)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 18 ~ 35 / 人</div>
+            </div>
+            <a href="https://maps.google.com/?q=Kedai+Kopi+Sin+Kee+Bah+Kut+Teh+Kota+Kinabalu" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
+          </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            下午 12:00 開店！除了傳統藥膳砂鍋排骨湯，最大特色是獨家「乾鍋肉骨茶」（秋葵與濃油赤醬大火收乾，鹹香微辣無敵下飯）。
+          </p>
+        </div>
+
+        <!-- 佑記肉骨茶 -->
+        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="font-black text-sm text-comicBorder">佑記肉骨茶 (Yu Kee)</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 3.9 (1,600+則)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 15 ~ 30 / 人</div>
+            </div>
+            <a href="https://maps.google.com/?q=Yu+Kee+Bak+Kut+Teh+Kota+Kinabalu" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
+          </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            下午 14:30 開賣！藥膳湯底甘甜不油膩，特色是一小碗一小碗點配料：排骨、豬肚、豬腳、豆腐皮，搭配油條吸飽湯汁。
+          </p>
+        </div>
+
+        <!-- Borenos 本土炸雞 -->
+        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="font-black text-sm text-comicBorder">Borenos Fried Chicken</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.5 (2,500+則)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 12 ~ 25 / 套餐 (24H 營業)</div>
+            </div>
+            <a href="https://maps.google.com/?q=Borenos+Fried+Chicken+Asia+City" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
+          </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            沙巴自創本土炸雞之王！外皮金黃薄脆、肉質咬下去狂噴肉汁，宵夜 24 小時無休隨時可以叫外送或現場吃。
+          </p>
         </div>
       </div>
     </div>
@@ -531,39 +735,92 @@
     <!-- ========================= TAB 6: 隨身包清單 ========================= -->
     <div id="tab-pack" class="hidden space-y-3">
       <div class="px-1">
-        <h2 class="text-xl font-black text-comicBorder">行李隨身檢驗包 🎒</h2>
-        <div class="text-xs text-subGray font-bold mt-0.5">出發前點擊勾選，出門不再丟三落四！</div>
+        <h2 class="text-xl font-black text-comicBorder">出國行李清單 🎒</h2>
+        <div class="text-xs text-subGray font-bold mt-0.5">依據清單完整分類整理，直接點擊打勾確認！</div>
       </div>
 
-      <div class="bg-white comic-box p-4 shadow-comic-sm space-y-2.5">
-        <label class="flex items-center gap-2.5 cursor-pointer">
-          <input type="checkbox" checked class="w-4 h-4 accent-comicBorder rounded">
-          <span class="text-xs font-bold text-comicBorder">護照（有效期 6 個月以上）</span>
-        </label>
-        <label class="flex items-center gap-2.5 cursor-pointer">
-          <input type="checkbox" checked class="w-4 h-4 accent-comicBorder rounded">
-          <span class="text-xs font-bold text-comicBorder">MDAC 馬來西亞電子入境卡（抵達前3天線上填寫）</span>
-        </label>
-        <label class="flex items-center gap-2.5 cursor-pointer">
-          <input type="checkbox" checked class="w-4 h-4 accent-comicBorder rounded">
-          <span class="text-xs font-bold text-comicBorder">英規三腳方插轉接頭（G型 240V）</span>
-        </label>
-        <label class="flex items-center gap-2.5 cursor-pointer">
-          <input type="checkbox" class="w-4 h-4 accent-comicBorder rounded">
-          <span class="text-xs font-bold text-comicBorder">防曬乳（友善海洋配方）、太陽眼鏡、遮陽帽</span>
-        </label>
-        <label class="flex items-center gap-2.5 cursor-pointer">
-          <input type="checkbox" class="w-4 h-4 accent-comicBorder rounded">
-          <span class="text-xs font-bold text-comicBorder">浮潛防磨衣 / 水母衣、手機防水袋</span>
-        </label>
-        <label class="flex items-center gap-2.5 cursor-pointer">
-          <input type="checkbox" class="w-4 h-4 accent-comicBorder rounded">
-          <span class="text-xs font-bold text-comicBorder">防蚊液（紅樹林螢火蟲必備強效防蚊）</span>
-        </label>
-        <label class="flex items-center gap-2.5 cursor-pointer">
-          <input type="checkbox" class="w-4 h-4 accent-comicBorder rounded">
-          <span class="text-xs font-bold text-comicBorder">薄外套（AirAsia 機上冷氣強、神山山上偏涼）</span>
-        </label>
+      <div class="space-y-3" id="pack-checklist-container">
+        <!-- 【文件類】 -->
+        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="font-black text-xs text-comicBorder flex items-center gap-1.5 pb-1 border-b border-neutral-100">
+            <span>📄</span> 【文件類】
+          </div>
+          <div class="grid grid-cols-1 gap-1.5 text-xs font-bold text-comicBorder">
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked class="w-4 h-4 accent-comicBorder rounded"><span>護照（效期 6 個月以上）</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked class="w-4 h-4 accent-comicBorder rounded"><span>馬來西亞 MDAC 電子入境卡（抵達前 3 天線上填）</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked class="w-4 h-4 accent-comicBorder rounded"><span>電子機票列印 / 存手機 (AK 1511 / AK 1510)</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked class="w-4 h-4 accent-comicBorder rounded"><span>身份證件、旅平險與不便險保單資料</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="w-4 h-4 accent-comicBorder rounded"><span>飯店預訂確認信、現金 (台幣/馬幣換鈔)</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked class="w-4 h-4 accent-comicBorder rounded"><span>海外高回饋信用卡、網路設備 (eSIM / SIM卡)</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="w-4 h-4 accent-comicBorder rounded"><span>家中鑰匙備份</span></label>
+          </div>
+        </div>
+
+        <!-- 【熱帶地區備品】 -->
+        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="font-black text-xs text-comicBorder flex items-center gap-1.5 pb-1 border-b border-neutral-100">
+            <span>☀️</span> 【熱帶地區備品】
+          </div>
+          <div class="grid grid-cols-1 gap-1.5 text-xs font-bold text-comicBorder">
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked class="w-4 h-4 accent-comicBorder rounded"><span>泳衣、泳褲、水母衣 / 浮潛防磨衣</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked class="w-4 h-4 accent-comicBorder rounded"><span>海灘涼鞋 / 溯溪涉水鞋、手機防水袋</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="w-4 h-4 accent-comicBorder rounded"><span>墨鏡、遮陽帽、防曬薄襯衫</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="w-4 h-4 accent-comicBorder rounded"><span>防蚊液（紅樹林巡航必備 DEET 成分防蚊）</span></label>
+          </div>
+        </div>
+
+        <!-- 【電器類】 -->
+        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="font-black text-xs text-comicBorder flex items-center gap-1.5 pb-1 border-b border-neutral-100">
+            <span>🔌</span> 【電器類】
+          </div>
+          <div class="grid grid-cols-1 gap-1.5 text-xs font-bold text-comicBorder">
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked class="w-4 h-4 accent-comicBorder rounded"><span>英規三腳方插轉接頭 (Type G, 240V)</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked class="w-4 h-4 accent-comicBorder rounded"><span>行動電源（須放隨身行李登機，切勿托運）</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="w-4 h-4 accent-comicBorder rounded"><span>手機充電線、快充頭</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="w-4 h-4 accent-comicBorder rounded"><span>GoPro / 防水相機（出海浮潛專用）</span></label>
+          </div>
+        </div>
+
+        <!-- 【衣物類】 -->
+        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="font-black text-xs text-comicBorder flex items-center gap-1.5 pb-1 border-b border-neutral-100">
+            <span>👕</span> 【衣物類】
+          </div>
+          <div class="grid grid-cols-1 gap-1.5 text-xs font-bold text-comicBorder">
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="w-4 h-4 accent-comicBorder rounded"><span>透氣換洗衣物、短褲、排汗上衣</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="w-4 h-4 accent-comicBorder rounded"><span>內衣褲、襪子（建議多備 1~2 套）</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked class="w-4 h-4 accent-comicBorder rounded"><span>薄外套（AirAsia 機上、商場與神山高處偏涼）</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="w-4 h-4 accent-comicBorder rounded"><span>過膝長褲或長裙（參觀清真寺與文化村穿著）</span></label>
+          </div>
+        </div>
+
+        <!-- 【藥品類】 -->
+        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="font-black text-xs text-comicBorder flex items-center gap-1.5 pb-1 border-b border-neutral-100">
+            <span>💊</span> 【藥品類】
+          </div>
+          <div class="grid grid-cols-1 gap-1.5 text-xs font-bold text-comicBorder">
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked class="w-4 h-4 accent-comicBorder rounded"><span>暈車/暈船藥（出海跳島、神山九彎十八拐必備）</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="w-4 h-4 accent-comicBorder rounded"><span>腸胃藥、止瀉藥（南洋辛香冰品適應備用）</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="w-4 h-4 accent-comicBorder rounded"><span>感冒藥、止痛退燒藥</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="w-4 h-4 accent-comicBorder rounded"><span>OK繃、外傷藥膏</span></label>
+          </div>
+        </div>
+
+        <!-- 【盥洗、保養與眼鏡類】 -->
+        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="font-black text-xs text-comicBorder flex items-center gap-1.5 pb-1 border-b border-neutral-100">
+            <span>🧴</span> 【盥洗、保養與眼鏡用品】
+          </div>
+          <div class="grid grid-cols-1 gap-1.5 text-xs font-bold text-comicBorder">
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="w-4 h-4 accent-comicBorder rounded"><span>牙刷牙膏、洗髮精、沐浴乳、洗臉乳</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="w-4 h-4 accent-comicBorder rounded"><span>海洋友善高係數防曬乳、蘆薈曬後舒緩凝膠</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="w-4 h-4 accent-comicBorder rounded"><span>卸妝油、保濕乳、護唇膏、棉花棒</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="w-4 h-4 accent-comicBorder rounded"><span>眼鏡、隱形眼鏡（日拋多備 2 副）、保養液</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="w-4 h-4 accent-comicBorder rounded"><span>耳塞、眼罩、頸枕（航程搭機舒適備品）</span></label>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -674,55 +931,75 @@
   </div>
 
   <script>
-    // 預設 9 天 8 夜行程資料
+    // 預設 9 天 8 夜完整充實行程資料 (結合文化探索、自然巡航、跳島與吃貨路線)
     const tripData = {
       1: [
-        { time: "16:40", name: "桃園機場 T1 報到", desc: "AirAsia AK 1511 櫃檯報到與托運行李" },
-        { time: "19:10 - 22:45", name: "飛往沙巴亞庇國際機場 (BKI)", desc: "航程 3h 35m，台灣免簽走電子閘門" },
-        { time: "23:20", name: "搭 Grab 抵達加雅街飯店", desc: "加雅街附近吃深夜沙嗲、喝橘子檸檬冰" }
+        { time: "16:40", name: "桃園機場 T1 報到", desc: "辦理 AirAsia AK 1511 登機與行李托運，準備出發！" },
+        { time: "19:10 - 22:45", name: "飛抵沙巴亞庇機場 (BKI)", desc: "航程 3.5 小時，出關走自動閘門 (MDAC)" },
+        { time: "23:20", name: "抵達市區飯店 Check-in", desc: "加雅街住宿安置，漫步喝杯桔子檸檬冰或買 Borenos 炸雞" }
       ],
       2: [
-        { time: "09:00", name: "怡豐茶室 (Yee Fung) 早餐", desc: "必吃叻沙 (Laksa)、砂煲雞飯與三色奶茶" },
-        { time: "10:30", name: "亞庇市立水上清真寺", desc: "經典藍白水上宮殿，可租傳統馬來服飾拍照" },
-        { time: "14:00", name: "沙巴大學 (UMS) 粉紅清真寺", desc: "東南亞最美大學粉色圓頂與打卡階梯" },
-        { time: "17:00", name: "丹絨亞路海灘看落日", desc: "世界三大最美日落！喝現剖椰子水等待火燒雲" },
-        { time: "19:30", name: "雙天海鮮酒家盛宴", desc: "奶油老虎蝦、鹹蛋黃炒蟹與蒜蓉沙巴菜" }
+        { time: "09:00", name: "加雅街道地早餐：怡豐茶室", desc: "招牌叻沙、牛雜湯粉，配冰涼三色奶茶" },
+        { time: "10:30", name: "市立水上清真寺 (City Mosque)", desc: "【經典文化】人造湖倒映的白色宮殿，租借馬來傳統服飾入內體驗" },
+        { time: "13:00", name: "沙巴大學 (UMS) 粉紅清真寺", desc: "【文化打卡】東南亞最美大學，粉嫩圓頂拍照超美" },
+        { time: "15:30", name: "太子椰 (The Royal Coconut)", desc: "整顆現剖椰子布丁與沁涼椰奶冰沙消暑" },
+        { time: "17:00", name: "丹絨亞路海灘看落日 (Tanjung Aru)", desc: "世界三大最美火燒雲落日！沙灘漫步與三色果汁" },
+        { time: "19:30", name: "大茄來 / 雙天海鮮酒家", desc: "【吃貨必吃】濕奶油老虎蝦、鹹蛋黃螃蟹、蒜蓉沙巴菜" }
       ],
       3: [
-        { time: "08:30", name: "哲斯頓碼頭搭船出海", desc: "東姑阿都拉曼海洋公園雙島遊" },
-        { time: "09:00 - 12:30", name: "沙比島 (Sapi Island) 浮潛", desc: "淺灘看小丑魚尼莫，體驗水上拖曳傘" },
-        { time: "13:00", name: "馬努干島 (Manukan) 海灘漫步", desc: "森林步道看巨蜥，享受沙灘放空游泳" },
-        { time: "18:00", name: "富源茶餐室 (Fook Yuen)", desc: "現烤咖椰牛油吐司與香濃白咖啡" }
+        { time: "08:30", name: "哲斯頓碼頭出發 (Jesselton Point)", desc: "搭快艇前往東姑阿都拉曼國家公園" },
+        { time: "09:00 - 12:00", name: "沙比島 (Sapi Island) 浮潛與水上活動", desc: "【海島玩水】海水清澈見底看小丑魚尼莫，體驗水上拖曳傘" },
+        { time: "12:30", name: "馬努干島 (Manukan) 自助漫遊", desc: "漫步島上熱帶林步道、探訪野生大蜥蜴，沙灘放鬆游泳" },
+        { time: "16:00", name: "返回碼頭 + 富源茶餐室下午茶", desc: "吃招牌烤咖椰牛油吐司、配熱南洋白咖啡" },
+        { time: "18:30", name: "新記肉骨茶砂鍋大餐", desc: "【吃貨必吃】砂鍋乾肉骨茶（鹹甜濃郁）與藥膳排骨湯" }
       ],
       4: [
-        { time: "13:30", name: "Kawa Kawa 紅樹林巡航", desc: "尋覓婆羅洲特有野生長鼻猴與銀葉猴" },
-        { time: "18:00", name: "娜娜蒙海灘天空之鏡日落", desc: "絕美金黃夕陽剪影照" },
-        { time: "19:15", name: "夜探萬顆聖誕樹螢火蟲", desc: "整片森林如聖誕燈般夢幻閃爍" }
+        { time: "10:00", name: "金沙園生肉麵早午餐", desc: "道地乾撈麵配鮮甜豬雜生肉湯，在地活力之源" },
+        { time: "13:30 - 21:00", name: "Kawa Kawa 紅樹林巡航探險", desc: "【自然與生態】搭船尋找婆羅洲野生長鼻猴，娜娜蒙海灘天空之鏡日落，夜晚漫遊夢幻萬隻螢火蟲聖誕樹！" },
+        { time: "21:30", name: "悅昌茶室消夜沙嗲", desc: "炭火現烤多汁雞肉/牛肉沙嗲，配冰拉茶" }
       ],
       5: [
-        { time: "08:30", name: "前往神山國家公園 (Kinabalu)", desc: "造訪神山世界遺產與高空鋼索吊橋" },
-        { time: "13:00", name: "Desa 純白乳牛牧場 (小紐西蘭)", desc: "餵小牛喝奶、品嚐濃醇鮮奶冰淇淋" },
-        { time: "19:00", name: "大德肉骨茶砂煲湯頭", desc: "吸飽藥膳高湯的排骨與油條" }
+        { time: "08:30", name: "加雅街週日早市 (Sunday Market)", desc: "【在地文化】週日限定！各式婆羅洲傳統手工藝、蠟染布、熱帶水果市集" },
+        { time: "11:30", name: "味雅海南雞飯茶餐室", desc: "招牌金字塔雞油飯與滑嫩切雞" },
+        { time: "14:00", name: "沙巴州立博物館與傳統遺產村", desc: "【深度文化】走進各原住民族搭建的高腳屋，了解婆羅洲原住民歷史" },
+        { time: "17:30", name: "Marriott 高空景觀酒吧", desc: "無邊際水池旁享受夕陽調酒與海風" },
+        { time: "19:30", name: "佑記肉骨茶", desc: "清雅藥膳砂煲、豬腳、豆腐皮與油條" }
       ],
       6: [
-        { time: "08:00", name: "環灘島 (Mengalum) 一日隱世出海", desc: "蒂芬妮藍果凍海、大片活珊瑚與海龜共游" },
-        { time: "17:30", name: "市區熱帶精油 SPA 按摩", desc: "全身舒壓放鬆" }
+        { time: "08:00 - 18:00", name: "神山國家公園＋Desa 牧場一日遊", desc: "【避暑與世界遺產】造訪京那巴魯山遺產、走高空鋼索吊橋，到純白乳牛牧場餵小牛、吃鮮奶冰淇淋" },
+        { time: "19:30", name: "回市區放鬆全身精油 SPA", desc: "熱帶草本精油舒緩一整天車程疲憊" }
       ],
       7: [
-        { time: "10:00", name: "加雅街散策與艾京生鐘樓", desc: "品嚐金沙園生肉麵、打卡歷史木鐘樓" },
-        { time: "17:00", name: "Marriott 高空景觀酒吧", desc: "無邊際水池旁點雞尾酒看海灣夕陽" }
+        { time: "09:30 - 14:00", name: "馬里馬里文化村 (Mari Mari)", desc: "【原住民文化巡禮】走訪沙巴五大原住民族部落、體驗傳統鑽木取火、吹箭打獵、竹筒料理品嚐與民俗迎賓舞" },
+        { time: "15:30", name: "加雅街散策與艾京生鐘樓", desc: "登小山丘遠眺市景，打卡百年歷史木造鐘樓" },
+        { time: "18:00", name: "亞庇夜市 (Night Market) 吃現烤海鮮", desc: "體驗在地夜市烤魚、炭烤雞翅、芒果冰沙" }
       ],
       8: [
-        { time: "10:00", name: "Imago 商場與超市伴手禮大採購", desc: "沙巴紅茶、A1肉骨茶包、LOT 100芒果軟糖" },
-        { time: "18:00", name: "雙天海鮮二刷告別宴", desc: "黑胡椒炒蟹與清蒸石斑魚" }
+        { time: "09:30", name: "瓊萬興包子早餐", desc: "現出爐熱騰騰酥皮菠蘿包、手工肉包" },
+        { time: "11:00", name: "Imago Shopping Mall 大採購", desc: "採買伴手禮：沙巴紅茶、A1 肉骨茶包、LOT 100 芒果軟糖" },
+        { time: "15:00", name: "丹絨亞路海灘或飯店放空", desc: "享受沙灘日光浴，品嚐最後一頓火燒雲日落" },
+        { time: "19:00", name: "雙天海鮮二刷告別宴", desc: "黑胡椒炒蟹、清蒸海魚、炒樹仔菜，大飽口福！" }
       ],
       9: [
-        { time: "05:00", name: "搭 Grab 前往機場 (BKI T1)", desc: "辦理登機手續" },
-        { time: "07:35 - 11:00", name: "AK 1510 起飛返抵桃園機場 T1", desc: "平安回家，完成沙巴雙人渡假！" }
+        { time: "05:00", name: "辦理退房，Grab 前往機場", desc: "前往亞庇機場 BKI 第一航廈" },
+        { time: "07:35 - 11:00", name: "搭乘 AirAsia AK 1510 返台", desc: "帶著滿滿回憶與照片平安降落桃園機場 T1！" }
       ]
     };
 
     let curDay = 1;
+
+    // 每日主題大綱小總結
+    const dayThemeSummaries = {
+      1: "今日重點：桃園機場出發 ➔ 飛抵亞庇入住加雅街",
+      2: "今日重點：水上清真寺文化 ➔ 粉紅清真寺 ➔ 丹絨亞路絕美落日",
+      3: "今日重點：哲斯頓碼頭出海 ➔ 沙比島浮潛 ➔ 馬努干放鬆玩水",
+      4: "今日重點：Kawa Kawa 紅樹林尋找長鼻猴 ➔ 萬隻聖誕樹螢火蟲",
+      5: "今日重點：加雅街週日限定早市 ➔ 州立博物館與原住民高腳屋",
+      6: "今日重點：神山世界自然遺產巡禮 ➔ Desa 純白牧場餵小牛",
+      7: "今日重點：馬里馬里文化村體驗五大原住民族群文化與吹箭料理",
+      8: "今日重點：市區慢活採購伴手禮 ➔ 渡假村放鬆 ➔ 雙天海鮮二刷宴",
+      9: "今日重點：清晨前往機場 ➔ 搭乘 AK 1510 平安滿載返台"
+    };
 
     // 記帳資料 (Dylan & 茜 雙人拆帳)
     let expenses = [
@@ -767,7 +1044,20 @@
           turtle.style.transform = 'translate(35px, 60px) scale(1)';
         }, 300);
       }
-      showToast("🐢 茜和Dylan餵海龜吃蝦蝦囉！");
+
+      // Dylan 和 茜 分開歡樂彈跳走動彩蛋
+      const dylan = document.getElementById('person-dylan');
+      const qian = document.getElementById('person-qian');
+      if (dylan && qian) {
+        dylan.style.transform = 'translate(142px, 147px) rotate(-3deg)';
+        qian.style.transform = 'translate(218px, 145px) rotate(3deg)';
+        setTimeout(() => {
+          dylan.style.transform = 'translate(145px, 155px) rotate(0deg)';
+          qian.style.transform = 'translate(215px, 153px) rotate(0deg)';
+        }, 350);
+      }
+
+      showToast("🐢 Dylan 和 茜 正在沙灘上海邊開心地餵海龜吃蝦蝦！");
     }
 
     // 倒數計時器 (2026/11/11 19:10:00)
@@ -845,15 +1135,25 @@
       for (let i = 1; i <= 9; i++) {
         const btn = document.getElementById(`d-btn-${i}`);
         if (btn) {
+          const subText = btn.querySelector('span:last-child');
           if (i === d) {
             btn.classList.add('bg-appYellow', 'shadow-comic-sm');
             btn.classList.remove('bg-white');
+            if (subText) subText.classList.remove('text-subGray');
           } else {
             btn.classList.remove('bg-appYellow', 'shadow-comic-sm');
             btn.classList.add('bg-white');
+            if (subText) subText.classList.add('text-subGray');
           }
         }
       }
+
+      // 更新今日主題橫幅標題
+      const bannerTitle = document.getElementById('day-theme-title');
+      const bannerBadge = document.querySelector('#day-theme-banner span:last-child');
+      if (bannerTitle) bannerTitle.textContent = dayThemeSummaries[d] || `Day ${d} 行程規劃`;
+      if (bannerBadge) bannerBadge.textContent = `Day ${d}`;
+
       renderDaySchedule();
     }
 
