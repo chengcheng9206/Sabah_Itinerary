@@ -1021,8 +1021,15 @@
         </div>
 
         <div>
-          <label class="block text-comicBorder mb-1">專屬通行密碼 (預設：1111)</label>
+          <label class="block text-comicBorder mb-1">專屬通行密碼</label>
           <input type="password" id="auth-passcode" placeholder="請輸入 4 位數通行碼" maxlength="8" class="w-full bg-white p-2.5 rounded-xl border-2 border-comicBorder font-mono text-center text-lg focus:outline-none">
+        </div>
+
+        <div class="pt-1">
+          <label class="flex items-center gap-2 cursor-pointer select-none">
+            <input type="checkbox" id="auth-remember-device" checked class="w-4 h-4 accent-comicBorder rounded">
+            <span class="text-xs font-bold text-comicBorder">記住這台裝置（下次開啟自動登入，免再輸密碼）</span>
+          </label>
         </div>
       </div>
 
@@ -1140,26 +1147,17 @@
       appId: "1:401431656223:web:2958a6c5afa4d1c626a22a"
     };
 
-    window.onload = function() {
-      if (window.lucide) lucide.createIcons();
-      initCountdown();
-      renderDaySchedule();
-      renderExpenses();
-      initAuthStatus();
-      initCloudSync();
-    };
-
-    // 初始化身份驗證狀態 (讀取本機狀態，避免重整後重複輸入)
+    // 初始化身份驗證狀態 (讀取持久本機儲存 localStorage，已登入裝置永遠免密碼)
     function initAuthStatus() {
       try {
-        const savedRole = sessionStorage.getItem('sabah_user_role');
-        const savedAuth = sessionStorage.getItem('sabah_is_auth');
+        const savedRole = localStorage.getItem('sabah_user_role') || sessionStorage.getItem('sabah_user_role');
+        const savedAuth = localStorage.getItem('sabah_is_auth') || sessionStorage.getItem('sabah_is_auth');
         if (savedAuth === 'true' && (savedRole === 'Dylan' || savedRole === '茜')) {
           currentUser.role = savedRole;
           currentUser.isAuthorized = true;
         }
       } catch (e) {
-        // sessionStorage 限制例外保護
+        // localStorage / sessionStorage 異常保護
       }
       updateAuthUI();
     }
@@ -1201,18 +1199,25 @@
 
     function unlockEditor() {
       const inputPass = document.getElementById('auth-passcode').value.trim();
+      const rememberDevice = document.getElementById('auth-remember-device').checked;
+      
       if (inputPass === PASSCODE) {
         currentUser.role = selectedRoleInModal;
         currentUser.isAuthorized = true;
         try {
-          sessionStorage.setItem('sabah_user_role', currentUser.role);
-          sessionStorage.setItem('sabah_is_auth', 'true');
+          if (rememberDevice) {
+            localStorage.setItem('sabah_user_role', currentUser.role);
+            localStorage.setItem('sabah_is_auth', 'true');
+          } else {
+            sessionStorage.setItem('sabah_user_role', currentUser.role);
+            sessionStorage.setItem('sabah_is_auth', 'true');
+          }
         } catch(e) {}
         closeModal('auth-modal');
         updateAuthUI();
-        showToast(`🎉 歡迎 ${currentUser.role}！已解鎖記帳與行程編輯權限`);
+        showToast(`🎉 歡迎 ${currentUser.role}！此裝置已記住登入狀態`);
       } else {
-        showToast('❌ 通行碼錯誤！請輸入 1111');
+        showToast('❌ 通行碼錯誤！請重新輸入');
       }
     }
 
@@ -1220,6 +1225,8 @@
       currentUser.role = 'Guest';
       currentUser.isAuthorized = false;
       try {
+        localStorage.removeItem('sabah_user_role');
+        localStorage.removeItem('sabah_is_auth');
         sessionStorage.removeItem('sabah_user_role');
         sessionStorage.removeItem('sabah_is_auth');
       } catch(e) {}
