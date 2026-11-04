@@ -21,6 +21,25 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
+  <!-- Firebase SDK 模組引入 -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    window.FirebaseModules = {
+      initializeApp,
+      getAuth,
+      signInAnonymously,
+      signInWithCustomToken,
+      onAuthStateChanged,
+      getFirestore,
+      doc,
+      setDoc,
+      onSnapshot
+    };
+  </script>
+
   <script>
     tailwind.config = {
       theme: {
@@ -113,14 +132,23 @@
         <!-- 附圖綠色標籤：已和旅伴實時同步 -->
         <div class="inline-flex items-center gap-1.5 bg-[#eaf8f1] border-2 border-[#54c489] text-[#1e8b4e] px-2.5 py-0.5 rounded-full text-xs font-black mt-1.5">
           <span class="w-2 h-2 rounded-full bg-[#1e8b4e]"></span>
-          <span>已和旅伴實時同步</span>
+          <span id="sync-status-badge">已和旅伴實時同步</span>
         </div>
       </div>
 
-      <!-- 右上角圓形黑邊分享按鈕 (附圖同款) -->
-      <button onclick="shareTrip()" class="w-12 h-12 rounded-full comic-box bg-white flex items-center justify-center hover:bg-neutral-50 active:scale-95 transition-transform shrink-0 mt-0.5 shadow-comic-sm">
-        <i data-lucide="share-2" class="w-5 h-5 text-comicBorder"></i>
-      </button>
+      <!-- 右上角功能按鈕群 (權限鎖 + 分享按鈕) -->
+      <div class="flex items-center gap-2 mt-0.5 shrink-0">
+        <!-- 權限解鎖按鈕 -->
+        <button onclick="openAuthModal()" id="btn-auth-lock" class="h-12 px-3 rounded-full comic-box bg-white flex items-center justify-center gap-1.5 hover:bg-neutral-50 active:scale-95 transition-transform shadow-comic-sm text-xs font-black">
+          <span id="auth-lock-icon">🔒</span>
+          <span id="auth-user-label">解鎖編輯</span>
+        </button>
+
+        <!-- 右上角圓形黑邊分享按鈕 (附圖同款) -->
+        <button onclick="shareTrip()" class="w-12 h-12 rounded-full comic-box bg-white flex items-center justify-center hover:bg-neutral-50 active:scale-95 transition-transform shrink-0 shadow-comic-sm">
+          <i data-lucide="share-2" class="w-5 h-5 text-comicBorder"></i>
+        </button>
+      </div>
     </header>
 
     <!-- ========================= TAB 1: 首頁 (首頁視圖) ========================= -->
@@ -968,6 +996,43 @@
     </div>
   </div>
 
+  <!-- 彈窗：旅伴身份驗證與編輯權限解鎖 (防止外人亂改) -->
+  <div id="auth-modal" class="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-[#faf7ee] w-full max-w-sm comic-box p-4 space-y-3">
+      <div class="flex justify-between items-center">
+        <div class="flex items-center gap-1.5">
+          <span class="text-lg">🔐</span>
+          <h3 class="font-black text-sm text-comicBorder">旅伴身分驗證</h3>
+        </div>
+        <button onclick="closeModal('auth-modal')" class="text-sm font-bold text-comicBorder">✕</button>
+      </div>
+
+      <div class="text-xs text-subGray font-bold leading-relaxed">
+        只有 <strong>Dylan</strong> 與 <strong>茜</strong> 輸入專屬通行碼後可記帳與修改行程；其他拿到連結的人僅能瀏覽（避免誤觸亂改）。
+      </div>
+
+      <div class="space-y-2 text-xs font-bold pt-1">
+        <div>
+          <label class="block text-comicBorder mb-1">你是哪位旅伴？</label>
+          <div class="grid grid-cols-2 gap-2">
+            <button type="button" onclick="selectRole('Dylan')" id="role-btn-Dylan" class="py-2 rounded-xl comic-box-md bg-appYellow text-comicBorder font-black shadow-comic-sm">Dylan</button>
+            <button type="button" onclick="selectRole('茜')" id="role-btn-茜" class="py-2 rounded-xl comic-box-md bg-white text-comicBorder font-bold">茜</button>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-comicBorder mb-1">專屬通行密碼 (預設：1111)</label>
+          <input type="password" id="auth-passcode" placeholder="請輸入 4 位數通行碼" maxlength="8" class="w-full bg-white p-2.5 rounded-xl border-2 border-comicBorder font-mono text-center text-lg focus:outline-none">
+        </div>
+      </div>
+
+      <div class="space-y-2 pt-2">
+        <button onclick="unlockEditor()" class="w-full py-2.5 bg-appYellow rounded-xl comic-box-md text-xs font-black shadow-comic-sm active:scale-95">驗證並解鎖編輯權限</button>
+        <button onclick="lockToReadOnly()" class="w-full py-2 bg-white rounded-xl comic-box-md text-xs font-bold text-subGray">切換為訪客唯讀模式</button>
+      </div>
+    </div>
+  </div>
+
   <!-- 提示浮動框 Toast -->
   <div id="toast" class="fixed top-6 left-1/2 -translate-x-1/2 bg-comicBorder text-white px-4 py-2 rounded-full text-xs font-black opacity-0 pointer-events-none transition-opacity duration-300 z-50 shadow-lg">
     提示訊息
@@ -1052,12 +1117,205 @@
       { id: 4, name: "加雅街冰品與飲料", amount: 22, currency: "MYR", payer: "茜" }
     ];
 
+    // ================= 權限控制與雲端資料庫管理 (方案 A) =================
+    const PASSCODE = "1111"; // 旅伴專屬 4 位數通行碼
+    let currentUser = {
+      role: "Guest", // 'Dylan' | '茜' | 'Guest'
+      isAuthorized: false
+    };
+
+    let db = null;
+    let auth = null;
+    let cloudSynced = false;
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'sabah-trip-dylan';
+
+    // 您的專屬 Firebase 配置
+    const myFirebaseConfig = {
+      apiKey: "AIzaSyAxlwixNHsNBULT8YxODOpL1lAVMs4FEnw",
+      authDomain: "sabah-trip-dylan.firebaseapp.com",
+      databaseURL: "https://sabah-trip-dylan-default-rtdb.firebaseio.com",
+      projectId: "sabah-trip-dylan",
+      storageBucket: "sabah-trip-dylan.firebasestorage.app",
+      messagingSenderId: "401431656223",
+      appId: "1:401431656223:web:2958a6c5afa4d1c626a22a"
+    };
+
     window.onload = function() {
       if (window.lucide) lucide.createIcons();
       initCountdown();
       renderDaySchedule();
       renderExpenses();
+      initAuthStatus();
+      initCloudSync();
     };
+
+    // 初始化身份驗證狀態 (讀取本機狀態，避免重整後重複輸入)
+    function initAuthStatus() {
+      try {
+        const savedRole = sessionStorage.getItem('sabah_user_role');
+        const savedAuth = sessionStorage.getItem('sabah_is_auth');
+        if (savedAuth === 'true' && (savedRole === 'Dylan' || savedRole === '茜')) {
+          currentUser.role = savedRole;
+          currentUser.isAuthorized = true;
+        }
+      } catch (e) {
+        // sessionStorage 限制例外保護
+      }
+      updateAuthUI();
+    }
+
+    function updateAuthUI() {
+      const lockIcon = document.getElementById('auth-lock-icon');
+      const userLabel = document.getElementById('auth-user-label');
+      const expPayerSelect = document.getElementById('exp-payer');
+
+      if (currentUser.isAuthorized) {
+        lockIcon.textContent = '🔓';
+        userLabel.textContent = `${currentUser.role} (可編輯)`;
+        if (expPayerSelect) expPayerSelect.value = currentUser.role;
+      } else {
+        lockIcon.textContent = '🔒';
+        userLabel.textContent = '解鎖編輯';
+      }
+    }
+
+    function openAuthModal() {
+      document.getElementById('auth-passcode').value = '';
+      selectRole(currentUser.role === '茜' ? '茜' : 'Dylan');
+      document.getElementById('auth-modal').classList.remove('hidden');
+    }
+
+    let selectedRoleInModal = 'Dylan';
+    function selectRole(role) {
+      selectedRoleInModal = role;
+      const btnD = document.getElementById('role-btn-Dylan');
+      const btnQ = document.getElementById('role-btn-茜');
+      if (role === 'Dylan') {
+        btnD.className = 'py-2 rounded-xl comic-box-md bg-appYellow text-comicBorder font-black shadow-comic-sm';
+        btnQ.className = 'py-2 rounded-xl comic-box-md bg-white text-comicBorder font-bold';
+      } else {
+        btnQ.className = 'py-2 rounded-xl comic-box-md bg-appYellow text-comicBorder font-black shadow-comic-sm';
+        btnD.className = 'py-2 rounded-xl comic-box-md bg-white text-comicBorder font-bold';
+      }
+    }
+
+    function unlockEditor() {
+      const inputPass = document.getElementById('auth-passcode').value.trim();
+      if (inputPass === PASSCODE) {
+        currentUser.role = selectedRoleInModal;
+        currentUser.isAuthorized = true;
+        try {
+          sessionStorage.setItem('sabah_user_role', currentUser.role);
+          sessionStorage.setItem('sabah_is_auth', 'true');
+        } catch(e) {}
+        closeModal('auth-modal');
+        updateAuthUI();
+        showToast(`🎉 歡迎 ${currentUser.role}！已解鎖記帳與行程編輯權限`);
+      } else {
+        showToast('❌ 通行碼錯誤！請輸入 1111');
+      }
+    }
+
+    function lockToReadOnly() {
+      currentUser.role = 'Guest';
+      currentUser.isAuthorized = false;
+      try {
+        sessionStorage.removeItem('sabah_user_role');
+        sessionStorage.removeItem('sabah_is_auth');
+      } catch(e) {}
+      closeModal('auth-modal');
+      updateAuthUI();
+      showToast('🔒 已切換為訪客唯讀模式，防止誤改');
+    }
+
+    function checkEditPermission() {
+      if (!currentUser.isAuthorized) {
+        openAuthModal();
+        showToast('🔒 訪客模式僅能瀏覽，請先輸入通行碼解鎖！');
+        return false;
+      }
+      return true;
+    }
+
+    // 初始化 Firebase 雲端即時同步
+    async function initCloudSync() {
+      const statusBadge = document.getElementById('sync-status-badge');
+      if (!window.FirebaseModules) {
+        if (statusBadge) statusBadge.textContent = '本機離線同步模式';
+        return;
+      }
+
+      try {
+        const { initializeApp, getAuth, signInAnonymously, signInWithCustomToken, getFirestore, doc, onSnapshot } = window.FirebaseModules;
+        
+        // 優先使用用戶提供的專案配置
+        const firebaseConfig = (typeof __firebase_config !== 'undefined' && __firebase_config) 
+          ? JSON.parse(__firebase_config) 
+          : myFirebaseConfig;
+
+        const app = initializeApp(firebaseConfig);
+        auth = getAuth(app);
+        db = getFirestore(app);
+
+        // 登入驗證
+        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+          await signInWithCustomToken(auth, __initial_auth_token);
+        } else {
+          await signInAnonymously(auth);
+        }
+
+        const sharedDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'travel_data', 'main_sheet');
+
+        // 監聽雲端資料異動 (另一台手機改動時即時推送過來)
+        onSnapshot(sharedDocRef, (snap) => {
+          if (snap.exists()) {
+            const data = snap.data();
+            if (data.expenses) {
+              expenses = data.expenses;
+              renderExpenses();
+            }
+            if (data.tripData) {
+              // 覆蓋並更新
+              Object.assign(tripData, data.tripData);
+              renderDaySchedule();
+            }
+            if (data.rate) {
+              updateRateFromInput(data.rate);
+            }
+            cloudSynced = true;
+            if (statusBadge) statusBadge.textContent = '🟢 雲端已即時同步 (sabah-trip-dylan)';
+          } else {
+            // 雲端尚未建立，以初始資料建立
+            pushToCloud();
+          }
+        }, (err) => {
+          console.debug("Cloud sync error: ", err);
+          if (statusBadge) statusBadge.textContent = '離線暫存模式';
+        });
+
+      } catch (err) {
+        console.debug("Firebase init error: ", err);
+        if (statusBadge) statusBadge.textContent = '離線暫存模式';
+      }
+    }
+
+    // 將資料同步至雲端 (Dylan 或 茜 記帳/改行程時觸發)
+    async function pushToCloud() {
+      if (!db || !auth || !auth.currentUser) return;
+      try {
+        const { doc, setDoc } = window.FirebaseModules;
+        const sharedDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'travel_data', 'main_sheet');
+        await setDoc(sharedDocRef, {
+          expenses: expenses,
+          tripData: tripData,
+          rate: RM_RATE,
+          lastUpdatedBy: currentUser.role,
+          updatedAt: Date.now()
+        }, { merge: true });
+      } catch (err) {
+        console.debug("Push to cloud error: ", err);
+      }
+    }
 
     // 附圖彩蛋：點擊海灣撒蝦蝦
     function dropShrimp(e) {
@@ -1214,7 +1472,7 @@
           <div class="absolute left-0.5 top-1.5 w-3.5 h-3.5 rounded-full border-2 border-comicBorder bg-appYellow"></div>
           <div class="flex items-center justify-between">
             <span class="font-mono font-black text-xs text-comicBorder">${item.time}</span>
-            <button onclick="removeSpot(${idx})" class="text-[10px] text-rose-500 font-bold hover:underline">刪除</button>
+            <button onclick="removeSpot(${idx})" class="text-[10px] text-rose-500 font-bold hover:underline ${currentUser.isAuthorized ? '' : 'hidden'}">刪除</button>
           </div>
           <div class="font-black text-sm text-comicBorder mt-0.5">${item.name}</div>
           <div class="text-xs text-subGray font-bold mt-0.5 leading-snug">${item.desc}</div>
@@ -1223,6 +1481,7 @@
     }
 
     function openAddSpotModal() {
+      if (!checkEditPermission()) return;
       document.getElementById('spot-modal-title').textContent = `新增至 Day ${curDay} 行程`;
       document.getElementById('spot-time').value = '';
       document.getElementById('spot-name').value = '';
@@ -1231,6 +1490,7 @@
     }
 
     function saveSpot() {
+      if (!checkEditPermission()) return;
       const time = document.getElementById('spot-time').value.trim() || '彈性';
       const name = document.getElementById('spot-name').value.trim();
       const desc = document.getElementById('spot-desc').value.trim() || '無備註';
@@ -1240,13 +1500,16 @@
       tripData[curDay].push({ time, name, desc });
       closeModal('spot-modal');
       renderDaySchedule();
-      showToast('已新增行程！');
+      pushToCloud();
+      showToast('已新增行程並同步至雲端！');
     }
 
     function removeSpot(idx) {
+      if (!checkEditPermission()) return;
       if (confirm('確定要刪除這筆行程嗎？')) {
         tripData[curDay].splice(idx, 1);
         renderDaySchedule();
+        pushToCloud();
         showToast('已刪除景點');
       }
     }
@@ -1335,19 +1598,24 @@
           </div>
           <div class="text-right">
             <div class="font-mono font-black text-sm text-comicBorder">${e.currency === 'MYR' ? 'RM ' : 'NT$ '}${e.amount}</div>
-            <button onclick="removeExpense(${e.id})" class="text-[10px] text-rose-500 hover:underline">刪除</button>
+            <button onclick="removeExpense(${e.id})" class="text-[10px] text-rose-500 hover:underline ${currentUser.isAuthorized ? '' : 'hidden'}">刪除</button>
           </div>
         </div>
       `).join('');
     }
 
     function openExpenseModal() {
+      if (!checkEditPermission()) return;
       document.getElementById('exp-name').value = '';
       document.getElementById('exp-amount').value = '';
+      if (currentUser.isAuthorized) {
+        document.getElementById('exp-payer').value = currentUser.role;
+      }
       document.getElementById('expense-modal').classList.remove('hidden');
     }
 
     function saveExpense() {
+      if (!checkEditPermission()) return;
       const name = document.getElementById('exp-name').value.trim();
       const amount = parseFloat(document.getElementById('exp-amount').value);
       const currency = document.getElementById('exp-currency').value;
@@ -1358,13 +1626,16 @@
       expenses.push({ id: Date.now(), name, amount, currency, payer });
       closeModal('expense-modal');
       renderExpenses();
-      showToast('記帳成功！');
+      pushToCloud();
+      showToast('記帳成功，已同步至雲端！');
     }
 
     function removeExpense(id) {
+      if (!checkEditPermission()) return;
       if (confirm('確定刪除這筆花費？')) {
         expenses = expenses.filter(x => x.id !== id);
         renderExpenses();
+        pushToCloud();
         showToast('已刪除花費');
       }
     }
