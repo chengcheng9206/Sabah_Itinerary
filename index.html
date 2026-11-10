@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>沙巴亞庇之旅</title>
   
-  <!-- iOS PWA 支援：加到主畫面時享受真正無黑邊的全螢幕 App 體驗 -->
+  <!-- iOS PWA 支援 -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="沙巴之旅">
@@ -21,7 +21,7 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Firebase 經典相容版 SDK (穩定載入，徹底解決非同步模組失效與跨裝置同步失敗問題) -->
+  <!-- Firebase 經典相容版 SDK -->
   <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
@@ -31,10 +31,10 @@
       theme: {
         extend: {
           colors: {
-            appBg: '#faf7ee',       // 附圖精準米白底色
-            appYellow: '#ffd867',   // 倒數計時與高亮經典黃
+            appBg: '#faf7ee',
+            appYellow: '#ffd867',
             appCardYellow: '#ffe289',
-            comicBorder: '#232323', // 手繪粗黑邊
+            comicBorder: '#232323',
             subGray: '#666666',
             seaBlue: '#9ce0f5',
             seaDeep: '#4cbde7',
@@ -97,7 +97,7 @@
 </head>
 <body class="flex flex-col min-h-screen bg-appBg">
 
-  <!-- 滿版 App 內容容器（自適應寬度） -->
+  <!-- 滿版 App 內容容器 -->
   <div class="w-full max-w-5xl mx-auto flex-1 flex flex-col px-3 sm:px-6 md:px-8 pt-3 pb-28">
 
     <!-- 頂部標題列 -->
@@ -121,7 +121,7 @@
         </div>
       </div>
 
-      <!-- 右上角功能按鈕群 (權限鎖 + 分享按鈕) -->
+      <!-- 右上角功能按鈕群 -->
       <div class="flex items-center gap-2 mt-0.5 shrink-0">
         <button onclick="openAuthModal()" id="btn-auth-lock" class="h-12 px-3 rounded-full comic-box bg-white flex items-center justify-center gap-1.5 hover:bg-neutral-50 active:scale-95 transition-transform shadow-comic-sm text-xs font-black">
           <span id="auth-lock-icon">🔒</span>
@@ -136,35 +136,26 @@
 
     <!-- ========================= TAB 1: 首頁 ========================= -->
     <div id="tab-home" class="space-y-3.5">
-      
-      <!-- 1. 核心插畫卡片 (沙巴海灣、神山、牽手小人、海龜) -->
+      <!-- 核心插畫卡片 -->
       <div class="comic-box bg-[#b4e7fa] overflow-hidden relative cursor-pointer select-none max-h-[380px] flex items-center justify-center" onclick="dropShrimp(event)" title="點擊海灣可以餵海龜和小丑魚吃蝦蝦">
         <svg viewBox="0 0 400 250" class="w-full h-auto max-h-[380px] block object-contain" xmlns="http://www.w3.org/2000/svg">
           <rect width="400" height="250" fill="#aee6f9"/>
-          
-          <!-- 左上角氣溫小標籤 -->
           <g transform="translate(18, 14)">
             <rect width="102" height="22" rx="11" fill="#FFFFFF" stroke="#232323" stroke-width="2.2"/>
             <path d="M 12 15 A 3 3 0 0 1 12 11 A 4 4 0 0 1 18 9 A 4 4 0 0 1 23 11 A 3 3 0 0 1 23 15 Z" fill="none" stroke="#232323" stroke-width="1.6"/>
             <text x="28" y="15.5" font-family="'Zen Maru Gothic', sans-serif" font-size="10.5" font-weight="900" fill="#232323">亞庇微風 29° C</text>
           </g>
-
-          <!-- 右上角太陽 -->
           <g transform="translate(345, 34)">
             <circle cx="0" cy="0" r="18" fill="#FCD34D" stroke="#232323" stroke-width="2.5"/>
             <circle cx="0" cy="0" r="14" fill="#FBBF24" stroke="#D97706" stroke-width="1.5" stroke-dasharray="2 2.5"/>
             <path d="M -8 -6 A 11 11 0 0 1 6 -8" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round"/>
           </g>
-
-          <!-- 遠方兩座神山 -->
           <g stroke="#232323" stroke-width="3" stroke-linejoin="round">
             <polygon points="120,205 210,80 295,205" fill="#9dbef5"/>
             <polygon points="190,108 210,80 230,108 219,114 210,107 201,113" fill="#FFFFFF"/>
             <polygon points="215,205 290,75 375,205" fill="#9dbef5"/>
             <polygon points="270,105 290,75 310,105 300,111 290,104 280,111" fill="#FFFFFF"/>
           </g>
-
-          <!-- 左側海龜 -->
           <g id="turtle-el" transform="translate(35, 60)">
             <ellipse cx="14" cy="14" rx="10" ry="8" fill="#6ee7b7" stroke="#232323" stroke-width="2.4"/>
             <circle cx="14" cy="14" r="4.5" fill="#34d399" stroke="#232323" stroke-width="1.5"/>
@@ -174,14 +165,8 @@
             <ellipse cx="8" cy="22" rx="3" ry="1.8" fill="#6ee7b7" stroke="#232323" stroke-width="1.8"/>
             <ellipse cx="19" cy="22" rx="3" ry="1.8" fill="#6ee7b7" stroke="#232323" stroke-width="1.8"/>
           </g>
-
-          <!-- 蔚藍海面 -->
           <path d="M 0 178 Q 100 168 200 178 Q 300 188 400 174 L 400 250 L 0 250 Z" fill="#38bdf8" stroke="#232323" stroke-width="3"/>
-
-          <!-- 金黃沙灘海岸 -->
           <path d="M 0 205 Q 120 186 240 202 Q 330 214 400 198 L 400 250 L 0 250 Z" fill="#fed678" stroke="#232323" stroke-width="3"/>
-
-          <!-- 椰子樹 -->
           <g>
             <path d="M 82 225 Q 74 175 60 135" stroke="#92502f" stroke-width="6" fill="none" stroke-linecap="round"/>
             <path d="M 82 225 Q 74 175 60 135" stroke="#232323" stroke-width="2" fill="none"/>
@@ -192,16 +177,12 @@
               <path d="M 58 135 Q 98 136 106 158 Q 82 144 58 135 Z"/>
             </g>
           </g>
-
-          <!-- 小丑魚尼莫 -->
           <g id="fish-el" transform="translate(112, 175)">
             <ellipse cx="10" cy="7" rx="9" ry="5.5" fill="#fb923c" stroke="#232323" stroke-width="1.8"/>
             <polygon points="2,7 -4,2 -4,12" fill="#fb923c" stroke="#232323" stroke-width="1.6"/>
             <path d="M 9 2 L 9 12" stroke="#FFFFFF" stroke-width="2.5"/>
             <circle cx="15" cy="6" r="1.2" fill="#232323"/>
           </g>
-
-          <!-- 手繪小人：Dylan 與 茜 (分開自由走動) -->
           <g id="person-dylan" transform="translate(145, 155)" class="transition-transform duration-300">
             <circle cx="12" cy="10" r="7.5" fill="#FFDFC4" stroke="#232323" stroke-width="2.2"/>
             <circle cx="10" cy="9.5" r="1.3" fill="#232323"/>
@@ -213,7 +194,6 @@
             <line x1="9" y1="33" x2="7" y2="44" stroke="#232323" stroke-width="2.2" stroke-linecap="round"/>
             <line x1="15" y1="33" x2="17" y2="44" stroke="#232323" stroke-width="2.2" stroke-linecap="round"/>
           </g>
-
           <g id="person-qian" transform="translate(215, 153)" class="transition-transform duration-300">
             <ellipse cx="6" cy="11" rx="3.5" ry="5.5" fill="#fcd34d" stroke="#232323" stroke-width="1.8"/>
             <ellipse cx="22" cy="11" rx="3.5" ry="5.5" fill="#fcd34d" stroke="#232323" stroke-width="1.8"/>
@@ -242,7 +222,7 @@
         </div>
       </div>
 
-      <!-- 2. 天氣卡片 -->
+      <!-- 天氣卡片 -->
       <div class="bg-white comic-box p-3.5 flex items-center justify-between shadow-comic-sm">
         <div class="flex items-center gap-3">
           <div class="w-12 h-12 rounded-2xl border-2 border-comicBorder bg-[#fff7d1] flex items-center justify-center text-2xl shrink-0 shadow-comic-sm" id="weather-sun-box">
@@ -263,7 +243,7 @@
         </button>
       </div>
 
-      <!-- 3. 出發倒數卡片 (精準計算 2026/11/11 19:10 航班出發) -->
+      <!-- 出發倒數卡片 -->
       <div class="bg-appYellow comic-box p-4 text-center shadow-comic-sm space-y-1">
         <div class="text-[11px] font-black tracking-widest text-comicBorder font-mono uppercase">
           COUNTDOWN TO BKI
@@ -283,7 +263,7 @@
         </div>
       </div>
 
-      <!-- 4. 航班資訊全覽 (國際線 ＋ 亞庇⇄山打根國內線) -->
+      <!-- 航班資訊 -->
       <div class="bg-white comic-box p-4 shadow-comic-sm space-y-3.5">
         <div class="flex items-center justify-between border-b-2 border-neutral-100 pb-2">
           <div class="flex items-center gap-2">
@@ -293,7 +273,6 @@
           <span class="text-xs font-bold text-subGray">國際線 2 趟 ＋ 國內線 2 趟</span>
         </div>
 
-        <!-- 航段 1: 桃園 ➔ 亞庇 (11/11 AK 1511) -->
         <div class="space-y-1">
           <div class="flex items-center justify-between text-xs font-bold">
             <span class="text-comicBorder font-black">① 國際去程 • 11/11 (週三)</span>
@@ -317,7 +296,6 @@
 
         <div class="border-t-2 border-dashed border-neutral-200"></div>
 
-        <!-- 航段 2: 亞庇 ➔ 山打根 (11/15 AK 6492) -->
         <div class="space-y-1">
           <div class="flex items-center justify-between text-xs font-bold">
             <span class="text-comicBorder font-black">② 國內出發 • 11/15 (週日)</span>
@@ -341,7 +319,6 @@
 
         <div class="border-t-2 border-dashed border-neutral-200"></div>
 
-        <!-- 航段 3: 山打根 ➔ 亞庇 (11/18 AK) -->
         <div class="space-y-1">
           <div class="flex items-center justify-between text-xs font-bold">
             <span class="text-comicBorder font-black">③ 國內返回 • 11/18 (週三)</span>
@@ -365,7 +342,6 @@
 
         <div class="border-t-2 border-dashed border-neutral-200"></div>
 
-        <!-- 航段 4: 亞庇 ➔ 桃園 (11/19 AK 1510) -->
         <div class="space-y-1">
           <div class="flex items-center justify-between text-xs font-bold">
             <span class="text-comicBorder font-black">④ 國際回程 • 11/19 (週四)</span>
@@ -388,7 +364,7 @@
         </div>
       </div>
 
-      <!-- 5. 住宿一覽卡片 -->
+      <!-- 住宿一覽 -->
       <div class="bg-white comic-box p-4 shadow-comic-sm space-y-3">
         <div class="flex items-center justify-between border-b-2 border-neutral-100 pb-2">
           <div class="flex items-center gap-2">
@@ -399,7 +375,6 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-xs">
-          <!-- 亞庇 1 -->
           <div class="bg-[#faf7ee] p-3 rounded-2xl border-2 border-comicBorder space-y-1">
             <div class="flex items-center justify-between">
               <span class="font-black text-comicBorder">1. Concrete Jungle Cabin</span>
@@ -409,7 +384,6 @@
             <div class="text-subGray text-[11px]">加雅街市中心，生活機能極佳 • TWD 3,787</div>
           </div>
 
-          <!-- 西必洛 -->
           <div class="bg-[#faf7ee] p-3 rounded-2xl border-2 border-comicBorder space-y-1">
             <div class="flex items-center justify-between">
               <span class="font-black text-comicBorder">2. 西必洛住宿加早餐旅館</span>
@@ -419,7 +393,6 @@
             <div class="text-subGray text-[11px]">離保護區近，接駁專車門口接 • TWD 1,242</div>
           </div>
 
-          <!-- 雨林 Safari -->
           <div class="bg-[#faf7ee] p-3 rounded-2xl border-2 border-comicBorder space-y-1">
             <div class="flex items-center justify-between">
               <span class="font-black text-comicBorder">3. Tanini Kinabatangan Lodge</span>
@@ -429,7 +402,6 @@
             <div class="text-subGray text-[11px]">Mixed Dormitory • 雙人 RM 1,527.60</div>
           </div>
 
-          <!-- 亞庇 2 -->
           <div class="bg-[#faf7ee] p-3 rounded-2xl border-2 border-comicBorder space-y-1">
             <div class="flex items-center justify-between">
               <span class="font-black text-comicBorder">4. 哥打京那巴魯夢想酒店</span>
@@ -440,10 +412,9 @@
           </div>
         </div>
       </div>
-
     </div>
 
-    <!-- ========================= TAB 2: 行程 (9天8夜最新排定) ========================= -->
+    <!-- ========================= TAB 2: 行程 ========================= -->
     <div id="tab-itinerary" class="hidden space-y-3">
       <div class="flex items-center justify-between px-1">
         <div>
@@ -455,7 +426,6 @@
         </button>
       </div>
 
-      <!-- 天數橫向滑動導覽 -->
       <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
         <button onclick="setDay(1)" id="d-btn-1" class="day-pill comic-box-md bg-appYellow px-3 py-1.5 text-xs font-black shrink-0 shadow-comic-sm flex flex-col items-start leading-tight">
           <span>D1 11/11 (三)</span>
@@ -495,16 +465,12 @@
         </button>
       </div>
 
-      <!-- 當日主題提示條 -->
       <div id="day-theme-banner" class="bg-[#f0f9ff] border-2 border-[#bae6fd] rounded-2xl p-2.5 px-3 flex items-center justify-between">
         <span class="text-xs font-black text-[#0369a1]" id="day-theme-title">今日重點：桃園出發 ➔ 飛抵亞庇入住 Concrete Jungle Cabin</span>
         <span class="text-[11px] font-black text-comicBorder bg-white px-2 py-0.5 rounded border border-[#bae6fd]">Day 1</span>
       </div>
 
-      <!-- 當日景點列表 -->
-      <div id="day-spots-container" class="bg-white comic-box p-4 shadow-comic-sm space-y-3">
-        <!-- JS 動態渲染 -->
-      </div>
+      <div id="day-spots-container" class="bg-white comic-box p-4 shadow-comic-sm space-y-3"></div>
     </div>
 
     <!-- ========================= TAB 3: 美食推薦 ========================= -->
@@ -515,7 +481,6 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <!-- 怡豐茶室 -->
         <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
           <div class="flex items-start justify-between gap-2">
             <div>
@@ -534,7 +499,6 @@
           </p>
         </div>
 
-        <!-- 山打根 森森水上屋 彈弓麵 -->
         <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
           <div class="flex items-start justify-between gap-2">
             <div>
@@ -553,7 +517,6 @@
           </p>
         </div>
 
-        <!-- 山打根 金冠 UFO 牛屎撻 -->
         <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
           <div class="flex items-start justify-between gap-2">
             <div>
@@ -568,11 +531,10 @@
             </a>
           </div>
           <p class="text-xs text-subGray font-bold leading-relaxed">
-            山打根原創發明的 UFO 飛碟蛋糕（俗稱牛屎撻）！酥脆香草海綿餅底，中間灌入香濃卡士達蛋黃餡，外層蛋白霜烤至微脆，甜而不膩。
+            山打根原創發明的 UFO 飛碟蛋糕（俗稱牛屎撻）！酥脆香草海綿餅底，中間灌入香濃卡士達蛋黃餡，外層蛋白霜烤至微脆。
           </p>
         </div>
 
-        <!-- 悅昌茶室 -->
         <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
           <div class="flex items-start justify-between gap-2">
             <div>
@@ -590,86 +552,10 @@
             加雅街百年老店！門口現烤牛肉與雞肉炭火沙嗲串，沾上濃郁花生沙嗲醬，配咖椰烤吐司與南洋熱拉茶絕配。
           </p>
         </div>
-
-        <!-- 雙天海鮮酒家 -->
-        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
-          <div class="flex items-start justify-between gap-2">
-            <div>
-              <div class="flex items-center gap-1.5 flex-wrap">
-                <span class="font-black text-sm text-comicBorder">雙天海鮮酒家 (Suang Tain)</span>
-                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.0 (3,200+則)</span>
-              </div>
-              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 60 ~ 120 / 人 (活海鮮盛宴)</div>
-            </div>
-            <a href="https://maps.google.com/?q=Suang+Tain+Seafood+Restaurant+Kota+Kinabalu" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
-              <span>📍 地圖</span>
-            </a>
-          </div>
-          <p class="text-xs text-subGray font-bold leading-relaxed">
-            亞庇歷史最悠久的活海鮮名店！現撈水族箱現點現秤，必吃「濕奶油老虎蝦」與「鹹蛋黃炒螃蟹」，湯汁拌飯超美味。
-          </p>
-        </div>
-
-        <!-- 太子椰 -->
-        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
-          <div class="flex items-start justify-between gap-2">
-            <div>
-              <div class="flex items-center gap-1.5 flex-wrap">
-                <span class="font-black text-sm text-comicBorder">太子椰 (The Royal Coconut)</span>
-                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.0 (600+則)</span>
-              </div>
-              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 10 ~ 18 / 份 (消暑甜品)</div>
-            </div>
-            <a href="https://maps.google.com/?q=The+Royal+Coconut+Kota+Kinabalu" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
-              <span>📍 地圖</span>
-            </a>
-          </div>
-          <p class="text-xs text-subGray font-bold leading-relaxed">
-            整顆現剖椰子布丁冰涼滑溜、椰香冰沙濃郁綿密，逛完加雅街進來吹冷氣吃點心超療癒。
-          </p>
-        </div>
-
-        <!-- 金沙園生肉麵 -->
-        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
-          <div class="flex items-start justify-between gap-2">
-            <div>
-              <div class="flex items-center gap-1.5 flex-wrap">
-                <span class="font-black text-sm text-comicBorder">金沙園生肉麵 (Melanian 3)</span>
-                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.0 (870+則)</span>
-              </div>
-              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 12 ~ 20 / 人</div>
-            </div>
-            <a href="https://maps.google.com/?q=Kedai+Kopi+Melanian+3+Kota+Kinabalu" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
-              <span>📍 地圖</span>
-            </a>
-          </div>
-          <p class="text-xs text-subGray font-bold leading-relaxed">
-            黑醬乾撈手工麵配一碗滾燙鮮甜豬肉高湯與嫩豬肉片，在地人的活力早餐！
-          </p>
-        </div>
-
-        <!-- Borenos 炸雞 -->
-        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
-          <div class="flex items-start justify-between gap-2">
-            <div>
-              <div class="flex items-center gap-1.5 flex-wrap">
-                <span class="font-black text-sm text-comicBorder">Borenos Fried Chicken</span>
-                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.5 (2,500+則)</span>
-              </div>
-              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 12 ~ 25 / 套餐 (24H 營業)</div>
-            </div>
-            <a href="https://maps.google.com/?q=Borenos+Fried+Chicken+Asia+City" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
-              <span>📍 地圖</span>
-            </a>
-          </div>
-          <p class="text-xs text-subGray font-bold leading-relaxed">
-            沙巴本土薄皮嫩炸雞！肉質多汁飽滿，加雅街宵夜 24 小時隨點隨吃。
-          </p>
-        </div>
       </div>
     </div>
 
-    <!-- ========================= TAB 4: 記帳分頁 ========================= -->
+    <!-- ========================= TAB 4: 記帳分頁 (已升級：編輯功能＋個人與平攤拆帳) ========================= -->
     <div id="tab-expense" class="hidden space-y-3.5">
       <div class="flex items-center justify-between px-1">
         <h2 class="text-xl font-black text-comicBorder">旅費記帳 & 結算 💰</h2>
@@ -717,6 +603,7 @@
         </div>
       </div>
 
+      <!-- 統計與拆帳資訊 -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
         <!-- 總額卡片 -->
         <div class="bg-appYellow comic-box p-4 shadow-comic-sm flex flex-col justify-between">
@@ -734,13 +621,18 @@
               <div class="text-2xl font-black font-mono text-comicBorder">NT$ <span id="exp-total-twd">0</span></div>
             </div>
           </div>
+          <!-- 各自應負擔總額 -->
+          <div class="grid grid-cols-2 gap-2 mt-2 pt-2 border-t border-comicBorder/10 text-xs font-bold text-comicBorder/90">
+            <div>Dylan 總負擔：<span id="dylan-burden" class="font-mono font-black">RM 0</span></div>
+            <div>茜 總負擔：<span id="qian-burden" class="font-mono font-black">RM 0</span></div>
+          </div>
         </div>
 
-        <!-- 快速平分結算卡片 -->
+        <!-- 帳務結算卡片 (支援個人花費精確計算) -->
         <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2 flex flex-col justify-between">
           <div class="flex justify-between items-center">
             <span class="text-xs font-black text-comicBorder flex items-center gap-1">
-              <span>🧾</span> 雙人帳務結算 (誰給誰)
+              <span>🧾</span> 帳務精密結算 (誰給誰)
             </span>
             <button onclick="copySplitResult()" class="text-xs font-black text-comicBorder underline">
               一鍵複製傳 LINE
@@ -752,11 +644,11 @@
         </div>
       </div>
 
-      <!-- 開銷明細 -->
+      <!-- 開銷明細列表 -->
       <div class="space-y-2">
         <div class="flex items-center justify-between text-xs font-black text-comicBorder px-1">
           <span>費用明細列表</span>
-          <span class="text-[10px] text-subGray font-normal">即時雲端雙向同步中</span>
+          <span class="text-[10px] text-subGray font-normal">支援單獨記帳、平攤與隨時修改</span>
         </div>
         <div id="expense-records" class="grid grid-cols-1 md:grid-cols-2 gap-2">
           <!-- JS 渲染 -->
@@ -812,7 +704,6 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-        <!-- 【文件類】 -->
         <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
           <div class="font-black text-xs text-comicBorder flex items-center gap-1.5 pb-1 border-b border-neutral-100">
             <span>📄</span> 【文件類】
@@ -827,7 +718,6 @@
           </div>
         </div>
 
-        <!-- 【熱帶與雨林特備】 -->
         <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
           <div class="font-black text-xs text-comicBorder flex items-center gap-1.5 pb-1 border-b border-neutral-100">
             <span>🌿</span> 【雨林與海島裝備】
@@ -841,7 +731,6 @@
           </div>
         </div>
 
-        <!-- 【電器類】 -->
         <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
           <div class="font-black text-xs text-comicBorder flex items-center gap-1.5 pb-1 border-b border-neutral-100">
             <span>🔌</span> 【電器類】
@@ -905,7 +794,7 @@
     </div>
   </nav>
 
-  <!-- 彈窗：新增活動 -->
+  <!-- 彈窗：新增/編輯行程 -->
   <div id="spot-modal" class="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-[#faf7ee] w-full max-w-sm comic-box p-4 space-y-3">
       <div class="flex justify-between items-center">
@@ -921,31 +810,56 @@
     </div>
   </div>
 
-  <!-- 彈窗：新增記帳 -->
+  <!-- 彈窗：記帳（支援 新增 / 編輯、幣別、分攤模式） -->
   <div id="expense-modal" class="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-[#faf7ee] w-full max-w-sm comic-box p-4 space-y-3">
       <div class="flex justify-between items-center">
-        <h3 class="font-black text-sm text-comicBorder">新增旅行開銷</h3>
+        <h3 class="font-black text-sm text-comicBorder" id="exp-modal-title">新增旅行開銷</h3>
         <button onclick="closeModal('expense-modal')" class="text-sm font-bold text-comicBorder">✕</button>
       </div>
-      <div class="space-y-2 text-xs font-bold">
-        <input type="text" id="exp-name" placeholder="項目 (如：加雅街肉骨茶、Grab車資)" class="w-full bg-white p-2.5 rounded-xl border-2 border-comicBorder focus:outline-none">
-        <div class="flex gap-2">
-          <input type="number" id="exp-amount" placeholder="金額" class="flex-1 bg-white p-2.5 rounded-xl border-2 border-comicBorder font-mono focus:outline-none">
-          <select id="exp-currency" class="bg-white p-2.5 rounded-xl border-2 border-comicBorder">
-            <option value="MYR">RM 馬幣</option>
-            <option value="TWD">NT$ 台幣</option>
-          </select>
-        </div>
+      
+      <!-- 隱藏的編輯 ID 欄位 -->
+      <input type="hidden" id="exp-edit-id" value="">
+
+      <div class="space-y-2.5 text-xs font-bold">
         <div>
-          <label class="block text-subGray mb-1 text-[11px]">誰先掏錢付的？</label>
-          <select id="exp-payer" class="w-full bg-white p-2.5 rounded-xl border-2 border-comicBorder">
-            <option value="Dylan">Dylan 付的</option>
-            <option value="茜">茜 付的</option>
-          </select>
+          <label class="block text-subGray mb-1 text-[11px]">支出項目名稱</label>
+          <input type="text" id="exp-name" placeholder="項目 (如：怡豐叻沙、個人伴手禮、Grab)" class="w-full bg-white p-2.5 rounded-xl border-2 border-comicBorder focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-subGray mb-1 text-[11px]">金額與幣別</label>
+          <div class="flex gap-2">
+            <input type="number" id="exp-amount" placeholder="金額" step="any" class="flex-1 bg-white p-2.5 rounded-xl border-2 border-comicBorder font-mono text-base focus:outline-none">
+            <select id="exp-currency" class="bg-white p-2.5 rounded-xl border-2 border-comicBorder font-bold">
+              <option value="MYR">🇲🇾 RM 馬幣</option>
+              <option value="TWD">🇹🇼 NT$ 台幣</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-subGray mb-1 text-[11px]">誰先付款？</label>
+            <select id="exp-payer" class="w-full bg-white p-2.5 rounded-xl border-2 border-comicBorder">
+              <option value="Dylan">Dylan 先付</option>
+              <option value="茜">茜 先付</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-subGray mb-1 text-[11px]">分攤模式</label>
+            <select id="exp-split" class="w-full bg-white p-2.5 rounded-xl border-2 border-comicBorder">
+              <option value="both">🤝 兩人平攤</option>
+              <option value="Dylan">🙋‍♂️ Dylan 個人</option>
+              <option value="茜">🙋‍♀️ 茜 個人</option>
+            </select>
+          </div>
         </div>
       </div>
-      <button onclick="saveExpense()" class="w-full py-2.5 bg-appYellow rounded-xl comic-box-md text-xs font-black shadow-comic-sm">確認記帳</button>
+
+      <div class="pt-1">
+        <button onclick="saveExpense()" id="exp-submit-btn" class="w-full py-2.5 bg-appYellow rounded-xl comic-box-md text-xs font-black shadow-comic-sm active:scale-95">確認儲存</button>
+      </div>
     </div>
   </div>
 
@@ -961,7 +875,7 @@
       </div>
 
       <div class="text-xs text-subGray font-bold leading-relaxed">
-        只有 <strong>Dylan</strong> 與 <strong>茜</strong> 輸入專屬通行碼後可記帳與修改行程；其他拿到連結的人僅能瀏覽（避免誤觸亂改）。
+        只有 <strong>Dylan</strong> 與 <strong>茜</strong> 輸入專屬通行碼後可記帳與修改行程；其他拿到連結的人僅能瀏覽。
       </div>
 
       <div class="space-y-2 text-xs font-bold pt-1">
@@ -999,7 +913,7 @@
   </div>
 
   <script>
-    // ================= 預設 9 天 8 夜完整行程 =================
+    // ================= 預設行程 =================
     const defaultTripData = {
       1: [
         { time: "16:40", name: "桃園機場 T1 報到", desc: "搭乘 AirAsia AK 1511 飛往沙巴亞庇 (19:10 - 22:45)" },
@@ -1082,14 +996,14 @@
       9: "今日重點：清晨前往亞庇機場 ➔ 搭乘 AK 1510 平安滿載返台！"
     };
 
-    // 預設記帳資料
+    // 預設記帳資料（包含 split: both / Dylan / 茜）
     const defaultExpenses = [
-      { id: 1, name: "Tanini Safari 3D2N (Mixed Dorm 雙人)", amount: 1527.6, currency: "MYR", payer: "Dylan" },
-      { id: 2, name: "Concrete Jungle Cabin 4晚 (亞庇)", amount: 3787, currency: "TWD", payer: "茜" },
-      { id: 3, name: "西必洛住宿加早餐旅館 1晚", amount: 1242, currency: "TWD", payer: "Dylan" },
-      { id: 4, name: "哥打京那巴魯夢想酒店 1晚", amount: 813, currency: "TWD", payer: "茜" },
-      { id: 5, name: "加雅街怡豐茶室早餐", amount: 46, currency: "MYR", payer: "Dylan" },
-      { id: 6, name: "水上清真寺門票+租服裝", amount: 40, currency: "MYR", payer: "茜" }
+      { id: 1, name: "Tanini Safari 3D2N (Mixed Dorm 雙人)", amount: 1527.6, currency: "MYR", payer: "Dylan", split: "both" },
+      { id: 2, name: "Concrete Jungle Cabin 4晚 (亞庇)", amount: 3787, currency: "TWD", payer: "茜", split: "both" },
+      { id: 3, name: "西必洛住宿加早餐旅館 1晚", amount: 1242, currency: "TWD", payer: "Dylan", split: "both" },
+      { id: 4, name: "哥打京那巴魯夢想酒店 1晚", amount: 813, currency: "TWD", payer: "茜", split: "both" },
+      { id: 5, name: "加雅街怡豐茶室早餐", amount: 46, currency: "MYR", payer: "Dylan", split: "both" },
+      { id: 6, name: "水上清真寺門票+租服裝", amount: 40, currency: "MYR", payer: "茜", split: "both" }
     ];
 
     let expenses = JSON.parse(JSON.stringify(defaultExpenses));
@@ -1215,7 +1129,6 @@
     let fbDb = null;
     let syncDocRef = null;
 
-    // 嘗試從本地 LocalStorage 載入離線備份
     function loadLocalCache() {
       try {
         const cachedExp = localStorage.getItem('sabah_cache_expenses');
@@ -1257,15 +1170,12 @@
 
         fbDb = firebase.firestore();
         
-        // 確保匿名登入授權
         firebase.auth().signInAnonymously().catch(e => {
           console.debug("Auth note: ", e);
         });
 
-        // 簡化為標準根集合與文件，確保權限與網路傳輸順暢
         syncDocRef = fbDb.collection("sabah_trips").doc("dylan_and_qian");
 
-        // 即時監聽遠端資料庫變更
         syncDocRef.onSnapshot((doc) => {
           if (doc.exists) {
             const data = doc.data();
@@ -1285,7 +1195,6 @@
             renderDaySchedule();
             if (statusBadge) statusBadge.textContent = '🟢 雲端已即時同步';
           } else {
-            // 遠端尚無資料，進行初始化寫入
             pushToCloud();
             if (statusBadge) statusBadge.textContent = '🟢 雲端已連線建立';
           }
@@ -1323,25 +1232,22 @@
       showToast('🔄 已強制與雲端資料庫雙向同步！');
     }
 
-    // ================= 倒數計時器 (精準計算台北/沙巴標準時區 GMT+8) =================
+    // ================= 倒數計時器 =================
     function initCountdown() {
-      // 航班出發時間：2026/11/11 19:10:00 (台北時區 GMT+8)
       const targetTime = new Date("2026-11-11T19:10:00+08:00").getTime();
       const endTime = new Date("2026-11-19T11:00:00+08:00").getTime();
 
       function update() {
         const now = new Date().getTime();
         let diff = targetTime - now;
-
         const titleEl = document.getElementById('cd-title');
 
         if (diff > 0) {
           if (titleEl) titleEl.textContent = "距離旅程啟程還有";
         } else if (now >= targetTime && now <= endTime) {
           if (titleEl) titleEl.textContent = "🎉 沙巴精彩假期進行中！";
-          diff = endTime - now; // 轉為距離旅程結束倒數
+          diff = endTime - now;
         } else {
-          // 旅程已結束
           if (titleEl) titleEl.textContent = "🌟 旅程圓滿完成！期待下次出發";
           document.getElementById('cd-day').textContent = "0";
           document.getElementById('cd-hour').textContent = "00";
@@ -1365,7 +1271,6 @@
       setInterval(update, 1000);
     }
 
-    // 點擊海灣撒蝦蝦
     function dropShrimp(e) {
       const container = document.getElementById('shrimp-container');
       const rect = e.currentTarget.getBoundingClientRect();
@@ -1529,7 +1434,7 @@
       }
     }
 
-    // ================= 匯率換算與雙人平分拆帳演算法 =================
+    // ================= 匯率換算與自訂個人/平攤拆帳演算法 =================
     function convertFromMYR(val) {
       const num = parseFloat(val);
       const twdInput = document.getElementById('calc-twd-input');
@@ -1569,77 +1474,178 @@
       }
     }
 
+    // 核心拆帳計算：支援平攤與各自負擔
     function renderExpenses() {
       let totalMYR = 0;
-      let dylanPaid = 0;
-      let qianPaid = 0;
+      let dylanPaid = 0;   // Dylan 實際掏錢支付的金額 (RM)
+      let qianPaid = 0;    // 茜 實際掏錢支付的金額 (RM)
+
+      let dylanOwes = 0;   // Dylan 依規則應該承擔的金額 (RM)
+      let qianOwes = 0;    // 茜 依規則應該承擔的金額 (RM)
 
       expenses.forEach(e => {
         const valMYR = e.currency === 'MYR' ? parseFloat(e.amount) : (parseFloat(e.amount) / RM_RATE);
         totalMYR += valMYR;
-        if (e.payer === 'Dylan') dylanPaid += valMYR;
-        else qianPaid += valMYR;
+
+        // 計算先墊付者
+        if (e.payer === 'Dylan') {
+          dylanPaid += valMYR;
+        } else {
+          qianPaid += valMYR;
+        }
+
+        // 依據分攤模式計算應負擔歸屬
+        const split = e.split || 'both'; // 向下相容預設平攤
+        if (split === 'Dylan') {
+          dylanOwes += valMYR;
+        } else if (split === '茜') {
+          qianOwes += valMYR;
+        } else {
+          // 兩人平攤
+          dylanOwes += (valMYR / 2);
+          qianOwes += (valMYR / 2);
+        }
       });
 
       const totalTWD = Math.round(totalMYR * RM_RATE);
       document.getElementById('exp-total-myr').textContent = totalMYR.toFixed(1);
       document.getElementById('exp-total-twd').textContent = totalTWD.toLocaleString();
 
-      const half = totalMYR / 2;
-      const dylanDiff = dylanPaid - half;
+      // 各自應負擔顯示
+      const dylanBurdenEl = document.getElementById('dylan-burden');
+      const qianBurdenEl = document.getElementById('qian-burden');
+      if (dylanBurdenEl) dylanBurdenEl.textContent = `RM ${dylanOwes.toFixed(1)} (約NT$${Math.round(dylanOwes * RM_RATE)})`;
+      if (qianBurdenEl) qianBurdenEl.textContent = `RM ${qianOwes.toFixed(1)} (約NT$${Math.round(qianOwes * RM_RATE)})`;
+
+      // 結算差額：Dylan 代墊多付的金額 (Dylan 實付 - Dylan 應付)
+      const dylanNet = dylanPaid - dylanOwes;
       const settleEl = document.getElementById('settlement-detail');
 
-      if (Math.abs(dylanDiff) < 1) {
-        settleEl.innerHTML = `🎉 目前兩人剛好平帳，不需轉帳！<br><span class="text-subGray text-[11px]">Dylan 代墊 RM ${dylanPaid.toFixed(1)} / 茜 代墊 RM ${qianPaid.toFixed(1)}</span>`;
-      } else if (dylanDiff > 0) {
-        const oweMYR = dylanDiff.toFixed(1);
-        const oweTWD = Math.round(dylanDiff * RM_RATE);
-        settleEl.innerHTML = `👉 <strong>茜</strong> 需轉給 <strong>Dylan</strong>：<br><span class="text-rose-600 text-sm font-black font-mono">RM ${oweMYR}</span> (約 NT$ ${oweTWD})<br><span class="text-subGray text-[11px] font-normal">（Dylan 已付 RM ${dylanPaid.toFixed(1)}，茜 已付 RM ${qianPaid.toFixed(1)}）</span>`;
+      if (Math.abs(dylanNet) < 0.5) {
+        settleEl.innerHTML = `🎉 目前兩人帳目已完全平衡，不需轉帳！<br><span class="text-subGray text-[11px]">Dylan 實付 RM ${dylanPaid.toFixed(1)} / 茜 實付 RM ${qianPaid.toFixed(1)}</span>`;
+      } else if (dylanNet > 0) {
+        const diffMYR = dylanNet.toFixed(1);
+        const diffTWD = Math.round(dylanNet * RM_RATE);
+        settleEl.innerHTML = `👉 <strong>茜</strong> 需轉給 <strong>Dylan</strong>：<br><span class="text-rose-600 text-sm font-black font-mono">RM ${diffMYR}</span> (約 NT$ ${diffTWD})<br><span class="text-subGray text-[11px] font-normal">（Dylan 代墊 RM ${dylanPaid.toFixed(1)}，應付 RM ${dylanOwes.toFixed(1)}；茜 代墊 RM ${qianPaid.toFixed(1)}，應付 RM ${qianOwes.toFixed(1)}）</span>`;
       } else {
-        const oweMYR = Math.abs(dylanDiff).toFixed(1);
-        const oweTWD = Math.round(Math.abs(dylanDiff) * RM_RATE);
-        settleEl.innerHTML = `👉 <strong>Dylan</strong> 需轉給 <strong>茜</strong>：<br><span class="text-emerald-700 text-sm font-black font-mono">RM ${oweMYR}</span> (約 NT$ ${oweTWD})<br><span class="text-subGray text-[11px] font-normal">（茜 已付 RM ${qianPaid.toFixed(1)}，Dylan 已付 RM ${dylanPaid.toFixed(1)}）</span>`;
+        const diffMYR = Math.abs(dylanNet).toFixed(1);
+        const diffTWD = Math.round(Math.abs(dylanNet) * RM_RATE);
+        settleEl.innerHTML = `👉 <strong>Dylan</strong> 需轉給 <strong>茜</strong>：<br><span class="text-emerald-700 text-sm font-black font-mono">RM ${diffMYR}</span> (約 NT$ ${diffTWD})<br><span class="text-subGray text-[11px] font-normal">（茜 代墊 RM ${qianPaid.toFixed(1)}，應付 RM ${qianOwes.toFixed(1)}；Dylan 代墊 RM ${dylanPaid.toFixed(1)}，應付 RM ${dylanOwes.toFixed(1)}）</span>`;
       }
 
+      // 渲染開銷卡片
       const listEl = document.getElementById('expense-records');
-      listEl.innerHTML = expenses.slice().reverse().map(e => `
-        <div class="bg-white rounded-2xl p-3 comic-box-md flex items-center justify-between text-xs font-bold shadow-comic-sm">
-          <div>
-            <div class="text-comicBorder font-black">${e.name}</div>
-            <div class="text-subGray text-[11px] mt-0.5">付款人：${e.payer} • 兩人平攤</div>
+      listEl.innerHTML = expenses.slice().reverse().map(e => {
+        const splitType = e.split || 'both';
+        let splitLabel = '';
+        if (splitType === 'both') {
+          splitLabel = '<span class="text-blue-700 bg-blue-50 px-1 rounded border border-blue-200">🤝 兩人平分</span>';
+        } else if (splitType === 'Dylan') {
+          splitLabel = '<span class="text-amber-800 bg-amber-50 px-1 rounded border border-amber-300">🙋‍♂️ Dylan 個人</span>';
+        } else {
+          splitLabel = '<span class="text-purple-800 bg-purple-50 px-1 rounded border border-purple-200">🙋‍♀️ 茜 個人</span>';
+        }
+
+        return `
+          <div class="bg-white rounded-2xl p-3 comic-box-md flex items-center justify-between text-xs font-bold shadow-comic-sm">
+            <div class="space-y-1">
+              <div class="text-comicBorder font-black text-sm">${e.name}</div>
+              <div class="text-subGray text-[11px] flex items-center gap-1.5 flex-wrap">
+                <span>付清：<strong>${e.payer}</strong></span>
+                <span>•</span>
+                <span>${splitLabel}</span>
+              </div>
+            </div>
+            <div class="text-right shrink-0">
+              <div class="font-mono font-black text-sm text-comicBorder">${e.currency === 'MYR' ? 'RM ' : 'NT$ '}${e.amount}</div>
+              <div class="flex items-center gap-2 mt-1 justify-end ${currentUser.isAuthorized ? '' : 'hidden'}">
+                <button onclick="editExpense(${e.id})" class="text-[11px] text-blue-600 font-bold hover:underline">✏️ 編輯</button>
+                <button onclick="removeExpense(${e.id})" class="text-[11px] text-rose-500 font-bold hover:underline">🗑️ 刪除</button>
+              </div>
+            </div>
           </div>
-          <div class="text-right">
-            <div class="font-mono font-black text-sm text-comicBorder">${e.currency === 'MYR' ? 'RM ' : 'NT$ '}${e.amount}</div>
-            <button onclick="removeExpense(${e.id})" class="text-[10px] text-rose-500 hover:underline ${currentUser.isAuthorized ? '' : 'hidden'}">刪除</button>
-          </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
+    // 開啟新增視窗
     function openExpenseModal() {
       if (!checkEditPermission()) return;
+      document.getElementById('exp-modal-title').textContent = '新增旅行開銷';
+      document.getElementById('exp-submit-btn').textContent = '確認記帳';
+      document.getElementById('exp-edit-id').value = '';
       document.getElementById('exp-name').value = '';
       document.getElementById('exp-amount').value = '';
+      document.getElementById('exp-currency').value = 'MYR';
+      document.getElementById('exp-split').value = 'both';
+
       if (currentUser.isAuthorized) {
         document.getElementById('exp-payer').value = currentUser.role;
       }
       document.getElementById('expense-modal').classList.remove('hidden');
     }
 
+    // 開啟編輯視窗
+    function editExpense(id) {
+      if (!checkEditPermission()) return;
+      const target = expenses.find(x => x.id === id);
+      if (!target) return;
+
+      document.getElementById('exp-modal-title').textContent = '修改開銷內容';
+      document.getElementById('exp-submit-btn').textContent = '確認修改';
+      document.getElementById('exp-edit-id').value = target.id;
+      document.getElementById('exp-name').value = target.name;
+      document.getElementById('exp-amount').value = target.amount;
+      document.getElementById('exp-currency').value = target.currency;
+      document.getElementById('exp-payer').value = target.payer;
+      document.getElementById('exp-split').value = target.split || 'both';
+
+      document.getElementById('expense-modal').classList.remove('hidden');
+    }
+
+    // 儲存（新增或更新）
     function saveExpense() {
       if (!checkEditPermission()) return;
+      const editId = document.getElementById('exp-edit-id').value;
       const name = document.getElementById('exp-name').value.trim();
       const amount = parseFloat(document.getElementById('exp-amount').value);
       const currency = document.getElementById('exp-currency').value;
       const payer = document.getElementById('exp-payer').value;
+      const split = document.getElementById('exp-split').value;
 
-      if (!name || isNaN(amount) || amount <= 0) return showToast('請填寫完整資訊！');
+      if (!name || isNaN(amount) || amount <= 0) return showToast('請填寫完整名稱與金額！');
 
-      expenses.push({ id: Date.now(), name, amount, currency, payer });
+      if (editId) {
+        // 更新現有項目
+        const idNum = parseInt(editId, 10);
+        const idx = expenses.findIndex(x => x.id === idNum);
+        if (idx !== -1) {
+          expenses[idx] = {
+            id: idNum,
+            name,
+            amount,
+            currency,
+            payer,
+            split
+          };
+          showToast('已成功更新開銷！');
+        }
+      } else {
+        // 新增項目
+        expenses.push({
+          id: Date.now(),
+          name,
+          amount,
+          currency,
+          payer,
+          split
+        });
+        showToast('記帳成功，已同步至雲端！');
+      }
+
       closeModal('expense-modal');
       renderExpenses();
       pushToCloud();
-      showToast('記帳成功，已同步至雲端！');
     }
 
     function removeExpense(id) {
@@ -1654,14 +1660,17 @@
 
     function copySplitResult() {
       const text = document.getElementById('settlement-detail').innerText.replace(/\n/g, ' ');
-      const copyStr = `【沙巴亞庇雙人結算】\n總開銷：RM ${document.getElementById('exp-total-myr').textContent} (約NT$${document.getElementById('exp-total-twd').textContent})\n結算方式：${text}`;
+      const dylanBurden = document.getElementById('dylan-burden').textContent;
+      const qianBurden = document.getElementById('qian-burden').textContent;
+      const copyStr = `【沙巴亞庇雙人結算】\n總開銷：RM ${document.getElementById('exp-total-myr').textContent} (約NT$${document.getElementById('exp-total-twd').textContent})\nDylan 應負擔：${dylanBurden}\n茜 應負擔：${qianBurden}\n結算建議：${text}`;
+      
       const dummy = document.createElement('textarea');
       document.body.appendChild(dummy);
       dummy.value = copyStr;
       dummy.select();
       document.execCommand('copy');
       document.body.removeChild(dummy);
-      showToast('📋 已複製結算內容，可直接貼到 LINE！');
+      showToast('📋 已複製詳細結算內容，可直接貼到 LINE！');
     }
 
     function shareTrip() {
