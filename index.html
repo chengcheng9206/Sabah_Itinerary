@@ -11,7 +11,7 @@
   <meta name="apple-mobile-web-app-title" content="沙巴之旅">
   <meta name="theme-color" content="#faf7ee">
 
-  <!-- Google Fonts: 圓潤手繪感與數字等寬字體 -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
@@ -21,7 +21,7 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Firebase 經典相容版 SDK -->
+  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
@@ -121,7 +121,7 @@
         </div>
       </div>
 
-      <!-- 右上角功能按鈕群 -->
+      <!-- 右上角功能按鈕群 (權限鎖 + 分享按鈕) -->
       <div class="flex items-center gap-2 mt-0.5 shrink-0">
         <button onclick="openAuthModal()" id="btn-auth-lock" class="h-12 px-3 rounded-full comic-box bg-white flex items-center justify-center gap-1.5 hover:bg-neutral-50 active:scale-95 transition-transform shadow-comic-sm text-xs font-black">
           <span id="auth-lock-icon">🔒</span>
@@ -136,26 +136,31 @@
 
     <!-- ========================= TAB 1: 首頁 ========================= -->
     <div id="tab-home" class="space-y-3.5">
-      <!-- 核心插畫卡片 -->
+      
+      <!-- 1. 核心插畫卡片 -->
       <div class="comic-box bg-[#b4e7fa] overflow-hidden relative cursor-pointer select-none max-h-[380px] flex items-center justify-center" onclick="dropShrimp(event)" title="點擊海灣可以餵海龜和小丑魚吃蝦蝦">
         <svg viewBox="0 0 400 250" class="w-full h-auto max-h-[380px] block object-contain" xmlns="http://www.w3.org/2000/svg">
           <rect width="400" height="250" fill="#aee6f9"/>
+          
           <g transform="translate(18, 14)">
             <rect width="102" height="22" rx="11" fill="#FFFFFF" stroke="#232323" stroke-width="2.2"/>
             <path d="M 12 15 A 3 3 0 0 1 12 11 A 4 4 0 0 1 18 9 A 4 4 0 0 1 23 11 A 3 3 0 0 1 23 15 Z" fill="none" stroke="#232323" stroke-width="1.6"/>
             <text x="28" y="15.5" font-family="'Zen Maru Gothic', sans-serif" font-size="10.5" font-weight="900" fill="#232323">亞庇微風 29° C</text>
           </g>
+
           <g transform="translate(345, 34)">
             <circle cx="0" cy="0" r="18" fill="#FCD34D" stroke="#232323" stroke-width="2.5"/>
             <circle cx="0" cy="0" r="14" fill="#FBBF24" stroke="#D97706" stroke-width="1.5" stroke-dasharray="2 2.5"/>
             <path d="M -8 -6 A 11 11 0 0 1 6 -8" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round"/>
           </g>
+
           <g stroke="#232323" stroke-width="3" stroke-linejoin="round">
             <polygon points="120,205 210,80 295,205" fill="#9dbef5"/>
             <polygon points="190,108 210,80 230,108 219,114 210,107 201,113" fill="#FFFFFF"/>
             <polygon points="215,205 290,75 375,205" fill="#9dbef5"/>
             <polygon points="270,105 290,75 310,105 300,111 290,104 280,111" fill="#FFFFFF"/>
           </g>
+
           <g id="turtle-el" transform="translate(35, 60)">
             <ellipse cx="14" cy="14" rx="10" ry="8" fill="#6ee7b7" stroke="#232323" stroke-width="2.4"/>
             <circle cx="14" cy="14" r="4.5" fill="#34d399" stroke="#232323" stroke-width="1.5"/>
@@ -165,8 +170,10 @@
             <ellipse cx="8" cy="22" rx="3" ry="1.8" fill="#6ee7b7" stroke="#232323" stroke-width="1.8"/>
             <ellipse cx="19" cy="22" rx="3" ry="1.8" fill="#6ee7b7" stroke="#232323" stroke-width="1.8"/>
           </g>
+
           <path d="M 0 178 Q 100 168 200 178 Q 300 188 400 174 L 400 250 L 0 250 Z" fill="#38bdf8" stroke="#232323" stroke-width="3"/>
           <path d="M 0 205 Q 120 186 240 202 Q 330 214 400 198 L 400 250 L 0 250 Z" fill="#fed678" stroke="#232323" stroke-width="3"/>
+
           <g>
             <path d="M 82 225 Q 74 175 60 135" stroke="#92502f" stroke-width="6" fill="none" stroke-linecap="round"/>
             <path d="M 82 225 Q 74 175 60 135" stroke="#232323" stroke-width="2" fill="none"/>
@@ -177,12 +184,15 @@
               <path d="M 58 135 Q 98 136 106 158 Q 82 144 58 135 Z"/>
             </g>
           </g>
+
           <g id="fish-el" transform="translate(112, 175)">
             <ellipse cx="10" cy="7" rx="9" ry="5.5" fill="#fb923c" stroke="#232323" stroke-width="1.8"/>
             <polygon points="2,7 -4,2 -4,12" fill="#fb923c" stroke="#232323" stroke-width="1.6"/>
             <path d="M 9 2 L 9 12" stroke="#FFFFFF" stroke-width="2.5"/>
             <circle cx="15" cy="6" r="1.2" fill="#232323"/>
           </g>
+
+          <!-- Dylan 與 茜 -->
           <g id="person-dylan" transform="translate(145, 155)" class="transition-transform duration-300">
             <circle cx="12" cy="10" r="7.5" fill="#FFDFC4" stroke="#232323" stroke-width="2.2"/>
             <circle cx="10" cy="9.5" r="1.3" fill="#232323"/>
@@ -194,6 +204,7 @@
             <line x1="9" y1="33" x2="7" y2="44" stroke="#232323" stroke-width="2.2" stroke-linecap="round"/>
             <line x1="15" y1="33" x2="17" y2="44" stroke="#232323" stroke-width="2.2" stroke-linecap="round"/>
           </g>
+
           <g id="person-qian" transform="translate(215, 153)" class="transition-transform duration-300">
             <ellipse cx="6" cy="11" rx="3.5" ry="5.5" fill="#fcd34d" stroke="#232323" stroke-width="1.8"/>
             <ellipse cx="22" cy="11" rx="3.5" ry="5.5" fill="#fcd34d" stroke="#232323" stroke-width="1.8"/>
@@ -222,7 +233,7 @@
         </div>
       </div>
 
-      <!-- 天氣卡片 -->
+      <!-- 2. 天氣卡片 -->
       <div class="bg-white comic-box p-3.5 flex items-center justify-between shadow-comic-sm">
         <div class="flex items-center gap-3">
           <div class="w-12 h-12 rounded-2xl border-2 border-comicBorder bg-[#fff7d1] flex items-center justify-center text-2xl shrink-0 shadow-comic-sm" id="weather-sun-box">
@@ -243,7 +254,7 @@
         </button>
       </div>
 
-      <!-- 出發倒數卡片 -->
+      <!-- 3. 出發倒數卡片 -->
       <div class="bg-appYellow comic-box p-4 text-center shadow-comic-sm space-y-1">
         <div class="text-[11px] font-black tracking-widest text-comicBorder font-mono uppercase">
           COUNTDOWN TO BKI
@@ -263,7 +274,7 @@
         </div>
       </div>
 
-      <!-- 航班資訊 -->
+      <!-- 4. 航班資訊全覽 -->
       <div class="bg-white comic-box p-4 shadow-comic-sm space-y-3.5">
         <div class="flex items-center justify-between border-b-2 border-neutral-100 pb-2">
           <div class="flex items-center gap-2">
@@ -273,6 +284,7 @@
           <span class="text-xs font-bold text-subGray">國際線 2 趟 ＋ 國內線 2 趟</span>
         </div>
 
+        <!-- 航段 1 -->
         <div class="space-y-1">
           <div class="flex items-center justify-between text-xs font-bold">
             <span class="text-comicBorder font-black">① 國際去程 • 11/11 (週三)</span>
@@ -296,6 +308,7 @@
 
         <div class="border-t-2 border-dashed border-neutral-200"></div>
 
+        <!-- 航段 2 -->
         <div class="space-y-1">
           <div class="flex items-center justify-between text-xs font-bold">
             <span class="text-comicBorder font-black">② 國內出發 • 11/15 (週日)</span>
@@ -319,6 +332,7 @@
 
         <div class="border-t-2 border-dashed border-neutral-200"></div>
 
+        <!-- 航段 3 -->
         <div class="space-y-1">
           <div class="flex items-center justify-between text-xs font-bold">
             <span class="text-comicBorder font-black">③ 國內返回 • 11/18 (週三)</span>
@@ -342,6 +356,7 @@
 
         <div class="border-t-2 border-dashed border-neutral-200"></div>
 
+        <!-- 航段 4 -->
         <div class="space-y-1">
           <div class="flex items-center justify-between text-xs font-bold">
             <span class="text-comicBorder font-black">④ 國際回程 • 11/19 (週四)</span>
@@ -364,7 +379,7 @@
         </div>
       </div>
 
-      <!-- 住宿一覽 -->
+      <!-- 5. 住宿一覽卡片 -->
       <div class="bg-white comic-box p-4 shadow-comic-sm space-y-3">
         <div class="flex items-center justify-between border-b-2 border-neutral-100 pb-2">
           <div class="flex items-center gap-2">
@@ -396,7 +411,7 @@
           <div class="bg-[#faf7ee] p-3 rounded-2xl border-2 border-comicBorder space-y-1">
             <div class="flex items-center justify-between">
               <span class="font-black text-comicBorder">3. Tanini Kinabatangan Lodge</span>
-              <span class="text-[10px] bg-blue-100 text-blue-900 px-1.5 py-0.5 rounded font-black border border-blue-300">雨林 2 晚</span>
+              <span class="text-[10px] bg-blue-100 text-blue-900 px-1.5 py-0.5 rounded border border-blue-300">雨林 2 晚</span>
             </div>
             <div class="text-subGray font-bold">11/16 (一) - 11/18 (三) • 3D2N Safari 套裝</div>
             <div class="text-subGray text-[11px]">Mixed Dormitory • 雙人 RM 1,527.60</div>
@@ -412,6 +427,7 @@
           </div>
         </div>
       </div>
+
     </div>
 
     <!-- ========================= TAB 2: 行程 ========================= -->
@@ -473,38 +489,95 @@
       <div id="day-spots-container" class="bg-white comic-box p-4 shadow-comic-sm space-y-3"></div>
     </div>
 
-    <!-- ========================= TAB 3: 美食推薦 ========================= -->
+    <!-- ========================= TAB 3: 美食推薦（部落客嚴選擴充版） ========================= -->
     <div id="tab-food" class="hidden space-y-3">
       <div class="px-1">
-        <h2 class="text-xl font-black text-comicBorder">吃貨必備：亞庇 ＆ 山打根美食清單 🍜</h2>
-        <div class="text-xs text-subGray font-bold mt-0.5">涵蓋加雅街老字號與山打根森森水上屋必吃名產！</div>
+        <h2 class="text-xl font-black text-comicBorder">部落客嚴選：亞庇 ＆ 山打根必吃全攻略 🍜</h2>
+        <div class="text-xs text-subGray font-bold mt-0.5">彙整海內外美食家推薦，涵蓋加雅街老字號、宵夜肉骨茶與山打根小香港名產！</div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+      <!-- 城市篩選標籤 -->
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+        <button onclick="filterFood('all')" id="food-filter-all" class="food-filter-pill comic-box-md bg-appYellow px-3 py-1 text-xs font-black shrink-0 shadow-comic-sm">
+          🍽️ 全部必吃 (20家)
+        </button>
+        <button onclick="filterFood('kk')" id="food-filter-kk" class="food-filter-pill comic-box-md bg-white px-3 py-1 text-xs font-bold shrink-0">
+          🌴 亞庇市區 / 加雅街
+        </button>
+        <button onclick="filterFood('sdk')" id="food-filter-sdk" class="food-filter-pill comic-box-md bg-white px-3 py-1 text-xs font-bold shrink-0">
+          🦧 山打根小香港美食
+        </button>
+      </div>
+
+      <div id="food-cards-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <!-- 1. 怡豐茶室 (亞庇) -->
+        <div data-city="kk" class="food-card bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
           <div class="flex items-start justify-between gap-2">
             <div>
               <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[10px] font-black bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded border border-emerald-300">亞庇</span>
                 <span class="font-black text-sm text-comicBorder">怡豐茶室 (Yee Fung)</span>
                 <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.2 (4,100+則)</span>
               </div>
-              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 10 ~ 20 / 人 (亞庇加雅街)</div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 10 ~ 20 / 人 (加雅街早餐)</div>
             </div>
             <a href="https://maps.google.com/?q=Kedai+Kopi+Yee+Fung+Kota+Kinabalu" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
               <span>📍 地圖</span>
             </a>
           </div>
           <p class="text-xs text-subGray font-bold leading-relaxed">
-            亞庇第一名必吃！招牌怡豐叻沙（鮮蝦濃郁椰香湯頭）、牛雜米粉湯、砂煲雞飯，搭配招牌三色奶茶超消暑。
+            部落客公認亞庇第一名必吃！招牌怡豐叻沙（鮮蝦濃郁椰香湯頭）、牛雜米粉湯、砂煲雞飯，搭配三色奶茶與橘子冰超消暑。
           </p>
         </div>
 
-        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+        <!-- 2. 佑記肉骨茶 (亞庇) -->
+        <div data-city="kk" class="food-card bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
           <div class="flex items-start justify-between gap-2">
             <div>
               <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[10px] font-black bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded border border-emerald-300">亞庇</span>
+                <span class="font-black text-sm text-comicBorder">佑記肉骨茶 (Yu Kee)</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.1 (3,400+則)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 18 ~ 35 / 人 (加雅街晚餐宵夜)</div>
+            </div>
+            <a href="https://maps.google.com/?q=Yu+Kee+Bak+Kut+Teh+Kota+Kinabalu" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
+          </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            加雅街數十年老店，採「一碗碗分裝」藥材清甜不燥熱。必點排骨、三層肉、豬肚、豬腳，配油條吸滿湯汁與大蒜辣醬最道地。
+          </p>
+        </div>
+
+        <!-- 3. 新記肉骨茶 (亞庇) -->
+        <div data-city="kk" class="food-card bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[10px] font-black bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded border border-emerald-300">亞庇</span>
+                <span class="font-black text-sm text-comicBorder">新記肉骨茶 (Sin Kee)</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.2 (2,900+則)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 20 ~ 38 / 人 (乾鍋＋砂鍋)</div>
+            </div>
+            <a href="https://maps.google.com/?q=Restoran+Sin+Kee+Bah+Kut+Teh+Kota+Kinabalu" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
+          </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            部落客大推必點「乾肉骨茶」！濃油赤醬收汁炒入五花肉與秋葵、魷魚絲，鹹香焦香無敵下飯，再配一碗溫補黃酒豬腰或藥膳湯。
+          </p>
+        </div>
+
+        <!-- 4. 森森水上屋 8號橋彈弓麵 (山打根) -->
+        <div data-city="sdk" class="food-card bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[10px] font-black bg-blue-100 text-blue-900 px-1.5 py-0.5 rounded border border-blue-300">山打根</span>
                 <span class="font-black text-sm text-comicBorder">森森水上屋 8號橋彈弓麵 (Sim Sim 8)</span>
-                <span class="text-[10px] font-black bg-blue-100 text-blue-900 px-1.5 py-0.5 rounded border border-blue-300">★ 4.2 (山打根特色)</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.3 (漁村海鮮名店)</span>
               </div>
               <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 12 ~ 25 / 人</div>
             </div>
@@ -513,49 +586,333 @@
             </a>
           </div>
           <p class="text-xs text-subGray font-bold leading-relaxed">
-            山打根獨門傳奇！麵條無敵彈牙有勁，搭配剛捕撈的新鮮鮮蝦、透抽與香炸皮蛋肉餃，坐在水上高腳屋吹海風吃超過癮！
+            山打根獨門傳奇！手工「彈弓麵」無敵彈牙有勁，搭配剛上岸的鮮蝦、透抽與香炸皮蛋肉餃，坐在水上高腳屋吹海風吃超過癮！
           </p>
         </div>
 
-        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+        <!-- 5. 南財海鮮肉骨茶 (山打根) -->
+        <div data-city="sdk" class="food-card bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
           <div class="flex items-start justify-between gap-2">
             <div>
               <div class="flex items-center gap-1.5 flex-wrap">
-                <span class="font-black text-sm text-comicBorder">金冠麵包中西餅店 (San Da Gen UFO Tart)</span>
-                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.1 (山打根名產)</span>
+                <span class="text-[10px] font-black bg-blue-100 text-blue-900 px-1.5 py-0.5 rounded border border-blue-300">山打根</span>
+                <span class="font-black text-sm text-comicBorder">南財海鮮肉骨茶 (Nam Chai)</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.3 (在地人首選)</span>
               </div>
-              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 2.5 ~ 4 / 顆</div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 20 ~ 35 / 人 (山打根限定)</div>
             </div>
-            <a href="https://maps.google.com/?q=Kim+Fung+Bakery+Sandakan" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+            <a href="https://maps.google.com/?q=Nam+Chai+Restaurant+Bah+Kut+Teh+Sandakan" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
               <span>📍 地圖</span>
             </a>
           </div>
           <p class="text-xs text-subGray font-bold leading-relaxed">
-            山打根原創發明的 UFO 飛碟蛋糕（俗稱牛屎撻）！酥脆香草海綿餅底，中間灌入香濃卡士達蛋黃餡，外層蛋白霜烤至微脆。
+            全馬只有山打根吃得到！把新鮮大草蝦、石斑魚片豪邁放進香濃胡椒肉骨茶湯底同煮，山海交融鮮甜度爆棚！
           </p>
         </div>
 
-        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+        <!-- 6. 山打根中央巴剎 3F 炸肉大粉 (山打根) -->
+        <div data-city="sdk" class="food-card bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
           <div class="flex items-start justify-between gap-2">
             <div>
               <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[10px] font-black bg-blue-100 text-blue-900 px-1.5 py-0.5 rounded border border-blue-300">山打根</span>
+                <span class="font-black text-sm text-comicBorder">山打根中央巴剎 3F 炸肉大粉 (1940)</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.4 (無敵海景早餐)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 8 ~ 14 / 人 (銅板早午餐)</div>
+            </div>
+            <a href="https://maps.google.com/?q=Sandakan+Central+Market+Sabah" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
+          </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            部落客私藏！現炸五香脆皮五花肉搭配寬厚滑溜的「大粉」（乾撈或高湯），坐在三樓吹海風看漁船進港超有氛圍（建議 11 點前造訪）。
+          </p>
+        </div>
+
+        <!-- 7. 三大羹 & 金冠 UFO 牛屎撻 (山打根) -->
+        <div data-city="sdk" class="food-card bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[10px] font-black bg-blue-100 text-blue-900 px-1.5 py-0.5 rounded border border-blue-300">山打根</span>
+                <span class="font-black text-sm text-comicBorder">三大羹 / 金冠麵包 UFO 牛屎撻</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.2 (山打根必買名產)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 2.5 ~ 4.5 / 顆</div>
+            </div>
+            <a href="https://maps.google.com/?q=San+Da+Gen+Kopitiam+Sandakan" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
+          </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            山打根發明的國寶級甜點「牛屎撻 (UFO Tart)」！海綿蛋糕底＋卡士達蛋黃餡＋烤脆蛋白霜，三大羹的酪梨餡菠蘿包與港式奶茶也超推。
+          </p>
+        </div>
+
+        <!-- 8. 水果世界牛油果冰 (山打根) -->
+        <div data-city="sdk" class="food-card bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[10px] font-black bg-blue-100 text-blue-900 px-1.5 py-0.5 rounded border border-blue-300">山打根</span>
+                <span class="font-black text-sm text-comicBorder">水果世界牛油果冰 (Fruits World)</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.4 (在地人氣甜品)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 8 ~ 14 / 碗</div>
+            </div>
+            <a href="https://maps.google.com/?q=Fruits+World+Drink+House+Sandakan" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
+          </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            山打根消暑神店！招牌新鮮牛油果（酪梨）刨冰淋上香濃椰糖與奶水，滑順濃郁完全不甜膩，吃完海鮮來一碗超滿足。
+          </p>
+        </div>
+
+        <!-- 9. 富源茶餐室 (亞庇) -->
+        <div data-city="kk" class="food-card bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[10px] font-black bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded border border-emerald-300">亞庇</span>
+                <span class="font-black text-sm text-comicBorder">富源茶餐室 (Fook Yuen)</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.1 (4,600+則)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 6 ~ 15 / 人 (加雅街宵夜/早餐)</div>
+            </div>
+            <a href="https://maps.google.com/?q=Fook+Yuen+Gaya+Street+Kota+Kinabalu" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
+          </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            亞庇無人不知的國民茶餐廳！必拿現烤咖椰牛油白麵包（Kaya Toast），酥脆麵包夾冰牛油與香甜椰醬，配一杯熱拉茶就是絕配。
+          </p>
+        </div>
+
+        <!-- 10. 瓊萬興肉包 (亞庇) -->
+        <div data-city="kk" class="food-card bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[10px] font-black bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded border border-emerald-300">亞庇</span>
+                <span class="font-black text-sm text-comicBorder">瓊萬興肉包 (Keng Wan Hing)</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.2 (1,200+則)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 3 ~ 8 / 人 (加雅街手工包點)</div>
+            </div>
+            <a href="https://maps.google.com/?q=Keng+Wan+Hing+Gaya+Street+Kota+Kinabalu" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
+          </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            加雅街老字號茶室！早上出爐的「大肉包」皮薄鬆軟、洋蔥豬肉餡多汁鮮甜，還有菠蘿叉燒包、蓮蓉包與現烤蛋撻也很搶手。
+          </p>
+        </div>
+
+        <!-- 11. 味雅海南雞飯 (亞庇) -->
+        <div data-city="kk" class="food-card bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[10px] font-black bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded border border-emerald-300">亞庇</span>
+                <span class="font-black text-sm text-comicBorder">味雅海南雞飯 (Wiya Nasi Ayam)</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.1 (1,400+則)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 10 ~ 18 / 人</div>
+            </div>
+            <a href="https://maps.google.com/?q=Wiya+Nasi+Ayam+Dan+Kedai+Kopi+Kota+Kinabalu" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
+          </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            特色「金字塔形狀雞油飯」粒粒分明香氣十足，白切雞皮滑肉嫩，沾上特製薑蓉與酸辣醬非常開胃，還能加點脆皮燒肉。
+          </p>
+        </div>
+
+        <!-- 12. 源茶室 (亞庇) -->
+        <div data-city="kk" class="food-card bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[10px] font-black bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded border border-emerald-300">亞庇</span>
+                <span class="font-black text-sm text-comicBorder">源茶室 (Guan's Kopitiam)</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.3 (1,800+則)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 12 ~ 24 / 人 (有冷氣文青茶室)</div>
+            </div>
+            <a href="https://maps.google.com/?q=Guan's+Kopitiam+Gaya+Street+Kota+Kinabalu" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
+          </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            加雅街舒適冷氣茶室！部落客推薦法式牛油吐司、蒜蓉烤吐司、炸雞腿椰漿飯與超濃郁海南咖啡，環境乾淨好拍照。
+          </p>
+        </div>
+
+        <!-- 13. 悅昌茶室 (亞庇) -->
+        <div data-city="kk" class="food-card bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[10px] font-black bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded border border-emerald-300">亞庇</span>
                 <span class="font-black text-sm text-comicBorder">悅昌茶室 (Yuit Cheong)</span>
                 <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.1 (1,600+則)</span>
               </div>
-              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 8 ~ 15 / 人 (沙嗲串)</div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 8 ~ 15 / 人 (炭烤沙嗲串)</div>
             </div>
             <a href="https://maps.google.com/?q=Kedai+Kopi+Yuit+Cheong+Kota+Kinabalu" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
               <span>📍 地圖</span>
             </a>
           </div>
           <p class="text-xs text-subGray font-bold leading-relaxed">
-            加雅街百年老店！門口現烤牛肉與雞肉炭火沙嗲串，沾上濃郁花生沙嗲醬，配咖椰烤吐司與南洋熱拉茶絕配。
+            加雅街百年老店！門口炭爐現烤牛肉、雞肉與羊肉沙嗲串，沾上濃郁花生顆粒沙嗲醬，搭配烤麵包超有南洋風情。
+          </p>
+        </div>
+
+        <!-- 14. 雙天海鮮酒家 (亞庇) -->
+        <div data-city="kk" class="food-card bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[10px] font-black bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded border border-emerald-300">亞庇</span>
+                <span class="font-black text-sm text-comicBorder">雙天海鮮酒家 (Suang Tain)</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.0 (3,200+則)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 60 ~ 120 / 人 (活海鮮大餐)</div>
+            </div>
+            <a href="https://maps.google.com/?q=Suang+Tain+Seafood+Restaurant+Kota+Kinabalu" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
+          </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            亞庇歷史最悠久的活海鮮名店！現撈水族箱現點現秤，必吃「濕奶油老虎蝦」、「鹹蛋黃炒螃蟹」與蒜蓉清炒沙巴樹仔菜。
+          </p>
+        </div>
+
+        <!-- 15. 大茄來海鮮餐廳 (亞庇) -->
+        <div data-city="kk" class="food-card bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[10px] font-black bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded border border-emerald-300">亞庇</span>
+                <span class="font-black text-sm text-comicBorder">大茄來海鮮餐廳 (Welcome Seafood)</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.1 (7,500+則)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 50 ~ 100 / 人 (平價高 CP 海鮮)</div>
+            </div>
+            <a href="https://maps.google.com/?q=Welcome+Seafood+Restaurant+Asia+City+Kota+Kinabalu" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
+          </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            生意旺到包下整條街的傳奇海鮮！價格透明實惠，招牌蛋黃炒蟹、奶油老虎蝦、東風螺與椰子布丁幾乎是每桌標配。
+          </p>
+        </div>
+
+        <!-- 16. 三品鱻 (亞庇) -->
+        <div data-city="kk" class="food-card bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[10px] font-black bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded border border-emerald-300">亞庇</span>
+                <span class="font-black text-sm text-comicBorder">三品鱻魚麵 (San Pin Xian)</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.4 (碼頭旁人氣新寵)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 15 ~ 25 / 人 (哲斯頓碼頭旁)</div>
+            </div>
+            <a href="https://maps.google.com/?q=San+Pin+Xian+Jesselton+Quay+Kota+Kinabalu" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
+          </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            位於 Jesselton Quay 碼頭旁！部落客激推「鹹酸牛奶魚麵」，微酸鮮甜奶香湯頭搭現炸酥脆魚塊與滑順粿條，跳島完直接走來吃超順路。
+          </p>
+        </div>
+
+        <!-- 17. 太子椰 (亞庇) -->
+        <div data-city="kk" class="food-card bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[10px] font-black bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded border border-emerald-300">亞庇</span>
+                <span class="font-black text-sm text-comicBorder">太子椰 (The Royal Coconut)</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.0 (600+則)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 10 ~ 18 / 份 (消暑甜品)</div>
+            </div>
+            <a href="https://maps.google.com/?q=The+Royal+Coconut+Kota+Kinabalu" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
+          </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            整顆現剖椰子布丁冰涼滑溜、椰香冰沙濃郁綿密，逛完加雅街進來吹冷氣吃點心超療癒。
+          </p>
+        </div>
+
+        <!-- 18. 金沙園生肉麵 (亞庇) -->
+        <div data-city="kk" class="food-card bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[10px] font-black bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded border border-emerald-300">亞庇</span>
+                <span class="font-black text-sm text-comicBorder">金沙園生肉麵 (Melanian 3)</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.0 (870+則)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 12 ~ 20 / 人</div>
+            </div>
+            <a href="https://maps.google.com/?q=Kedai+Kopi+Melanian+3+Kota+Kinabalu" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
+          </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            黑醬乾撈手工麵配一碗滾燙鮮甜豬肉高湯與嫩豬肉片、豬肝與肉丸，在地人的活力早餐！
+          </p>
+        </div>
+
+        <!-- 19. Borenos 炸雞 (亞庇) -->
+        <div data-city="kk" class="food-card bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[10px] font-black bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded border border-emerald-300">亞庇</span>
+                <span class="font-black text-sm text-comicBorder">Borenos Fried Chicken</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.5 (2,500+則)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 12 ~ 25 / 套餐 (24H 營業)</div>
+            </div>
+            <a href="https://maps.google.com/?q=Borenos+Fried+Chicken+Asia+City" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
+          </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            沙巴本土薄皮嫩炸雞！現炸金黃酥脆、肉汁飽滿不乾柴，加雅街宵夜 24 小時隨點隨吃。
+          </p>
+        </div>
+
+        <!-- 20. 丹絨亞路海灘三色果汁 & 烤雞翅 (亞庇) -->
+        <div data-city="kk" class="food-card bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[10px] font-black bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded border border-emerald-300">亞庇</span>
+                <span class="font-black text-sm text-comicBorder">丹絨亞路海灘美食廣場 (Tanjung Aru)</span>
+                <span class="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300">★ 4.4 (日落必配小吃)</span>
+              </div>
+              <div class="text-[11px] font-black text-[#15803d] mt-0.5">💰 價位：約 RM 8 ~ 18 / 人</div>
+            </div>
+            <a href="https://maps.google.com/?q=Tanjung+Aru+Beach+Food+Court+Kota+Kinabalu" target="_blank" rel="noopener noreferrer" class="comic-box-md bg-[#faf7ee] hover:bg-appYellow px-2.5 py-1 text-[11px] font-black text-comicBorder flex items-center gap-1 shrink-0 shadow-comic-sm transition-colors">
+              <span>📍 地圖</span>
+            </a>
+          </div>
+          <p class="text-xs text-subGray font-bold leading-relaxed">
+            看世界級夕陽標配！推薦攤位現打「三色果汁」（酪梨＋芒果＋火龍果）配蜜汁炭烤雞翅膀與椰子布丁，海風吹拂超愜意。
           </p>
         </div>
       </div>
     </div>
 
-    <!-- ========================= TAB 4: 記帳分頁 (已升級：編輯功能＋個人與平攤拆帳) ========================= -->
+    <!-- ========================= TAB 4: 記帳分頁 ========================= -->
     <div id="tab-expense" class="hidden space-y-3.5">
       <div class="flex items-center justify-between px-1">
         <h2 class="text-xl font-black text-comicBorder">旅費記帳 & 結算 💰</h2>
@@ -571,25 +928,34 @@
 
       <!-- 即時匯率換算機 -->
       <div class="bg-white comic-box p-4 shadow-comic-sm space-y-2.5">
-        <div class="flex items-center justify-between border-b-2 border-neutral-100 pb-1.5">
-          <div class="flex items-center gap-1.5">
-            <span class="text-lg">💱</span>
-            <span class="text-sm font-black text-comicBorder">即時匯率換算機</span>
+        <div class="flex items-center justify-between border-b-2 border-neutral-100 pb-2">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">💱</span>
+            <div>
+              <div class="text-sm font-black text-comicBorder flex items-center gap-1.5">
+                <span>即時匯率換算機</span>
+                <span id="rate-live-tag" class="text-[10px] bg-emerald-100 text-emerald-800 font-black px-1.5 py-0.2 rounded border border-emerald-300">即時匯率</span>
+              </div>
+              <div class="text-[10px] text-subGray font-bold" id="rate-update-time">Google 即時基準：1 令吉 = 8.08 新臺幣</div>
+            </div>
           </div>
-          <div class="flex items-center gap-1 text-[11px] font-bold text-subGray">
-            <span>匯率：1 MYR ≈</span>
-            <input type="number" id="calc-rate-input" value="7.2" step="0.05" oninput="updateRateFromInput(this.value)" class="w-14 px-1 py-0.5 rounded border border-comicBorder font-mono font-black text-comicBorder text-center bg-[#faf7ee]">
+          <div class="flex items-center gap-1.5 text-xs font-bold text-comicBorder">
+            <button onclick="fetchLiveExchangeRate(true)" class="p-1.5 rounded-xl hover:bg-neutral-100 border border-neutral-300 text-comicBorder transition-transform active:rotate-180" title="點擊更新實時最新匯率">
+              <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+            </button>
+            <span>1 MYR =</span>
+            <input type="number" id="calc-rate-input" value="8.08" step="0.01" oninput="updateRateFromInput(this.value)" class="w-16 px-1.5 py-0.5 rounded-lg border-2 border-comicBorder font-mono font-black text-comicBorder text-center bg-[#faf7ee]">
             <span>TWD</span>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-0.5">
           <div class="bg-[#faf7ee] p-2.5 rounded-2xl border-2 border-comicBorder flex items-center justify-between gap-2">
-            <span class="text-xs font-black text-comicBorder shrink-0">🇲🇾 馬幣 RM</span>
+            <span class="text-xs font-black text-comicBorder shrink-0">🇲🇾 令吉 (MYR)</span>
             <input type="number" id="calc-myr-input" placeholder="0" oninput="convertFromMYR(this.value)" class="w-full text-right font-mono font-black text-lg bg-transparent focus:outline-none text-comicBorder">
           </div>
           <div class="bg-[#faf7ee] p-2.5 rounded-2xl border-2 border-comicBorder flex items-center justify-between gap-2">
-            <span class="text-xs font-black text-comicBorder shrink-0">🇹🇼 台幣 NT$</span>
+            <span class="text-xs font-black text-comicBorder shrink-0">🇹🇼 新臺幣 (TWD)</span>
             <input type="number" id="calc-twd-input" placeholder="0" oninput="convertFromTWD(this.value)" class="w-full text-right font-mono font-black text-lg bg-transparent focus:outline-none text-comicBorder">
           </div>
         </div>
@@ -597,60 +963,97 @@
         <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-1 text-[11px] font-bold">
           <span class="text-subGray shrink-0">快速試算：</span>
           <button onclick="setCalcMYR(5)" class="px-2 py-0.5 bg-neutral-100 hover:bg-appYellow rounded-lg border border-neutral-300 shrink-0">RM 5 (茶飲)</button>
-          <button onclick="setCalcMYR(15)" class="px-2 py-0.5 bg-neutral-100 hover:bg-appYellow rounded-lg border border-neutral-300 shrink-0">RM 15 (正餐)</button>
+          <button onclick="setCalcMYR(21.8)" class="px-2 py-0.5 bg-neutral-100 hover:bg-appYellow rounded-lg border border-neutral-300 shrink-0">RM 21.8 (美式餐廳)</button>
           <button onclick="setCalcMYR(50)" class="px-2 py-0.5 bg-neutral-100 hover:bg-appYellow rounded-lg border border-neutral-300 shrink-0">RM 50 (門票)</button>
           <button onclick="setCalcMYR(120)" class="px-2 py-0.5 bg-neutral-100 hover:bg-appYellow rounded-lg border border-neutral-300 shrink-0">RM 120 (海鮮)</button>
+          <button onclick="setCalcMYR(278.69)" class="px-2 py-0.5 bg-neutral-100 hover:bg-appYellow rounded-lg border border-neutral-300 shrink-0">RM 278.69 (機票)</button>
         </div>
       </div>
 
-      <!-- 統計與拆帳資訊 -->
+      <!-- 總額卡片（外幣與台幣明確分開統計） -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <!-- 總額卡片 -->
-        <div class="bg-appYellow comic-box p-4 shadow-comic-sm flex flex-col justify-between">
-          <div class="flex justify-between items-center text-xs font-black text-comicBorder">
-            <span>旅伴：Dylan ＆ 茜</span>
-            <span id="rate-display-badge">匯率基準：1 MYR ≈ 7.2 TWD</span>
+        <!-- 台幣總開銷 -->
+        <div class="bg-white comic-box p-4 shadow-comic-sm flex flex-col justify-between space-y-2">
+          <div class="flex items-center justify-between text-xs font-black text-comicBorder border-b border-neutral-100 pb-1.5">
+            <span class="flex items-center gap-1.5">
+              <span>🇹🇼</span>
+              <span>新臺幣帳戶 (TWD)</span>
+            </span>
+            <span class="text-[10px] text-subGray font-bold">機票/住宿/台幣代墊</span>
           </div>
-          <div class="grid grid-cols-2 gap-2 mt-3 pt-2 border-t-2 border-comicBorder/20">
-            <div>
-              <div class="text-[11px] font-bold text-comicBorder/70">總開銷 (RM 馬幣)</div>
-              <div class="text-2xl font-black font-mono text-comicBorder">RM <span id="exp-total-myr">0</span></div>
-            </div>
-            <div>
-              <div class="text-[11px] font-bold text-comicBorder/70">折合台幣 (TWD)</div>
-              <div class="text-2xl font-black font-mono text-comicBorder">NT$ <span id="exp-total-twd">0</span></div>
-            </div>
+          <div>
+            <div class="text-[11px] font-bold text-subGray">台幣總支出</div>
+            <div class="text-2xl font-black font-mono text-comicBorder">NT$ <span id="exp-total-twd-only">0</span></div>
           </div>
-          <!-- 各自應負擔總額 -->
-          <div class="grid grid-cols-2 gap-2 mt-2 pt-2 border-t border-comicBorder/10 text-xs font-bold text-comicBorder/90">
-            <div>Dylan 總負擔：<span id="dylan-burden" class="font-mono font-black">RM 0</span></div>
-            <div>茜 總負擔：<span id="qian-burden" class="font-mono font-black">RM 0</span></div>
+          <div class="text-[11px] text-subGray font-bold flex justify-between bg-[#faf7ee] p-2 rounded-xl border border-neutral-200">
+            <span>Dylan 代墊: NT$ <span id="twd-dylan-paid" class="font-mono font-black text-comicBorder">0</span></span>
+            <span>茜 代墊: NT$ <span id="twd-qian-paid" class="font-mono font-black text-comicBorder">0</span></span>
           </div>
         </div>
 
-        <!-- 帳務結算卡片 (支援個人花費精確計算) -->
-        <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2 flex flex-col justify-between">
-          <div class="flex justify-between items-center">
-            <span class="text-xs font-black text-comicBorder flex items-center gap-1">
-              <span>🧾</span> 帳務精密結算 (誰給誰)
+        <!-- 外幣馬幣總開銷 -->
+        <div class="bg-white comic-box p-4 shadow-comic-sm flex flex-col justify-between space-y-2">
+          <div class="flex items-center justify-between text-xs font-black text-comicBorder border-b border-neutral-100 pb-1.5">
+            <span class="flex items-center gap-1.5">
+              <span>🇲🇾</span>
+              <span>外幣帳戶 (MYR 令吉)</span>
             </span>
-            <button onclick="copySplitResult()" class="text-xs font-black text-comicBorder underline">
-              一鍵複製傳 LINE
-            </button>
+            <span class="text-[10px] text-subGray font-bold">沙巴當地現金/餐飲</span>
           </div>
-          <div id="settlement-detail" class="text-xs font-bold bg-[#faf7ee] p-3 rounded-2xl border-2 border-comicBorder text-comicBorder leading-relaxed flex-1 flex items-center">
-            結算中...
+          <div>
+            <div class="text-[11px] font-bold text-subGray">外幣總支出</div>
+            <div class="text-2xl font-black font-mono text-comicBorder">RM <span id="exp-total-myr-only">0.0</span></div>
+          </div>
+          <div class="text-[11px] text-subGray font-bold flex justify-between bg-[#faf7ee] p-2 rounded-xl border border-neutral-200">
+            <span>Dylan 代墊: RM <span id="myr-dylan-paid" class="font-mono font-black text-comicBorder">0.0</span></span>
+            <span>茜 代墊: RM <span id="myr-qian-paid" class="font-mono font-black text-comicBorder">0.0</span></span>
           </div>
         </div>
       </div>
 
-      <!-- 開銷明細列表 -->
+      <!-- 快速平分結算卡片（分開算清楚：台幣結算 ＋ 外幣結算） -->
+      <div class="bg-appYellow comic-box p-4 shadow-comic-sm space-y-3">
+        <div class="flex justify-between items-center border-b-2 border-comicBorder/20 pb-2">
+          <span class="text-sm font-black text-comicBorder flex items-center gap-1.5">
+            <span>🧾</span> 雙人帳務分開結算 (台幣與外幣獨立結清)
+          </span>
+          <button onclick="copySplitResult()" class="text-xs font-black text-comicBorder bg-white px-2.5 py-1 rounded-xl border border-comicBorder hover:bg-neutral-50 active:scale-95 shadow-comic-sm">
+            一鍵複製傳 LINE
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+          <!-- 台幣結算結果 -->
+          <div class="bg-white p-3 rounded-2xl border-2 border-comicBorder shadow-comic-sm space-y-1.5">
+            <div class="flex items-center justify-between text-xs font-black text-comicBorder pb-1 border-b border-neutral-100">
+              <span class="flex items-center gap-1"><span>🇹🇼</span> 台幣部分結清</span>
+              <span class="text-[10px] text-subGray">台幣直接轉帳</span>
+            </div>
+            <div id="twd-settlement-box" class="text-xs font-bold text-comicBorder leading-relaxed">
+              計算中...
+            </div>
+          </div>
+
+          <!-- 外幣結算結果 -->
+          <div class="bg-white p-3 rounded-2xl border-2 border-comicBorder shadow-comic-sm space-y-1.5">
+            <div class="flex items-center justify-between text-xs font-black text-comicBorder pb-1 border-b border-neutral-100">
+              <span class="flex items-center gap-1"><span>🇲🇾</span> 外幣馬幣部分結清</span>
+              <span class="text-[10px] text-subGray">付馬幣現金或依即時匯率折台幣</span>
+            </div>
+            <div id="myr-settlement-box" class="text-xs font-bold text-comicBorder leading-relaxed">
+              計算中...
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 費用明細列表 -->
       <div class="space-y-2">
         <div class="flex items-center justify-between text-xs font-black text-comicBorder px-1">
-          <span>費用明細列表</span>
-          <span class="text-[10px] text-subGray font-normal">支援單獨記帳、平攤與隨時修改</span>
+          <span class="text-sm">費用明細列表</span>
+          <span class="text-[11px] text-subGray font-normal">支援單獨記帳、平攤與隨時修改</span>
         </div>
-        <div id="expense-records" class="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <div id="expense-records" class="space-y-2.5">
           <!-- JS 渲染 -->
         </div>
       </div>
@@ -704,6 +1107,7 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+        <!-- 【文件類】 -->
         <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
           <div class="font-black text-xs text-comicBorder flex items-center gap-1.5 pb-1 border-b border-neutral-100">
             <span>📄</span> 【文件類】
@@ -718,6 +1122,7 @@
           </div>
         </div>
 
+        <!-- 【熱帶與雨林特備】 -->
         <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
           <div class="font-black text-xs text-comicBorder flex items-center gap-1.5 pb-1 border-b border-neutral-100">
             <span>🌿</span> 【雨林與海島裝備】
@@ -731,6 +1136,7 @@
           </div>
         </div>
 
+        <!-- 【電器類】 -->
         <div class="bg-white comic-box p-3.5 shadow-comic-sm space-y-2">
           <div class="font-black text-xs text-comicBorder flex items-center gap-1.5 pb-1 border-b border-neutral-100">
             <span>🔌</span> 【電器類】
@@ -794,7 +1200,7 @@
     </div>
   </nav>
 
-  <!-- 彈窗：新增/編輯行程 -->
+  <!-- 彈窗：新增活動 -->
   <div id="spot-modal" class="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-[#faf7ee] w-full max-w-sm comic-box p-4 space-y-3">
       <div class="flex justify-between items-center">
@@ -810,56 +1216,48 @@
     </div>
   </div>
 
-  <!-- 彈窗：記帳（支援 新增 / 編輯、幣別、分攤模式） -->
+  <!-- 彈窗：新增/編輯記帳 (支援分攤設定) -->
   <div id="expense-modal" class="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-[#faf7ee] w-full max-w-sm comic-box p-4 space-y-3">
       <div class="flex justify-between items-center">
-        <h3 class="font-black text-sm text-comicBorder" id="exp-modal-title">新增旅行開銷</h3>
+        <h3 class="font-black text-sm text-comicBorder" id="expense-modal-title">新增旅行開銷</h3>
         <button onclick="closeModal('expense-modal')" class="text-sm font-bold text-comicBorder">✕</button>
       </div>
-      
-      <!-- 隱藏的編輯 ID 欄位 -->
-      <input type="hidden" id="exp-edit-id" value="">
-
-      <div class="space-y-2.5 text-xs font-bold">
+      <input type="hidden" id="editing-exp-id" value="">
+      <div class="space-y-2 text-xs font-bold">
         <div>
-          <label class="block text-subGray mb-1 text-[11px]">支出項目名稱</label>
-          <input type="text" id="exp-name" placeholder="項目 (如：怡豐叻沙、個人伴手禮、Grab)" class="w-full bg-white p-2.5 rounded-xl border-2 border-comicBorder focus:outline-none">
+          <label class="block text-subGray mb-1 text-[11px]">開銷名稱</label>
+          <input type="text" id="exp-name" placeholder="項目 (如：第一晚好美式餐廳、亞庇機票)" class="w-full bg-white p-2.5 rounded-xl border-2 border-comicBorder focus:outline-none">
         </div>
-
         <div>
           <label class="block text-subGray mb-1 text-[11px]">金額與幣別</label>
           <div class="flex gap-2">
-            <input type="number" id="exp-amount" placeholder="金額" step="any" class="flex-1 bg-white p-2.5 rounded-xl border-2 border-comicBorder font-mono text-base focus:outline-none">
-            <select id="exp-currency" class="bg-white p-2.5 rounded-xl border-2 border-comicBorder font-bold">
-              <option value="MYR">🇲🇾 RM 馬幣</option>
-              <option value="TWD">🇹🇼 NT$ 台幣</option>
+            <input type="number" id="exp-amount" placeholder="金額" step="any" class="flex-1 bg-white p-2.5 rounded-xl border-2 border-comicBorder font-mono focus:outline-none">
+            <select id="exp-currency" class="bg-white p-2.5 rounded-xl border-2 border-comicBorder">
+              <option value="MYR">RM 馬幣</option>
+              <option value="TWD">NT$ 台幣</option>
             </select>
           </div>
         </div>
-
         <div class="grid grid-cols-2 gap-2">
           <div>
-            <label class="block text-subGray mb-1 text-[11px]">誰先付款？</label>
+            <label class="block text-subGray mb-1 text-[11px]">誰先付的？</label>
             <select id="exp-payer" class="w-full bg-white p-2.5 rounded-xl border-2 border-comicBorder">
-              <option value="Dylan">Dylan 先付</option>
-              <option value="茜">茜 先付</option>
+              <option value="Dylan">Dylan 付清</option>
+              <option value="茜">茜 付清</option>
             </select>
           </div>
           <div>
-            <label class="block text-subGray mb-1 text-[11px]">分攤模式</label>
+            <label class="block text-subGray mb-1 text-[11px]">費用歸屬？</label>
             <select id="exp-split" class="w-full bg-white p-2.5 rounded-xl border-2 border-comicBorder">
-              <option value="both">🤝 兩人平攤</option>
-              <option value="Dylan">🙋‍♂️ Dylan 個人</option>
-              <option value="茜">🙋‍♀️ 茜 個人</option>
+              <option value="split">🤝 兩人平分</option>
+              <option value="Dylan">🙋 Dylan 個人</option>
+              <option value="茜">🙋 茜 個人</option>
             </select>
           </div>
         </div>
       </div>
-
-      <div class="pt-1">
-        <button onclick="saveExpense()" id="exp-submit-btn" class="w-full py-2.5 bg-appYellow rounded-xl comic-box-md text-xs font-black shadow-comic-sm active:scale-95">確認儲存</button>
-      </div>
+      <button onclick="saveExpense()" id="expense-modal-submit" class="w-full py-2.5 bg-appYellow rounded-xl comic-box-md text-xs font-black shadow-comic-sm">確認記帳</button>
     </div>
   </div>
 
@@ -875,7 +1273,7 @@
       </div>
 
       <div class="text-xs text-subGray font-bold leading-relaxed">
-        只有 <strong>Dylan</strong> 與 <strong>茜</strong> 輸入專屬通行碼後可記帳與修改行程；其他拿到連結的人僅能瀏覽。
+        只有 <strong>Dylan</strong> 與 <strong>茜</strong> 輸入專屬通行碼後可記帳與修改行程；其他拿到連結的人僅能瀏覽（避免誤觸亂改）。
       </div>
 
       <div class="space-y-2 text-xs font-bold pt-1">
@@ -913,7 +1311,7 @@
   </div>
 
   <script>
-    // ================= 預設行程 =================
+    // ================= 預設 9 天 8 夜完整行程 =================
     const defaultTripData = {
       1: [
         { time: "16:40", name: "桃園機場 T1 報到", desc: "搭乘 AirAsia AK 1511 飛往沙巴亞庇 (19:10 - 22:45)" },
@@ -996,18 +1394,44 @@
       9: "今日重點：清晨前往亞庇機場 ➔ 搭乘 AK 1510 平安滿載返台！"
     };
 
-    // 預設記帳資料（包含 split: both / Dylan / 茜）
+    // 嚴格保留您目前的 9 筆記帳項目，不做任何變動
     const defaultExpenses = [
-      { id: 1, name: "Tanini Safari 3D2N (Mixed Dorm 雙人)", amount: 1527.6, currency: "MYR", payer: "Dylan", split: "both" },
-      { id: 2, name: "Concrete Jungle Cabin 4晚 (亞庇)", amount: 3787, currency: "TWD", payer: "茜", split: "both" },
-      { id: 3, name: "西必洛住宿加早餐旅館 1晚", amount: 1242, currency: "TWD", payer: "Dylan", split: "both" },
-      { id: 4, name: "哥打京那巴魯夢想酒店 1晚", amount: 813, currency: "TWD", payer: "茜", split: "both" },
-      { id: 5, name: "加雅街怡豐茶室早餐", amount: 46, currency: "MYR", payer: "Dylan", split: "both" },
-      { id: 6, name: "水上清真寺門票+租服裝", amount: 40, currency: "MYR", payer: "茜", split: "both" }
+      { id: 1, name: "第一晚好美式餐廳", amount: 21.8, currency: "MYR", payer: "Dylan", split: "茜" },
+      { id: 2, name: "計程車", amount: 76, currency: "TWD", payer: "Dylan", split: "split" },
+      { id: 3, name: "保險", amount: 1434, currency: "TWD", payer: "Dylan", split: "Dylan" },
+      { id: 4, name: "11/18住宿", amount: 905, currency: "TWD", payer: "茜", split: "split" },
+      { id: 5, name: "亞庇山打根來回機票", amount: 278.69, currency: "MYR", payer: "Dylan", split: "Dylan" },
+      { id: 6, name: "台北亞庇來回機票", amount: 7174, currency: "TWD", payer: "Dylan", split: "Dylan" },
+      { id: 7, name: "Tanini safari", amount: 13373, currency: "TWD", payer: "Dylan", split: "split" },
+      { id: 8, name: "亞庇住宿Concrete jungle cabin", amount: 3787, currency: "TWD", payer: "Dylan", split: "split" },
+      { id: 9, name: "11/15 1晚", amount: 1789, currency: "TWD", payer: "茜", split: "split" }
     ];
 
     let expenses = JSON.parse(JSON.stringify(defaultExpenses));
-    let RM_RATE = 7.2;
+    let RM_RATE = 8.08;
+
+    // ================= 美食分類篩選 =================
+    function filterFood(city) {
+      ['all', 'kk', 'sdk'].forEach(key => {
+        const btn = document.getElementById(`food-filter-${key}`);
+        if (btn) {
+          if (key === city) {
+            btn.className = 'food-filter-pill comic-box-md bg-appYellow px-3 py-1 text-xs font-black shrink-0 shadow-comic-sm';
+          } else {
+            btn.className = 'food-filter-pill comic-box-md bg-white px-3 py-1 text-xs font-bold shrink-0';
+          }
+        }
+      });
+
+      const cards = document.querySelectorAll('.food-card');
+      cards.forEach(card => {
+        if (city === 'all' || card.dataset.city === city) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
 
     // ================= 權限控制 =================
     const PASSCODE = "1111";
@@ -1132,14 +1556,19 @@
     function loadLocalCache() {
       try {
         const cachedExp = localStorage.getItem('sabah_cache_expenses');
-        if (cachedExp) expenses = JSON.parse(cachedExp);
+        if (cachedExp) {
+          const parsed = JSON.parse(cachedExp);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            expenses = parsed;
+          }
+        }
 
         const cachedTrip = localStorage.getItem('sabah_cache_trip');
         if (cachedTrip) tripData = JSON.parse(cachedTrip);
 
         const cachedRate = localStorage.getItem('sabah_cache_rate');
         if (cachedRate) {
-          RM_RATE = parseFloat(cachedRate) || 7.2;
+          RM_RATE = parseFloat(cachedRate) || 8.08;
           const rInput = document.getElementById('calc-rate-input');
           if (rInput) rInput.value = RM_RATE;
         }
@@ -1179,7 +1608,8 @@
         syncDocRef.onSnapshot((doc) => {
           if (doc.exists) {
             const data = doc.data();
-            if (data.expenses && Array.isArray(data.expenses)) {
+            // 僅在雲端有實際帳目資料時才同步，絕不覆蓋掉使用者既有的帳目
+            if (data.expenses && Array.isArray(data.expenses) && data.expenses.length > 0) {
               expenses = data.expenses;
             }
             if (data.tripData && typeof data.tripData === 'object') {
@@ -1232,6 +1662,36 @@
       showToast('🔄 已強制與雲端資料庫雙向同步！');
     }
 
+    // ================= 即時匯率連線更新 (Real-time Exchange Rate) =================
+    async function fetchLiveExchangeRate(showToastNotify = false) {
+      try {
+        const res = await fetch("https://open.er-api.com/v6/latest/MYR");
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.rates && data.rates.TWD) {
+            const liveRate = parseFloat(data.rates.TWD.toFixed(2));
+            if (liveRate > 0) {
+              RM_RATE = liveRate;
+              const rInput = document.getElementById('calc-rate-input');
+              if (rInput) rInput.value = RM_RATE;
+              const updateEl = document.getElementById('rate-update-time');
+              if (updateEl) updateEl.textContent = `即時連線匯率：1 令吉 = ${RM_RATE} 新臺幣`;
+              saveLocalCache();
+              renderExpenses();
+              pushToCloud();
+              if (showToastNotify) showToast(`💱 匯率已連線更新為 1 MYR ≈ ${RM_RATE} TWD！`);
+              return;
+            }
+          }
+        }
+      } catch (e) {
+        console.warn("Fetch live rate fallback: ", e);
+      }
+      const rInput = document.getElementById('calc-rate-input');
+      if (rInput && !rInput.value) rInput.value = RM_RATE;
+      if (showToastNotify) showToast(`目前使用基準匯率 1 MYR ≈ ${RM_RATE} TWD`);
+    }
+
     // ================= 倒數計時器 =================
     function initCountdown() {
       const targetTime = new Date("2026-11-11T19:10:00+08:00").getTime();
@@ -1240,6 +1700,7 @@
       function update() {
         const now = new Date().getTime();
         let diff = targetTime - now;
+
         const titleEl = document.getElementById('cd-title');
 
         if (diff > 0) {
@@ -1271,6 +1732,7 @@
       setInterval(update, 1000);
     }
 
+    // 點擊海灣撒蝦蝦
     function dropShrimp(e) {
       const container = document.getElementById('shrimp-container');
       const rect = e.currentTarget.getBoundingClientRect();
@@ -1434,7 +1896,7 @@
       }
     }
 
-    // ================= 匯率換算與自訂個人/平攤拆帳演算法 =================
+    // ================= 匯率換算機 =================
     function convertFromMYR(val) {
       const num = parseFloat(val);
       const twdInput = document.getElementById('calc-twd-input');
@@ -1452,7 +1914,7 @@
         myrInput.value = '';
         return;
       }
-      myrInput.value = (num / RM_RATE).toFixed(1);
+      myrInput.value = (num / RM_RATE).toFixed(2);
     }
 
     function setCalcMYR(amt) {
@@ -1465,8 +1927,8 @@
       const val = parseFloat(newRate);
       if (!isNaN(val) && val > 0) {
         RM_RATE = val;
-        const badge = document.getElementById('rate-display-badge');
-        if (badge) badge.textContent = `匯率基準：1 MYR ≈ ${RM_RATE} TWD`;
+        const updateEl = document.getElementById('rate-update-time');
+        if (updateEl) updateEl.textContent = `自訂換算基準：1 令吉 = ${RM_RATE} 新臺幣`;
         const curMyr = document.getElementById('calc-myr-input').value;
         if (curMyr) convertFromMYR(curMyr);
         renderExpenses();
@@ -1474,93 +1936,122 @@
       }
     }
 
-    // 核心拆帳計算：支援平攤與各自負擔
+    // ================= 雙幣別分開結算演算法 (台幣與外幣獨立計算) =================
     function renderExpenses() {
-      let totalMYR = 0;
-      let dylanPaid = 0;   // Dylan 實際掏錢支付的金額 (RM)
-      let qianPaid = 0;    // 茜 實際掏錢支付的金額 (RM)
+      let twdTotal = 0;
+      let twdDylanPaid = 0;
+      let twdQianPaid = 0;
+      let twdDylanOwe = 0;
+      let twdQianOwe = 0;
 
-      let dylanOwes = 0;   // Dylan 依規則應該承擔的金額 (RM)
-      let qianOwes = 0;    // 茜 依規則應該承擔的金額 (RM)
+      let myrTotal = 0;
+      let myrDylanPaid = 0;
+      let myrQianPaid = 0;
+      let myrDylanOwe = 0;
+      let myrQianOwe = 0;
 
       expenses.forEach(e => {
-        const valMYR = e.currency === 'MYR' ? parseFloat(e.amount) : (parseFloat(e.amount) / RM_RATE);
-        totalMYR += valMYR;
+        const amt = parseFloat(e.amount) || 0;
+        const splitType = e.split || 'split';
 
-        // 計算先墊付者
-        if (e.payer === 'Dylan') {
-          dylanPaid += valMYR;
-        } else {
-          qianPaid += valMYR;
-        }
+        if (e.currency === 'TWD') {
+          twdTotal += amt;
+          if (e.payer === 'Dylan') twdDylanPaid += amt;
+          else twdQianPaid += amt;
 
-        // 依據分攤模式計算應負擔歸屬
-        const split = e.split || 'both'; // 向下相容預設平攤
-        if (split === 'Dylan') {
-          dylanOwes += valMYR;
-        } else if (split === '茜') {
-          qianOwes += valMYR;
+          if (splitType === 'split') {
+            twdDylanOwe += amt / 2;
+            twdQianOwe += amt / 2;
+          } else if (splitType === 'Dylan') {
+            twdDylanOwe += amt;
+          } else if (splitType === '茜') {
+            twdQianOwe += amt;
+          }
         } else {
-          // 兩人平攤
-          dylanOwes += (valMYR / 2);
-          qianOwes += (valMYR / 2);
+          myrTotal += amt;
+          if (e.payer === 'Dylan') myrDylanPaid += amt;
+          else myrQianPaid += amt;
+
+          if (splitType === 'split') {
+            myrDylanOwe += amt / 2;
+            myrQianOwe += amt / 2;
+          } else if (splitType === 'Dylan') {
+            myrDylanOwe += amt;
+          } else if (splitType === '茜') {
+            myrQianOwe += amt;
+          }
         }
       });
 
-      const totalTWD = Math.round(totalMYR * RM_RATE);
-      document.getElementById('exp-total-myr').textContent = totalMYR.toFixed(1);
-      document.getElementById('exp-total-twd').textContent = totalTWD.toLocaleString();
+      document.getElementById('exp-total-twd-only').textContent = Math.round(twdTotal).toLocaleString();
+      document.getElementById('twd-dylan-paid').textContent = Math.round(twdDylanPaid).toLocaleString();
+      document.getElementById('twd-qian-paid').textContent = Math.round(twdQianPaid).toLocaleString();
 
-      // 各自應負擔顯示
-      const dylanBurdenEl = document.getElementById('dylan-burden');
-      const qianBurdenEl = document.getElementById('qian-burden');
-      if (dylanBurdenEl) dylanBurdenEl.textContent = `RM ${dylanOwes.toFixed(1)} (約NT$${Math.round(dylanOwes * RM_RATE)})`;
-      if (qianBurdenEl) qianBurdenEl.textContent = `RM ${qianOwes.toFixed(1)} (約NT$${Math.round(qianOwes * RM_RATE)})`;
+      document.getElementById('exp-total-myr-only').textContent = myrTotal.toFixed(1);
+      document.getElementById('myr-dylan-paid').textContent = myrDylanPaid.toFixed(1);
+      document.getElementById('myr-qian-paid').textContent = myrQianPaid.toFixed(1);
 
-      // 結算差額：Dylan 代墊多付的金額 (Dylan 實付 - Dylan 應付)
-      const dylanNet = dylanPaid - dylanOwes;
-      const settleEl = document.getElementById('settlement-detail');
-
-      if (Math.abs(dylanNet) < 0.5) {
-        settleEl.innerHTML = `🎉 目前兩人帳目已完全平衡，不需轉帳！<br><span class="text-subGray text-[11px]">Dylan 實付 RM ${dylanPaid.toFixed(1)} / 茜 實付 RM ${qianPaid.toFixed(1)}</span>`;
-      } else if (dylanNet > 0) {
-        const diffMYR = dylanNet.toFixed(1);
-        const diffTWD = Math.round(dylanNet * RM_RATE);
-        settleEl.innerHTML = `👉 <strong>茜</strong> 需轉給 <strong>Dylan</strong>：<br><span class="text-rose-600 text-sm font-black font-mono">RM ${diffMYR}</span> (約 NT$ ${diffTWD})<br><span class="text-subGray text-[11px] font-normal">（Dylan 代墊 RM ${dylanPaid.toFixed(1)}，應付 RM ${dylanOwes.toFixed(1)}；茜 代墊 RM ${qianPaid.toFixed(1)}，應付 RM ${qianOwes.toFixed(1)}）</span>`;
+      // 1. 台幣結算
+      const twdDiff = twdDylanPaid - twdDylanOwe;
+      const twdBox = document.getElementById('twd-settlement-box');
+      if (Math.abs(twdDiff) < 1) {
+        twdBox.innerHTML = `🎉 <strong class="text-emerald-700">台幣已平帳</strong>，雙方無需轉帳！<div class="text-[10px] text-subGray mt-1">Dylan 實付 NT$${Math.round(twdDylanPaid)}；茜 實付 NT$${Math.round(twdQianPaid)}</div>`;
+      } else if (twdDiff > 0) {
+        const owe = Math.round(twdDiff);
+        twdBox.innerHTML = `👉 <strong class="text-rose-600 font-black">茜</strong> 轉給 <strong class="text-comicBorder font-black">Dylan</strong>：<br><span class="text-xl font-black font-mono text-rose-600">NT$ ${owe.toLocaleString()}</span><div class="text-[10px] text-subGray mt-0.5">茜已付 NT$${Math.round(twdQianPaid)}，應付 NT$${Math.round(twdQianOwe)}</div>`;
       } else {
-        const diffMYR = Math.abs(dylanNet).toFixed(1);
-        const diffTWD = Math.round(Math.abs(dylanNet) * RM_RATE);
-        settleEl.innerHTML = `👉 <strong>Dylan</strong> 需轉給 <strong>茜</strong>：<br><span class="text-emerald-700 text-sm font-black font-mono">RM ${diffMYR}</span> (約 NT$ ${diffTWD})<br><span class="text-subGray text-[11px] font-normal">（茜 代墊 RM ${qianPaid.toFixed(1)}，應付 RM ${qianOwes.toFixed(1)}；Dylan 代墊 RM ${dylanPaid.toFixed(1)}，應付 RM ${dylanOwes.toFixed(1)}）</span>`;
+        const owe = Math.round(Math.abs(twdDiff));
+        twdBox.innerHTML = `👉 <strong class="text-emerald-700 font-black">Dylan</strong> 轉給 <strong class="text-comicBorder font-black">茜</strong>：<br><span class="text-xl font-black font-mono text-emerald-700">NT$ ${owe.toLocaleString()}</span><div class="text-[10px] text-subGray mt-0.5">Dylan 已付 NT$${Math.round(twdDylanPaid)}，應付 NT$${Math.round(twdDylanOwe)}</div>`;
       }
 
-      // 渲染開銷卡片
+      // 2. 外幣結算
+      const myrDiff = myrDylanPaid - myrDylanOwe;
+      const myrBox = document.getElementById('myr-settlement-box');
+      if (Math.abs(myrDiff) < 0.1) {
+        myrBox.innerHTML = `🎉 <strong class="text-emerald-700">外幣已平帳</strong>，無需找零！<div class="text-[10px] text-subGray mt-1">Dylan 實付 RM ${myrDylanPaid.toFixed(1)}；茜 實付 RM ${myrQianPaid.toFixed(1)}</div>`;
+      } else if (myrDiff > 0) {
+        const oweMYR = myrDiff.toFixed(1);
+        const oweTWD = Math.round(myrDiff * RM_RATE);
+        myrBox.innerHTML = `👉 <strong class="text-rose-600 font-black">茜</strong> 轉給 <strong class="text-comicBorder font-black">Dylan</strong>：<br><span class="text-xl font-black font-mono text-rose-600">RM ${oweMYR}</span> <span class="text-xs text-subGray">(約 NT$ ${oweTWD})</span><div class="text-[10px] text-subGray mt-0.5">茜已付 RM ${myrQianPaid.toFixed(1)}，應付 RM ${myrQianOwe.toFixed(1)}</div>`;
+      } else {
+        const oweMYR = Math.abs(myrDiff).toFixed(1);
+        const oweTWD = Math.round(Math.abs(myrDiff) * RM_RATE);
+        myrBox.innerHTML = `👉 <strong class="text-emerald-700 font-black">Dylan</strong> 轉給 <strong class="text-comicBorder font-black">茜</strong>：<br><span class="text-xl font-black font-mono text-emerald-700">RM ${oweMYR}</span> <span class="text-xs text-subGray">(約 NT$ ${oweTWD})</span><div class="text-[10px] text-subGray mt-0.5">Dylan 已付 RM ${myrDylanPaid.toFixed(1)}，應付 RM ${myrDylanOwe.toFixed(1)}</div>`;
+      }
+
+      // 渲染費用明細列表
       const listEl = document.getElementById('expense-records');
       listEl.innerHTML = expenses.slice().reverse().map(e => {
-        const splitType = e.split || 'both';
-        let splitLabel = '';
-        if (splitType === 'both') {
-          splitLabel = '<span class="text-blue-700 bg-blue-50 px-1 rounded border border-blue-200">🤝 兩人平分</span>';
-        } else if (splitType === 'Dylan') {
-          splitLabel = '<span class="text-amber-800 bg-amber-50 px-1 rounded border border-amber-300">🙋‍♂️ Dylan 個人</span>';
-        } else {
-          splitLabel = '<span class="text-purple-800 bg-purple-50 px-1 rounded border border-purple-200">🙋‍♀️ 茜 個人</span>';
+        let splitBadge = '';
+        if (!e.split || e.split === 'split') {
+          splitBadge = `<span class="inline-flex items-center gap-1 bg-[#e0f2fe] text-[#0369a1] px-2 py-0.5 rounded-full border border-[#7dd3fc] text-[10px] font-black">🤝 兩人平分</span>`;
+        } else if (e.split === 'Dylan') {
+          splitBadge = `<span class="inline-flex items-center gap-1 bg-[#fef3c7] text-[#92400e] px-2 py-0.5 rounded-full border border-[#fcd34d] text-[10px] font-black">🙋 Dylan 個人</span>`;
+        } else if (e.split === '茜') {
+          splitBadge = `<span class="inline-flex items-center gap-1 bg-[#fce7f3] text-[#9d174d] px-2 py-0.5 rounded-full border border-[#f472b6] text-[10px] font-black">🙋 茜 個人</span>`;
         }
 
         return `
-          <div class="bg-white rounded-2xl p-3 comic-box-md flex items-center justify-between text-xs font-bold shadow-comic-sm">
-            <div class="space-y-1">
-              <div class="text-comicBorder font-black text-sm">${e.name}</div>
-              <div class="text-subGray text-[11px] flex items-center gap-1.5 flex-wrap">
-                <span>付清：<strong>${e.payer}</strong></span>
+          <div class="bg-white rounded-2xl p-3.5 comic-box-md flex items-center justify-between text-xs font-bold shadow-comic-sm">
+            <div class="flex-1 mr-2 cursor-pointer" onclick="openEditExpenseModal(${e.id})" title="點擊編輯此筆花費">
+              <div class="text-sm font-black text-comicBorder">${e.name}</div>
+              <div class="text-subGray text-[11px] mt-1 flex items-center gap-2 flex-wrap">
+                <span>付清：<strong class="text-comicBorder">${e.payer}</strong></span>
                 <span>•</span>
-                <span>${splitLabel}</span>
+                ${splitBadge}
               </div>
             </div>
             <div class="text-right shrink-0">
-              <div class="font-mono font-black text-sm text-comicBorder">${e.currency === 'MYR' ? 'RM ' : 'NT$ '}${e.amount}</div>
-              <div class="flex items-center gap-2 mt-1 justify-end ${currentUser.isAuthorized ? '' : 'hidden'}">
-                <button onclick="editExpense(${e.id})" class="text-[11px] text-blue-600 font-bold hover:underline">✏️ 編輯</button>
-                <button onclick="removeExpense(${e.id})" class="text-[11px] text-rose-500 font-bold hover:underline">🗑️ 刪除</button>
+              <div class="font-mono font-black text-base text-comicBorder cursor-pointer" onclick="openEditExpenseModal(${e.id})">
+                ${e.currency === 'MYR' ? 'RM ' : 'NT$ '}${e.amount}
+              </div>
+              <div class="flex items-center justify-end gap-2.5 mt-1">
+                <button onclick="openEditExpenseModal(${e.id})" class="text-[11px] text-blue-600 font-bold hover:underline flex items-center gap-0.5 ${currentUser.isAuthorized ? '' : 'hidden'}">
+                  <span>✏️</span><span>編輯</span>
+                </button>
+                <button onclick="removeExpense(${e.id})" class="text-[11px] text-rose-500 font-bold hover:underline flex items-center gap-0.5 ${currentUser.isAuthorized ? '' : 'hidden'}">
+                  <span>🗑️</span><span>刪除</span>
+                </button>
               </div>
             </div>
           </div>
@@ -1568,78 +2059,61 @@
       }).join('');
     }
 
-    // 開啟新增視窗
     function openExpenseModal() {
       if (!checkEditPermission()) return;
-      document.getElementById('exp-modal-title').textContent = '新增旅行開銷';
-      document.getElementById('exp-submit-btn').textContent = '確認記帳';
-      document.getElementById('exp-edit-id').value = '';
+      document.getElementById('expense-modal-title').textContent = '新增旅行開銷';
+      document.getElementById('expense-modal-submit').textContent = '確認記帳';
+      document.getElementById('editing-exp-id').value = '';
       document.getElementById('exp-name').value = '';
       document.getElementById('exp-amount').value = '';
       document.getElementById('exp-currency').value = 'MYR';
-      document.getElementById('exp-split').value = 'both';
-
+      document.getElementById('exp-split').value = 'split';
       if (currentUser.isAuthorized) {
         document.getElementById('exp-payer').value = currentUser.role;
       }
       document.getElementById('expense-modal').classList.remove('hidden');
     }
 
-    // 開啟編輯視窗
-    function editExpense(id) {
+    function openEditExpenseModal(id) {
       if (!checkEditPermission()) return;
       const target = expenses.find(x => x.id === id);
       if (!target) return;
 
-      document.getElementById('exp-modal-title').textContent = '修改開銷內容';
-      document.getElementById('exp-submit-btn').textContent = '確認修改';
-      document.getElementById('exp-edit-id').value = target.id;
+      document.getElementById('expense-modal-title').textContent = '修改旅行開銷 ✏️';
+      document.getElementById('expense-modal-submit').textContent = '更新儲存';
+      document.getElementById('editing-exp-id').value = target.id;
       document.getElementById('exp-name').value = target.name;
       document.getElementById('exp-amount').value = target.amount;
       document.getElementById('exp-currency').value = target.currency;
       document.getElementById('exp-payer').value = target.payer;
-      document.getElementById('exp-split').value = target.split || 'both';
+      document.getElementById('exp-split').value = target.split || 'split';
 
       document.getElementById('expense-modal').classList.remove('hidden');
     }
 
-    // 儲存（新增或更新）
     function saveExpense() {
       if (!checkEditPermission()) return;
-      const editId = document.getElementById('exp-edit-id').value;
+      const editId = document.getElementById('editing-exp-id').value;
       const name = document.getElementById('exp-name').value.trim();
       const amount = parseFloat(document.getElementById('exp-amount').value);
       const currency = document.getElementById('exp-currency').value;
       const payer = document.getElementById('exp-payer').value;
       const split = document.getElementById('exp-split').value;
 
-      if (!name || isNaN(amount) || amount <= 0) return showToast('請填寫完整名稱與金額！');
+      if (!name || isNaN(amount) || amount <= 0) return showToast('請填寫完整名稱與有效金額！');
 
       if (editId) {
-        // 更新現有項目
-        const idNum = parseInt(editId, 10);
-        const idx = expenses.findIndex(x => x.id === idNum);
+        const idx = expenses.findIndex(x => x.id == editId);
         if (idx !== -1) {
-          expenses[idx] = {
-            id: idNum,
-            name,
-            amount,
-            currency,
-            payer,
-            split
-          };
-          showToast('已成功更新開銷！');
+          expenses[idx].name = name;
+          expenses[idx].amount = amount;
+          expenses[idx].currency = currency;
+          expenses[idx].payer = payer;
+          expenses[idx].split = split;
+          showToast('✏️ 已更新花費資訊並同步至雲端！');
         }
       } else {
-        // 新增項目
-        expenses.push({
-          id: Date.now(),
-          name,
-          amount,
-          currency,
-          payer,
-          split
-        });
+        expenses.push({ id: Date.now(), name, amount, currency, payer, split });
         showToast('記帳成功，已同步至雲端！');
       }
 
@@ -1659,10 +2133,9 @@
     }
 
     function copySplitResult() {
-      const text = document.getElementById('settlement-detail').innerText.replace(/\n/g, ' ');
-      const dylanBurden = document.getElementById('dylan-burden').textContent;
-      const qianBurden = document.getElementById('qian-burden').textContent;
-      const copyStr = `【沙巴亞庇雙人結算】\n總開銷：RM ${document.getElementById('exp-total-myr').textContent} (約NT$${document.getElementById('exp-total-twd').textContent})\nDylan 應負擔：${dylanBurden}\n茜 應負擔：${qianBurden}\n結算建議：${text}`;
+      const twdText = document.getElementById('twd-settlement-box').innerText.replace(/\n/g, ' ');
+      const myrText = document.getElementById('myr-settlement-box').innerText.replace(/\n/g, ' ');
+      const copyStr = `【沙巴亞庇雙人結算（分幣別計算）】\n🇹🇼 台幣結算：${twdText}\n🇲🇾 外幣結算：${myrText}\n（匯率基準：1 MYR ≈ ${RM_RATE} TWD）`;
       
       const dummy = document.createElement('textarea');
       document.body.appendChild(dummy);
@@ -1670,7 +2143,7 @@
       dummy.select();
       document.execCommand('copy');
       document.body.removeChild(dummy);
-      showToast('📋 已複製詳細結算內容，可直接貼到 LINE！');
+      showToast('📋 已複製分幣別結算內容，可直接貼到 LINE！');
     }
 
     function shareTrip() {
@@ -1705,7 +2178,7 @@
       renderExpenses();
       if (window.lucide) lucide.createIcons();
 
-      // 啟動 Firebase 雲端監聽
+      fetchLiveExchangeRate(false);
       initFirebaseSync();
     });
   </script>
