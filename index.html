@@ -411,7 +411,7 @@
           <div class="bg-[#faf7ee] p-3 rounded-2xl border-2 border-comicBorder space-y-1">
             <div class="flex items-center justify-between">
               <span class="font-black text-comicBorder">3. Tanini Kinabatangan Lodge</span>
-              <span class="text-[10px] bg-blue-100 text-blue-900 px-1.5 py-0.5 rounded border border-blue-300">雨林 2 晚</span>
+              <span class="text-[10px] bg-blue-100 text-blue-900 px-1.5 py-0.5 rounded font-black border border-blue-300">雨林 2 晚</span>
             </div>
             <div class="text-subGray font-bold">11/16 (一) - 11/18 (三) • 3D2N Safari 套裝</div>
             <div class="text-subGray text-[11px]">Mixed Dormitory • 雙人 RM 1,527.60</div>
@@ -970,7 +970,7 @@
         </div>
       </div>
 
-      <!-- 各自個人旅程總花費統計面板（全新功能：完整呈現每人個人消費 + 共同分擔總開銷） -->
+      <!-- 各自個人旅程總花費統計面板 -->
       <div class="bg-white comic-box p-4 shadow-comic-sm space-y-2.5">
         <div class="flex items-center justify-between border-b-2 border-neutral-100 pb-2">
           <div class="flex items-center gap-1.5">
@@ -1064,7 +1064,7 @@
         </div>
       </div>
 
-      <!-- 快速平分結算卡片（分開算清楚：台幣結算 ＋ 外幣結算） -->
+      <!-- 快速平分結算卡片 -->
       <div class="bg-appYellow comic-box p-4 shadow-comic-sm space-y-3">
         <div class="flex justify-between items-center border-b-2 border-comicBorder/20 pb-2">
           <span class="text-sm font-black text-comicBorder flex items-center gap-1.5">
@@ -1269,7 +1269,7 @@
     </div>
   </div>
 
-  <!-- 彈窗：新增/編輯記帳 (支援分攤設定) -->
+  <!-- 彈窗：新增/編輯記帳 -->
   <div id="expense-modal" class="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-[#faf7ee] w-full max-w-sm comic-box p-4 space-y-3">
       <div class="flex justify-between items-center">
@@ -1429,6 +1429,24 @@
       9: [
         { time: "05:00", name: "退房出發前往亞庇機場 T1", desc: "Dreamtel 門口搭 Grab 直奔機場 (僅約 12 分鐘)" },
         { time: "07:35 - 11:00", name: "搭乘 AirAsia AK 1510 返台", desc: "滿載熱帶雨林野生動物與海島回憶，平安降落桃園 T1！" }
+      ]
+    };
+
+    let tripData = JSON.parse(JSON.stringify(defaultTripData));
+    let curDay = 1;
+
+    const dayThemeSummaries = {
+      1: "今日重點：桃園出發 ➔ 飛抵亞庇入住加雅街 Concrete Jungle Cabin",
+      2: "今日重點：水上清真寺文化 ➔ 丹絨亞路世界級落日 ➔ 雙天海鮮",
+      3: "今日重點：哲斯頓碼頭出海 ➔ 沙比島跳島浮潛 ➔ 新記肉骨茶",
+      4: "今日重點：馬里馬里原住民部落 ➔ 加雅街老街 ➔ 整理雨林輕包",
+      5: "今日重點：清晨飛山打根 (AK 6492) ➔ 西必洛 B&B ➔ RDC 樹冠天橋",
+      6: "今日重點：西必洛紅毛猩猩+太陽熊 ➔ 11:45 接駁專車 ➔ Tanini Safari 巡航",
+      7: "今日重點：Safari 深度日！晨航霧林 ➔ 深入支流探尋野生侏儒象群",
+      8: "今日重點：退房回山打根 ➔ 森森水上屋彈弓麵+牛屎撻 ➔ 晚班機回亞庇夢想酒店",
+      9: "今日重點：清晨前往亞庇機場 ➔ 搭乘 AK 1510 平安滿載返台！"
+    };
+
     // 完整保留您們截止目前為止的所有 27 筆記帳紀錄（總計 NT$ 31,179 / RM 912.0）
     const defaultExpenses = [
       { id: 1001, name: "第一晚好美式餐廳", amount: 21.8, currency: "MYR", payer: "Dylan", split: "茜", orderIndex: 1 },
@@ -1605,7 +1623,7 @@
     let fbApp = null;
     let fbDb = null;
     let syncDocRef = null;
-    let expensesColRef = null; // 獨立子集合：每一筆帳都是一個獨立 Document，100% 零互相覆蓋
+    let expensesColRef = null;
 
     function loadLocalCache() {
       try {
@@ -1695,26 +1713,25 @@
             renderExpenses();
             if (statusBadge) statusBadge.textContent = '🟢 雲端獨立卡片零覆蓋同步中';
           } else {
-            // 全新雲端時初始化寫入
             await syncDocRef.set({
               tripData: tripData,
               rate: RM_RATE,
               updatedAt: Date.now()
             }, { merge: true });
+            if (statusBadge) statusBadge.textContent = '🟢 雲端已建立連線';
           }
         }, (error) => {
           console.warn("Firestore main doc warning: ", error);
           if (statusBadge) statusBadge.textContent = '本機快取連線中';
         });
 
-        // 2. 獨立監聽每筆帳目文件子集合 (100% 絕對防覆蓋：Dylan 與 茜 同時新增/修改完全不衝突)
+        // 2. 獨立監聽每筆帳目文件子集合
         expensesColRef.onSnapshot(async (snapshot) => {
           if (!snapshot.empty) {
             const items = [];
             snapshot.forEach(doc => {
               items.push(doc.data());
             });
-            // 按照建立時間或原有順序排列，確保顯示與以前一致
             items.sort((a, b) => {
               const orderA = a.orderIndex !== undefined ? a.orderIndex : Number(a.id);
               const orderB = b.orderIndex !== undefined ? b.orderIndex : Number(b.id);
@@ -1725,7 +1742,6 @@
             renderExpenses();
             if (statusBadge) statusBadge.textContent = '🟢 雲端獨立卡片零覆蓋同步中';
           } else {
-            // 若子集合是空的，檢查主文件或本地快取是否有既有帳目，將其安全寫入子集合
             const mainSnap = await syncDocRef.get();
             const legacyItems = (mainSnap.exists && Array.isArray(mainSnap.data().expenses) && mainSnap.data().expenses.length > 0)
               ? mainSnap.data().expenses
@@ -1754,7 +1770,6 @@
       }
     }
 
-    // 單筆帳目獨立寫入或更新（絕不覆蓋其他筆帳目）
     async function saveSingleExpenseToCloud(expenseItem) {
       saveLocalCache();
       if (!expensesColRef) return;
@@ -1773,7 +1788,6 @@
       }
     }
 
-    // 單筆帳目獨立刪除
     async function deleteSingleExpenseFromCloud(id) {
       saveLocalCache();
       if (!expensesColRef) return;
@@ -1784,7 +1798,6 @@
       }
     }
 
-    // 行程與匯率同步至主文件（不再覆蓋 expenses 陣列）
     async function pushMetaToCloud() {
       saveLocalCache();
       if (!syncDocRef) return;
@@ -1819,7 +1832,7 @@
       showToast('🔄 已將所有獨立卡片與雲端完成雙向同步！');
     }
 
-    // ================= 即時匯率連線更新 (Real-time Exchange Rate) =================
+    // ================= 即時匯率連線更新 =================
     async function fetchLiveExchangeRate(showToastNotify = false) {
       try {
         const res = await fetch("https://open.er-api.com/v6/latest/MYR");
@@ -1889,7 +1902,6 @@
       setInterval(update, 1000);
     }
 
-    // 點擊海灣撒蝦蝦
     function dropShrimp(e) {
       const container = document.getElementById('shrimp-container');
       const rect = e.currentTarget.getBoundingClientRect();
@@ -2098,16 +2110,16 @@
       let twdTotal = 0;
       let twdDylanPaid = 0;
       let twdQianPaid = 0;
-      let twdDylanOwe = 0; // Dylan 實際消費的台幣總額（包含自己個人消費 + 平分一半）
-      let twdQianOwe = 0;  // 茜 實際消費的台幣總額
+      let twdDylanOwe = 0;
+      let twdQianOwe = 0;
       let twdDylanSolo = 0;
       let twdQianSolo = 0;
 
       let myrTotal = 0;
       let myrDylanPaid = 0;
       let myrQianPaid = 0;
-      let myrDylanOwe = 0; // Dylan 實際消費的馬幣總額（包含自己個人消費 + 平分一半）
-      let myrQianOwe = 0;  // 茜 實際消費的馬幣總額
+      let myrDylanOwe = 0;
+      let myrQianOwe = 0;
       let myrDylanSolo = 0;
       let myrQianSolo = 0;
 
@@ -2148,7 +2160,6 @@
         }
       });
 
-      // 0. 更新【各自這趟旅行總花費統計】面板
       const dylanGrandTWD = Math.round(twdDylanOwe + (myrDylanOwe * RM_RATE));
       const qianGrandTWD = Math.round(twdQianOwe + (myrQianOwe * RM_RATE));
 
@@ -2164,7 +2175,6 @@
       document.getElementById('qian-solo-twd').textContent = Math.round(twdQianSolo).toLocaleString();
       document.getElementById('qian-solo-myr').textContent = myrQianSolo.toFixed(1);
 
-      // 1. 更新帳戶總額卡片
       document.getElementById('exp-total-twd-only').textContent = Math.round(twdTotal).toLocaleString();
       document.getElementById('twd-dylan-paid').textContent = Math.round(twdDylanPaid).toLocaleString();
       document.getElementById('twd-qian-paid').textContent = Math.round(twdQianPaid).toLocaleString();
@@ -2173,7 +2183,6 @@
       document.getElementById('myr-dylan-paid').textContent = myrDylanPaid.toFixed(1);
       document.getElementById('myr-qian-paid').textContent = myrQianPaid.toFixed(1);
 
-      // 2. 台幣結算
       const twdDiff = twdDylanPaid - twdDylanOwe;
       const twdBox = document.getElementById('twd-settlement-box');
       if (Math.abs(twdDiff) < 1) {
@@ -2186,7 +2195,6 @@
         twdBox.innerHTML = `👉 <strong class="text-emerald-700 font-black">Dylan</strong> 轉給 <strong class="text-comicBorder font-black">茜</strong>：<br><span class="text-xl font-black font-mono text-emerald-700">NT$ ${owe.toLocaleString()}</span><div class="text-[10px] text-subGray mt-0.5">Dylan 已付 NT$${Math.round(twdDylanPaid)}，應付 NT$${Math.round(twdDylanOwe)}</div>`;
       }
 
-      // 3. 外幣結算
       const myrDiff = myrDylanPaid - myrDylanOwe;
       const myrBox = document.getElementById('myr-settlement-box');
       if (Math.abs(myrDiff) < 0.1) {
@@ -2201,7 +2209,6 @@
         myrBox.innerHTML = `👉 <strong class="text-emerald-700 font-black">Dylan</strong> 轉給 <strong class="text-comicBorder font-black">茜</strong>：<br><span class="text-xl font-black font-mono text-emerald-700">RM ${oweMYR}</span> <span class="text-xs text-subGray">(約 NT$ ${oweTWD})</span><div class="text-[10px] text-subGray mt-0.5">Dylan 已付 RM ${myrDylanPaid.toFixed(1)}，應付 RM ${myrDylanOwe.toFixed(1)}</div>`;
       }
 
-      // 4. 渲染費用明細列表
       const listEl = document.getElementById('expense-records');
       listEl.innerHTML = expenses.slice().reverse().map(e => {
         let splitBadge = '';
@@ -2298,7 +2305,6 @@
           showToast('✏️ 已更新此筆獨立卡片並零覆蓋同步！');
         }
       } else {
-        // 使用時間戳記加隨機數產生絕對唯一的卡片 ID，100% 避免同時操作產生覆蓋
         const uniqueId = Date.now() * 1000 + Math.floor(Math.random() * 1000);
         const newItem = {
           id: uniqueId,
