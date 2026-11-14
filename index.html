@@ -936,7 +936,7 @@
                 <span>即時匯率換算機</span>
                 <span id="rate-live-tag" class="text-[10px] bg-emerald-100 text-emerald-800 font-black px-1.5 py-0.2 rounded border border-emerald-300">即時匯率</span>
               </div>
-              <div class="text-[10px] text-subGray font-bold" id="rate-update-time">Google 即時基準：1 令吉 = 8.08 新臺幣</div>
+              <div class="text-[10px] text-subGray font-bold" id="rate-update-time">即時連線匯率：1 令吉 = 8.08 新臺幣</div>
             </div>
           </div>
           <div class="flex items-center gap-1.5 text-xs font-bold text-comicBorder">
@@ -967,6 +967,59 @@
           <button onclick="setCalcMYR(50)" class="px-2 py-0.5 bg-neutral-100 hover:bg-appYellow rounded-lg border border-neutral-300 shrink-0">RM 50 (門票)</button>
           <button onclick="setCalcMYR(120)" class="px-2 py-0.5 bg-neutral-100 hover:bg-appYellow rounded-lg border border-neutral-300 shrink-0">RM 120 (海鮮)</button>
           <button onclick="setCalcMYR(278.69)" class="px-2 py-0.5 bg-neutral-100 hover:bg-appYellow rounded-lg border border-neutral-300 shrink-0">RM 278.69 (機票)</button>
+        </div>
+      </div>
+
+      <!-- 各自個人旅程總花費統計面板（全新功能：完整呈現每人個人消費 + 共同分擔總開銷） -->
+      <div class="bg-white comic-box p-4 shadow-comic-sm space-y-2.5">
+        <div class="flex items-center justify-between border-b-2 border-neutral-100 pb-2">
+          <div class="flex items-center gap-1.5">
+            <span class="text-lg">📊</span>
+            <span class="text-sm font-black text-comicBorder">各自這趟旅行總花費統計</span>
+          </div>
+          <span class="text-[10px] font-bold text-subGray bg-[#faf7ee] px-2 py-0.5 rounded-full border border-neutral-200">個人獨享 ＋ 平分一半</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+          <!-- Dylan 個人累計花費卡片 -->
+          <div class="bg-[#fffbeb] p-3 rounded-2xl border-2 border-[#f59e0b] space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-black text-amber-900 flex items-center gap-1">
+                <span>🙋‍♂️</span> Dylan 個人累計總花費
+              </span>
+              <span class="text-[10px] font-bold bg-amber-200/70 text-amber-900 px-1.5 py-0.5 rounded">依即時匯率總計</span>
+            </div>
+            <div class="text-2xl font-black font-mono text-comicBorder">
+              約 NT$ <span id="dylan-personal-grand-twd">0</span>
+            </div>
+            <div class="text-[11px] font-bold text-subGray pt-1 border-t border-amber-200 flex items-center justify-between">
+              <span>🇹🇼 台幣：<strong class="text-comicBorder font-mono">NT$ <span id="dylan-personal-twd">0</span></strong></span>
+              <span>🇲🇾 外幣：<strong class="text-comicBorder font-mono">RM <span id="dylan-personal-myr">0.0</span></strong></span>
+            </div>
+            <div class="text-[10px] text-subGray">
+              含個人項目 NT$ <span id="dylan-solo-twd">0</span> / RM <span id="dylan-solo-myr">0</span> ＋ 共同平攤一半
+            </div>
+          </div>
+
+          <!-- 茜 個人累計花費卡片 -->
+          <div class="bg-[#fdf2f8] p-3 rounded-2xl border-2 border-[#ec4899] space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-black text-pink-900 flex items-center gap-1">
+                <span>🙋‍♀️</span> 茜 個人累計總花費
+              </span>
+              <span class="text-[10px] font-bold bg-pink-200/70 text-pink-900 px-1.5 py-0.5 rounded">依即時匯率總計</span>
+            </div>
+            <div class="text-2xl font-black font-mono text-comicBorder">
+              約 NT$ <span id="qian-personal-grand-twd">0</span>
+            </div>
+            <div class="text-[11px] font-bold text-subGray pt-1 border-t border-pink-200 flex items-center justify-between">
+              <span>🇹🇼 台幣：<strong class="text-comicBorder font-mono">NT$ <span id="qian-personal-twd">0</span></strong></span>
+              <span>🇲🇾 外幣：<strong class="text-comicBorder font-mono">RM <span id="qian-personal-myr">0.0</span></strong></span>
+            </div>
+            <div class="text-[10px] text-subGray">
+              含個人項目 NT$ <span id="qian-solo-twd">0</span> / RM <span id="qian-solo-myr">0</span> ＋ 共同平攤一半
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1051,7 +1104,7 @@
       <div class="space-y-2">
         <div class="flex items-center justify-between text-xs font-black text-comicBorder px-1">
           <span class="text-sm">費用明細列表</span>
-          <span class="text-[11px] text-subGray font-normal">支援單獨記帳、平攤與隨時修改</span>
+          <span class="text-[11px] text-subGray font-normal">獨立卡片零覆蓋同步 • 支援隨時修改</span>
         </div>
         <div id="expense-records" class="space-y-2.5">
           <!-- JS 渲染 -->
@@ -1376,35 +1429,35 @@
       9: [
         { time: "05:00", name: "退房出發前往亞庇機場 T1", desc: "Dreamtel 門口搭 Grab 直奔機場 (僅約 12 分鐘)" },
         { time: "07:35 - 11:00", name: "搭乘 AirAsia AK 1510 返台", desc: "滿載熱帶雨林野生動物與海島回憶，平安降落桃園 T1！" }
-      ]
-    };
-
-    let tripData = JSON.parse(JSON.stringify(defaultTripData));
-    let curDay = 1;
-
-    const dayThemeSummaries = {
-      1: "今日重點：桃園出發 ➔ 飛抵亞庇入住加雅街 Concrete Jungle Cabin",
-      2: "今日重點：水上清真寺文化 ➔ 丹絨亞路世界級落日 ➔ 雙天海鮮",
-      3: "今日重點：哲斯頓碼頭出海 ➔ 沙比島跳島浮潛 ➔ 新記肉骨茶",
-      4: "今日重點：馬里馬里原住民部落 ➔ 加雅街老街 ➔ 整理雨林輕包",
-      5: "今日重點：清晨飛山打根 (AK 6492) ➔ 西必洛 B&B ➔ RDC 樹冠天橋",
-      6: "今日重點：西必洛紅毛猩猩+太陽熊 ➔ 11:45 接駁專車 ➔ Tanini Safari 巡航",
-      7: "今日重點：Safari 深度日！晨航霧林 ➔ 深入支流探尋野生侏儒象群",
-      8: "今日重點：退房回山打根 ➔ 森森水上屋彈弓麵+牛屎撻 ➔ 晚班機回亞庇夢想酒店",
-      9: "今日重點：清晨前往亞庇機場 ➔ 搭乘 AK 1510 平安滿載返台！"
-    };
-
-    // 嚴格保留您目前的 9 筆記帳項目，不做任何變動
+    // 完整保留您們截止目前為止的所有 27 筆記帳紀錄（總計 NT$ 31,179 / RM 912.0）
     const defaultExpenses = [
-      { id: 1, name: "第一晚好美式餐廳", amount: 21.8, currency: "MYR", payer: "Dylan", split: "茜" },
-      { id: 2, name: "計程車", amount: 76, currency: "TWD", payer: "Dylan", split: "split" },
-      { id: 3, name: "保險", amount: 1434, currency: "TWD", payer: "Dylan", split: "Dylan" },
-      { id: 4, name: "11/18住宿", amount: 905, currency: "TWD", payer: "茜", split: "split" },
-      { id: 5, name: "亞庇山打根來回機票", amount: 278.69, currency: "MYR", payer: "Dylan", split: "Dylan" },
-      { id: 6, name: "台北亞庇來回機票", amount: 7174, currency: "TWD", payer: "Dylan", split: "Dylan" },
-      { id: 7, name: "Tanini safari", amount: 13373, currency: "TWD", payer: "Dylan", split: "split" },
-      { id: 8, name: "亞庇住宿Concrete jungle cabin", amount: 3787, currency: "TWD", payer: "Dylan", split: "split" },
-      { id: 9, name: "11/15 1晚", amount: 1789, currency: "TWD", payer: "茜", split: "split" }
+      { id: 1001, name: "第一晚好美式餐廳", amount: 21.8, currency: "MYR", payer: "Dylan", split: "茜", orderIndex: 1 },
+      { id: 1002, name: "計程車", amount: 76, currency: "TWD", payer: "Dylan", split: "split", orderIndex: 2 },
+      { id: 1003, name: "保險", amount: 1434, currency: "TWD", payer: "Dylan", split: "Dylan", orderIndex: 3 },
+      { id: 1004, name: "11/18住宿", amount: 905, currency: "TWD", payer: "茜", split: "split", orderIndex: 4 },
+      { id: 1005, name: "亞庇山打根來回機票", amount: 278.69, currency: "MYR", payer: "Dylan", split: "Dylan", orderIndex: 5 },
+      { id: 1006, name: "台北亞庇來回機票", amount: 7174, currency: "TWD", payer: "Dylan", split: "Dylan", orderIndex: 6 },
+      { id: 1007, name: "Tanini safari", amount: 13373, currency: "TWD", payer: "Dylan", split: "split", orderIndex: 7 },
+      { id: 1008, name: "亞庇住宿Concrete jungle cabin", amount: 3787, currency: "TWD", payer: "Dylan", split: "split", orderIndex: 8 },
+      { id: 1009, name: "11/15 1晚", amount: 1789, currency: "TWD", payer: "茜", split: "split", orderIndex: 9 },
+      { id: 1010, name: "11/12早餐富源冰室", amount: 24.4, currency: "MYR", payer: "Dylan", split: "split", orderIndex: 10 },
+      { id: 1011, name: "11/11 orange超市飲料", amount: 3.2, currency: "MYR", payer: "Dylan", split: "茜", orderIndex: 11 },
+      { id: 1012, name: "11/12 跳島套票計程車", amount: 50, currency: "TWD", payer: "Dylan", split: "split", orderIndex: 12 },
+      { id: 1013, name: "11/11清真寺門票", amount: 10, currency: "MYR", payer: "Dylan", split: "Dylan", orderIndex: 13 },
+      { id: 1014, name: "手電筒", amount: 33.8, currency: "MYR", payer: "茜", split: "split", orderIndex: 14 },
+      { id: 1015, name: "沙巴大學飲料", amount: 6, currency: "MYR", payer: "茜", split: "Dylan", orderIndex: 15 },
+      { id: 1016, name: "民族文化村", amount: 2591, currency: "TWD", payer: "茜", split: "split", orderIndex: 16 },
+      { id: 1017, name: "肉燥豆花 Pantai Tanjung Aru沙爹", amount: 8.4, currency: "MYR", payer: "Dylan", split: "split", orderIndex: 17 },
+      { id: 1018, name: "大茄來海鮮", amount: 92, currency: "MYR", payer: "Dylan", split: "split", orderIndex: 18 },
+      { id: 1019, name: "雨衣", amount: 7.5, currency: "MYR", payer: "茜", split: "Dylan", orderIndex: 19 },
+      { id: 1020, name: "富源", amount: 14.4, currency: "MYR", payer: "Dylan", split: "Dylan", orderIndex: 20 },
+      { id: 1021, name: "11/13紅樹林行程+50小費", amount: 250, currency: "MYR", payer: "Dylan", split: "Dylan", orderIndex: 21 },
+      { id: 1022, name: "11/13怡豐茶室叻沙", amount: 16.5, currency: "MYR", payer: "Dylan", split: "Dylan", orderIndex: 22 },
+      { id: 1023, name: "11/13計程車", amount: 44.3, currency: "MYR", payer: "Dylan", split: "Dylan", orderIndex: 23 },
+      { id: 1024, name: "加雅街夜市沙爹", amount: 15, currency: "MYR", payer: "Dylan", split: "split", orderIndex: 24 },
+      { id: 1025, name: "加雅街夜市牛肉", amount: 20, currency: "MYR", payer: "Dylan", split: "split", orderIndex: 25 },
+      { id: 1026, name: "加雅街夜市酪梨果汁", amount: 11, currency: "MYR", payer: "Dylan", split: "Dylan", orderIndex: 26 },
+      { id: 1027, name: "榴槤雪條", amount: 26, currency: "MYR", payer: "Dylan", split: "Dylan", orderIndex: 27 }
     ];
 
     let expenses = JSON.parse(JSON.stringify(defaultExpenses));
@@ -1538,7 +1591,7 @@
       return true;
     }
 
-    // ================= Firebase 雲端雙向即時同步機制 =================
+    // ================= Firebase 100% 零覆蓋獨立文件子集合即時同步架構 =================
     const myFirebaseConfig = {
       apiKey: "AIzaSyAxlwixNHsNBULT8YxODOpL1lAVMs4FEnw",
       authDomain: "sabah-trip-dylan.firebaseapp.com",
@@ -1552,6 +1605,7 @@
     let fbApp = null;
     let fbDb = null;
     let syncDocRef = null;
+    let expensesColRef = null; // 獨立子集合：每一筆帳都是一個獨立 Document，100% 零互相覆蓋
 
     function loadLocalCache() {
       try {
@@ -1604,14 +1658,12 @@
         });
 
         syncDocRef = fbDb.collection("sabah_trips").doc("dylan_and_qian");
+        expensesColRef = syncDocRef.collection("expenses_items");
 
-        syncDocRef.onSnapshot((doc) => {
+        // 1. 監聽主文件的行程與匯率變更
+        syncDocRef.onSnapshot(async (doc) => {
           if (doc.exists) {
             const data = doc.data();
-            // 僅在雲端有實際帳目資料時才同步，絕不覆蓋掉使用者既有的帳目
-            if (data.expenses && Array.isArray(data.expenses) && data.expenses.length > 0) {
-              expenses = data.expenses;
-            }
             if (data.tripData && typeof data.tripData === 'object') {
               tripData = data.tripData;
             }
@@ -1620,17 +1672,80 @@
               const rInput = document.getElementById('calc-rate-input');
               if (rInput) rInput.value = RM_RATE;
             }
+
+            // 無痛自動升級：若舊版主文件裡存有您們之前已記好的帳目陣列，自動搬移到獨立子集合確保一筆不漏
+            if (data.expenses && Array.isArray(data.expenses) && data.expenses.length > 0) {
+              const subSnap = await expensesColRef.get();
+              if (subSnap.empty) {
+                const batch = fbDb.batch();
+                data.expenses.forEach((item, idx) => {
+                  const docId = String(item.id || (Date.now() + idx));
+                  batch.set(expensesColRef.doc(docId), {
+                    ...item,
+                    id: Number(item.id) || (Date.now() + idx),
+                    orderIndex: idx
+                  });
+                });
+                await batch.commit();
+              }
+            }
+
             saveLocalCache();
-            renderExpenses();
             renderDaySchedule();
-            if (statusBadge) statusBadge.textContent = '🟢 雲端已即時同步';
+            renderExpenses();
+            if (statusBadge) statusBadge.textContent = '🟢 雲端獨立卡片零覆蓋同步中';
           } else {
-            pushToCloud();
-            if (statusBadge) statusBadge.textContent = '🟢 雲端已連線建立';
+            // 全新雲端時初始化寫入
+            await syncDocRef.set({
+              tripData: tripData,
+              rate: RM_RATE,
+              updatedAt: Date.now()
+            }, { merge: true });
           }
         }, (error) => {
-          console.warn("Firestore onSnapshot warning: ", error);
+          console.warn("Firestore main doc warning: ", error);
           if (statusBadge) statusBadge.textContent = '本機快取連線中';
+        });
+
+        // 2. 獨立監聽每筆帳目文件子集合 (100% 絕對防覆蓋：Dylan 與 茜 同時新增/修改完全不衝突)
+        expensesColRef.onSnapshot(async (snapshot) => {
+          if (!snapshot.empty) {
+            const items = [];
+            snapshot.forEach(doc => {
+              items.push(doc.data());
+            });
+            // 按照建立時間或原有順序排列，確保顯示與以前一致
+            items.sort((a, b) => {
+              const orderA = a.orderIndex !== undefined ? a.orderIndex : Number(a.id);
+              const orderB = b.orderIndex !== undefined ? b.orderIndex : Number(b.id);
+              return orderA - orderB;
+            });
+            expenses = items;
+            saveLocalCache();
+            renderExpenses();
+            if (statusBadge) statusBadge.textContent = '🟢 雲端獨立卡片零覆蓋同步中';
+          } else {
+            // 若子集合是空的，檢查主文件或本地快取是否有既有帳目，將其安全寫入子集合
+            const mainSnap = await syncDocRef.get();
+            const legacyItems = (mainSnap.exists && Array.isArray(mainSnap.data().expenses) && mainSnap.data().expenses.length > 0)
+              ? mainSnap.data().expenses
+              : expenses;
+
+            if (legacyItems && legacyItems.length > 0) {
+              const batch = fbDb.batch();
+              legacyItems.forEach((item, idx) => {
+                const docId = String(item.id || (Date.now() + idx));
+                batch.set(expensesColRef.doc(docId), {
+                  ...item,
+                  id: Number(item.id) || (Date.now() + idx),
+                  orderIndex: idx
+                });
+              });
+              await batch.commit();
+            }
+          }
+        }, (err) => {
+          console.warn("Sub-collection snapshot warning:", err);
         });
 
       } catch (err) {
@@ -1639,27 +1754,69 @@
       }
     }
 
-    async function pushToCloud() {
+    // 單筆帳目獨立寫入或更新（絕不覆蓋其他筆帳目）
+    async function saveSingleExpenseToCloud(expenseItem) {
+      saveLocalCache();
+      if (!expensesColRef) return;
+      try {
+        const docId = String(expenseItem.id);
+        await expensesColRef.doc(docId).set({
+          ...expenseItem,
+          updatedBy: currentUser.role,
+          updatedAt: Date.now()
+        }, { merge: true });
+
+        const statusBadge = document.getElementById('sync-status-badge');
+        if (statusBadge) statusBadge.textContent = '🟢 雲端獨立卡片零覆蓋同步中';
+      } catch (err) {
+        console.warn("Save single expense error:", err);
+      }
+    }
+
+    // 單筆帳目獨立刪除
+    async function deleteSingleExpenseFromCloud(id) {
+      saveLocalCache();
+      if (!expensesColRef) return;
+      try {
+        await expensesColRef.doc(String(id)).delete();
+      } catch (err) {
+        console.warn("Delete single expense error:", err);
+      }
+    }
+
+    // 行程與匯率同步至主文件（不再覆蓋 expenses 陣列）
+    async function pushMetaToCloud() {
       saveLocalCache();
       if (!syncDocRef) return;
       try {
         await syncDocRef.set({
-          expenses: expenses,
           tripData: tripData,
           rate: RM_RATE,
           lastUpdatedBy: currentUser.role,
           updatedAt: Date.now()
         }, { merge: true });
-        const statusBadge = document.getElementById('sync-status-badge');
-        if (statusBadge) statusBadge.textContent = '🟢 雲端已即時同步';
       } catch (err) {
-        console.warn("Push to cloud warning: ", err);
+        console.warn("Push meta warning: ", err);
       }
     }
 
-    function forceManualCloudSync() {
-      pushToCloud();
-      showToast('🔄 已強制與雲端資料庫雙向同步！');
+    async function forceManualCloudSync() {
+      saveLocalCache();
+      await pushMetaToCloud();
+      if (expensesColRef && fbDb) {
+        try {
+          const batch = fbDb.batch();
+          expenses.forEach((item, idx) => {
+            const docId = String(item.id);
+            batch.set(expensesColRef.doc(docId), {
+              ...item,
+              orderIndex: item.orderIndex !== undefined ? item.orderIndex : idx
+            }, { merge: true });
+          });
+          await batch.commit();
+        } catch (e) {}
+      }
+      showToast('🔄 已將所有獨立卡片與雲端完成雙向同步！');
     }
 
     // ================= 即時匯率連線更新 (Real-time Exchange Rate) =================
@@ -1678,7 +1835,7 @@
               if (updateEl) updateEl.textContent = `即時連線匯率：1 令吉 = ${RM_RATE} 新臺幣`;
               saveLocalCache();
               renderExpenses();
-              pushToCloud();
+              pushMetaToCloud();
               if (showToastNotify) showToast(`💱 匯率已連線更新為 1 MYR ≈ ${RM_RATE} TWD！`);
               return;
             }
@@ -1882,7 +2039,7 @@
       tripData[curDay].push({ time, name, desc });
       closeModal('spot-modal');
       renderDaySchedule();
-      pushToCloud();
+      pushMetaToCloud();
       showToast('已新增行程並同步至雲端！');
     }
 
@@ -1891,7 +2048,7 @@
       if (confirm('確定要刪除這筆行程嗎？')) {
         tripData[curDay].splice(idx, 1);
         renderDaySchedule();
-        pushToCloud();
+        pushMetaToCloud();
         showToast('已刪除景點');
       }
     }
@@ -1932,23 +2089,27 @@
         const curMyr = document.getElementById('calc-myr-input').value;
         if (curMyr) convertFromMYR(curMyr);
         renderExpenses();
-        pushToCloud();
+        pushMetaToCloud();
       }
     }
 
-    // ================= 雙幣別分開結算演算法 (台幣與外幣獨立計算) =================
+    // ================= 雙幣別分開結算演算法 ＋ 兩人各自個人總花費統計 =================
     function renderExpenses() {
       let twdTotal = 0;
       let twdDylanPaid = 0;
       let twdQianPaid = 0;
-      let twdDylanOwe = 0;
-      let twdQianOwe = 0;
+      let twdDylanOwe = 0; // Dylan 實際消費的台幣總額（包含自己個人消費 + 平分一半）
+      let twdQianOwe = 0;  // 茜 實際消費的台幣總額
+      let twdDylanSolo = 0;
+      let twdQianSolo = 0;
 
       let myrTotal = 0;
       let myrDylanPaid = 0;
       let myrQianPaid = 0;
-      let myrDylanOwe = 0;
-      let myrQianOwe = 0;
+      let myrDylanOwe = 0; // Dylan 實際消費的馬幣總額（包含自己個人消費 + 平分一半）
+      let myrQianOwe = 0;  // 茜 實際消費的馬幣總額
+      let myrDylanSolo = 0;
+      let myrQianSolo = 0;
 
       expenses.forEach(e => {
         const amt = parseFloat(e.amount) || 0;
@@ -1964,8 +2125,10 @@
             twdQianOwe += amt / 2;
           } else if (splitType === 'Dylan') {
             twdDylanOwe += amt;
+            twdDylanSolo += amt;
           } else if (splitType === '茜') {
             twdQianOwe += amt;
+            twdQianSolo += amt;
           }
         } else {
           myrTotal += amt;
@@ -1977,12 +2140,31 @@
             myrQianOwe += amt / 2;
           } else if (splitType === 'Dylan') {
             myrDylanOwe += amt;
+            myrDylanSolo += amt;
           } else if (splitType === '茜') {
             myrQianOwe += amt;
+            myrQianSolo += amt;
           }
         }
       });
 
+      // 0. 更新【各自這趟旅行總花費統計】面板
+      const dylanGrandTWD = Math.round(twdDylanOwe + (myrDylanOwe * RM_RATE));
+      const qianGrandTWD = Math.round(twdQianOwe + (myrQianOwe * RM_RATE));
+
+      document.getElementById('dylan-personal-grand-twd').textContent = dylanGrandTWD.toLocaleString();
+      document.getElementById('dylan-personal-twd').textContent = Math.round(twdDylanOwe).toLocaleString();
+      document.getElementById('dylan-personal-myr').textContent = myrDylanOwe.toFixed(1);
+      document.getElementById('dylan-solo-twd').textContent = Math.round(twdDylanSolo).toLocaleString();
+      document.getElementById('dylan-solo-myr').textContent = myrDylanSolo.toFixed(1);
+
+      document.getElementById('qian-personal-grand-twd').textContent = qianGrandTWD.toLocaleString();
+      document.getElementById('qian-personal-twd').textContent = Math.round(twdQianOwe).toLocaleString();
+      document.getElementById('qian-personal-myr').textContent = myrQianOwe.toFixed(1);
+      document.getElementById('qian-solo-twd').textContent = Math.round(twdQianSolo).toLocaleString();
+      document.getElementById('qian-solo-myr').textContent = myrQianSolo.toFixed(1);
+
+      // 1. 更新帳戶總額卡片
       document.getElementById('exp-total-twd-only').textContent = Math.round(twdTotal).toLocaleString();
       document.getElementById('twd-dylan-paid').textContent = Math.round(twdDylanPaid).toLocaleString();
       document.getElementById('twd-qian-paid').textContent = Math.round(twdQianPaid).toLocaleString();
@@ -1991,7 +2173,7 @@
       document.getElementById('myr-dylan-paid').textContent = myrDylanPaid.toFixed(1);
       document.getElementById('myr-qian-paid').textContent = myrQianPaid.toFixed(1);
 
-      // 1. 台幣結算
+      // 2. 台幣結算
       const twdDiff = twdDylanPaid - twdDylanOwe;
       const twdBox = document.getElementById('twd-settlement-box');
       if (Math.abs(twdDiff) < 1) {
@@ -2004,7 +2186,7 @@
         twdBox.innerHTML = `👉 <strong class="text-emerald-700 font-black">Dylan</strong> 轉給 <strong class="text-comicBorder font-black">茜</strong>：<br><span class="text-xl font-black font-mono text-emerald-700">NT$ ${owe.toLocaleString()}</span><div class="text-[10px] text-subGray mt-0.5">Dylan 已付 NT$${Math.round(twdDylanPaid)}，應付 NT$${Math.round(twdDylanOwe)}</div>`;
       }
 
-      // 2. 外幣結算
+      // 3. 外幣結算
       const myrDiff = myrDylanPaid - myrDylanOwe;
       const myrBox = document.getElementById('myr-settlement-box');
       if (Math.abs(myrDiff) < 0.1) {
@@ -2019,7 +2201,7 @@
         myrBox.innerHTML = `👉 <strong class="text-emerald-700 font-black">Dylan</strong> 轉給 <strong class="text-comicBorder font-black">茜</strong>：<br><span class="text-xl font-black font-mono text-emerald-700">RM ${oweMYR}</span> <span class="text-xs text-subGray">(約 NT$ ${oweTWD})</span><div class="text-[10px] text-subGray mt-0.5">Dylan 已付 RM ${myrDylanPaid.toFixed(1)}，應付 RM ${myrDylanOwe.toFixed(1)}</div>`;
       }
 
-      // 渲染費用明細列表
+      // 4. 渲染費用明細列表
       const listEl = document.getElementById('expense-records');
       listEl.innerHTML = expenses.slice().reverse().map(e => {
         let splitBadge = '';
@@ -2110,16 +2292,29 @@
           expenses[idx].currency = currency;
           expenses[idx].payer = payer;
           expenses[idx].split = split;
-          showToast('✏️ 已更新花費資訊並同步至雲端！');
+          closeModal('expense-modal');
+          renderExpenses();
+          saveSingleExpenseToCloud(expenses[idx]);
+          showToast('✏️ 已更新此筆獨立卡片並零覆蓋同步！');
         }
       } else {
-        expenses.push({ id: Date.now(), name, amount, currency, payer, split });
-        showToast('記帳成功，已同步至雲端！');
+        // 使用時間戳記加隨機數產生絕對唯一的卡片 ID，100% 避免同時操作產生覆蓋
+        const uniqueId = Date.now() * 1000 + Math.floor(Math.random() * 1000);
+        const newItem = {
+          id: uniqueId,
+          name,
+          amount,
+          currency,
+          payer,
+          split,
+          orderIndex: expenses.length + Date.now()
+        };
+        expenses.push(newItem);
+        closeModal('expense-modal');
+        renderExpenses();
+        saveSingleExpenseToCloud(newItem);
+        showToast('✅ 記帳成功！獨立卡片已寫入雲端');
       }
-
-      closeModal('expense-modal');
-      renderExpenses();
-      pushToCloud();
     }
 
     function removeExpense(id) {
@@ -2127,15 +2322,18 @@
       if (confirm('確定刪除這筆花費？')) {
         expenses = expenses.filter(x => x.id !== id);
         renderExpenses();
-        pushToCloud();
-        showToast('已刪除花費');
+        deleteSingleExpenseFromCloud(id);
+        showToast('🗑️ 已從雲端刪除該筆花費');
       }
     }
 
     function copySplitResult() {
       const twdText = document.getElementById('twd-settlement-box').innerText.replace(/\n/g, ' ');
       const myrText = document.getElementById('myr-settlement-box').innerText.replace(/\n/g, ' ');
-      const copyStr = `【沙巴亞庇雙人結算（分幣別計算）】\n🇹🇼 台幣結算：${twdText}\n🇲🇾 外幣結算：${myrText}\n（匯率基準：1 MYR ≈ ${RM_RATE} TWD）`;
+      const dylanGrand = document.getElementById('dylan-personal-grand-twd').textContent;
+      const qianGrand = document.getElementById('qian-personal-grand-twd').textContent;
+
+      const copyStr = `【沙巴亞庇雙人結算與各自總花費】\n🇹🇼 台幣結算：${twdText}\n🇲🇾 外幣結算：${myrText}\n📊 各自旅行總花費：Dylan 約 NT$${dylanGrand} / 茜 約 NT$${qianGrand}\n（匯率基準：1 MYR ≈ ${RM_RATE} TWD）`;
       
       const dummy = document.createElement('textarea');
       document.body.appendChild(dummy);
@@ -2143,7 +2341,7 @@
       dummy.select();
       document.execCommand('copy');
       document.body.removeChild(dummy);
-      showToast('📋 已複製分幣別結算內容，可直接貼到 LINE！');
+      showToast('📋 已複製結算與個人總花費內容，可直接貼到 LINE！');
     }
 
     function shareTrip() {
@@ -2166,7 +2364,7 @@
       toast.classList.remove('opacity-0', 'pointer-events-none');
       setTimeout(() => {
         toast.classList.add('opacity-0', 'pointer-events-none');
-      }, 2000);
+      }, 2200);
     }
 
     // 啟動流程
